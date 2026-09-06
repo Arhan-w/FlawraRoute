@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./docs/screenshots/MainFlawraRoute.png" alt="FlawraRoute Dashboard" width="820"/>
+<img src="./docs/screenshots/live/dashboard.png" alt="FlawraRoute Dashboard" width="820"/>
 
 <br/>
 <br/>
@@ -35,17 +35,15 @@
 
 </h3>
 
-[![Stars](https://img.shields.io/github/stars/diegosouzapw/FlawraRoute?style=social)](https://github.com/diegosouzapw/FlawraRoute)
-<a href="https://trendshift.io/repositories/23589" target="_blank"><img src="https://trendshift.io/api/badge/repositories/23589" alt="diegosouzapw%2FFlawraRoute | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-[![Star History Rank](https://api.star-history.com/badge?repo=diegosouzapw/FlawraRoute&theme=dark)](https://www.star-history.com/diegosouzapw/flawraroute)
-[![olud.ai](https://olud.ai/badge.php?tool=diegosouzapw-flawraroute)](https://olud.ai/project/diegosouzapw-flawraroute.html)
+[![Stars](https://img.shields.io/github/stars/Arhan-w/FlawraRoute?style=social)](https://github.com/Arhan-w/FlawraRoute)
+[![Star History Rank](https://api.star-history.com/badge?repo=Arhan-w/FlawraRoute&theme=dark)](https://www.star-history.com/Arhan-w/flawraroute)
+[![GitHub license](https://img.shields.io/github/license/Arhan-w/FlawraRoute)](LICENSE)
 
 ### 💬 Join the community
 
-**👋 Follow the maintainer — get new providers, releases & tips first:**
+**👋 Follow the project — get new providers, releases & tips first:**
 
-[![Follow Diego on LinkedIn](https://img.shields.io/badge/Follow_Diego_on-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/diegosouzapw/)
-[![Follow @diegosouzapw on GitHub](https://img.shields.io/github/followers/diegosouzapw?style=for-the-badge&logo=github&logoColor=white&label=Follow%20on%20GitHub&color=181717)](https://github.com/diegosouzapw)
+[![Follow @Arhan-w on GitHub](https://img.shields.io/github/followers/Arhan-w?style=for-the-badge&logo=github&logoColor=white&label=Follow%20on%20GitHub&color=181717)](https://github.com/Arhan-w)
 
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/U47eFqAXCn)
 [![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/flawrarouteOficial)
@@ -80,10 +78,10 @@
 
 [![npm version](https://img.shields.io/npm/v/flawraroute?color=cb3837&logo=npm)](https://www.npmjs.com/package/flawraroute)
 ![NPM Monthly](https://img.shields.io/npm/dm/flawraroute?label=npm/month&color=cb3837&logo=npm)
-[![Docker Hub](https://img.shields.io/docker/v/diegosouzapw/flawraroute?label=Docker%20Hub&logo=docker&color=2496ED)](https://hub.docker.com/r/diegosouzapw/flawraroute)
+[![Docker Hub](https://img.shields.io/docker/v/Arhan-w/flawraroute?label=Docker%20Hub&logo=docker&color=2496ED)](https://hub.docker.com/r/Arhan-w/flawraroute)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
-![Docker Pulls](https://img.shields.io/docker/pulls/diegosouzapw/flawraroute?label=docker%20pulls&logo=docker&color=2496ED)
-![Electron Downloads](https://img.shields.io/github/downloads/diegosouzapw/flawraroute/total?style=flat&label=electron%20downloads&logo=electron&color=47848F)
+![Docker Pulls](https://img.shields.io/docker/pulls/Arhan-w/flawraroute?label=docker%20pulls&logo=docker&color=2496ED)
+![Electron Downloads](https://img.shields.io/github/downloads/Arhan-w/flawraroute/total?style=flat&label=electron%20downloads&logo=electron&color=47848F)
 
 <table>
   <tr>
@@ -470,47 +468,18 @@ All **19** strategies — mix & match per combo step:
 
 ## 💚 Support FlawraRoute
 
-FlawraRoute is MIT-licensed and maintained in the open. If it saves you time or money, here's how to keep it independent — pick whatever fits you. Sponsorship never affects routing priority; it buys visibility, not ranking.
+FlawraRoute is MIT-licensed and maintained in the open. If it saves you time or money, here's how to help the project — pick whatever fits you.
 
 <table>
-  <tr><td nowrap>⭐ <b>Star the repo</b></td><td>Free — genuinely helps visibility</td><td><a href="https://github.com/diegosouzapw/FlawraRoute">Star FlawraRoute</a></td></tr>
-  <tr><td nowrap>🐙 <b>GitHub Sponsors</b></td><td>One-off or monthly · zero platform fee</td><td><a href="https://github.com/sponsors/diegosouzapw">github.com/sponsors/diegosouzapw</a></td></tr>
-  <tr><td nowrap>☕ <b>Ko-fi</b></td><td>Quick one-off tip, no signup for the donor</td><td><a href="https://ko-fi.com/diegosouzapw">ko-fi.com/diegosouzapw</a></td></tr>
-  <tr><td nowrap>🧋 <b>Buy Me a Coffee</b></td><td>Small, informal gesture</td><td><a href="https://www.buymeacoffee.com/diegosouzapw">buymeacoffee.com/diegosouzapw</a></td></tr>
-  <tr><td nowrap>🖐 <b>Liberapay</b></td><td>Recurring · non-profit · open source</td><td><a href="https://liberapay.com/diegosouzapw">liberapay.com/diegosouzapw</a></td></tr>
-  <tr><td nowrap>🇧🇷 <b>PIX</b> (Brazil)</td><td>Instant, no fees</td><td>key &amp; QR below</td></tr>
-  <tr><td nowrap>₿ <b>Crypto</b></td><td>BTC · ETH · USDT-TRC20 · USDC-Solana</td><td>addresses below</td></tr>
+  <tr><td nowrap>⭐ <b>Star the repo</b></td><td>Free — genuinely helps visibility</td><td><a href="https://github.com/Arhan-w/FlawraRoute">Star FlawraRoute</a></td></tr>
+  <tr><td nowrap>🐙 <b>Open a Discussion</b></td><td>Feedback, ideas, show &amp; tell</td><td><a href="https://github.com/Arhan-w/FlawraRoute/discussions">github.com/Arhan-w/FlawraRoute/discussions</a></td></tr>
+  <tr><td nowrap>🐞 <b>Report a bug</b></td><td>Repro steps + logs make it fixable fast</td><td><a href="https://github.com/Arhan-w/FlawraRoute/issues">github.com/Arhan-w/FlawraRoute/issues</a></td></tr>
+  <tr><td nowrap>🧩 <b>Contribute</b></td><td>PRs welcome — see the contributing guide</td><td><a href="https://github.com/Arhan-w/FlawraRoute/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a></td></tr>
 </table>
 
-**🇧🇷 PIX** — instant, no fees (Brazil)
+> This fork builds on [OmniRoute](https://github.com/diegosouzapw/OmniRoute) by Diego Souza — the original project's sponsorship page lives at [github.com/sponsors/diegosouzapw](https://github.com/sponsors/diegosouzapw).
 
-<img src="docs/assets/pix-qr.png" width="140" align="right" alt="FlawraRoute PIX QR code"/>
-
-Key (random): `5d865059-bc44-483a-962d-43ceb80126eb`
-
-Pix copia-e-cola:
-
-```
-00020101021126580014br.gov.bcb.pix01365d865059-bc44-483a-962d-43ceb80126eb5204000053039865802BR5922FLAWRAROUTE CONTRIBUICAO6006BRASIL62070503***630475DD
-```
-
-<br clear="right"/>
-
-<details>
-<summary><b>₿ Crypto</b> — BTC · ETH · USDT-TRC20 · USDC-Solana (click to expand)</summary>
-
-<table>
-  <tr><td nowrap><b>₿ BTC</b></td><td nowrap>Bitcoin (SegWit)</td><td><code>bc1qh00smz004sy85wyl28v77tenkt3ckl6eaep7fd</code></td></tr>
-  <tr><td nowrap><b>Ξ ETH</b></td><td nowrap>Ethereum (ERC20)</td><td><code>0x64Cf6B68A6Ff34288e89172950a2d00102337a84</code></td></tr>
-  <tr><td nowrap><b>₮ USDT</b></td><td nowrap>Tron (TRC20)</td><td><code>TKAF41JpuQrHbKTnsQa9svJE2T192Hvsc2</code></td></tr>
-  <tr><td nowrap><b>$ USDC</b></td><td nowrap>Solana</td><td><code>2emNNZzVVWQc3FQ2wk9M6qXUQmW8AKdjjL174fXR28Tu</code></td></tr>
-</table>
-
-<sub>⚠️ Send each coin only on the network shown — sending on the wrong network can lose the funds.</sub>
-
-</details>
-
-🐛 Found a bug or have feedback? Open a [Discussion](https://github.com/diegosouzapw/FlawraRoute/discussions).
+🐛 Found a bug or have feedback? Open a [Discussion](https://github.com/Arhan-w/FlawraRoute/discussions).
 
 <br/>
 
@@ -722,7 +691,7 @@ of your shell history. → [CLI Integrations](docs/guides/CLI-INTEGRATIONS.md)
 <table>
   <tr><th align="left">Platform</th><th align="left">Install</th><th align="left">Highlights</th></tr>
   <tr><td align="left" nowrap>📦 <b>npm (global)</b></td><td align="left" nowrap><code>npm install -g flawraroute</code></td><td align="left">One command, any OS</td></tr>
-  <tr><td align="left" nowrap>🐳 <b>Docker</b></td><td align="left" nowrap><code>docker run … diegosouzapw/flawraroute</code></td><td align="left">Multi-arch <b>AMD64 + ARM64</b></td></tr>
+  <tr><td align="left" nowrap>🐳 <b>Docker</b></td><td align="left" nowrap><code>docker run … Arhan-w/flawraroute</code></td><td align="left">Multi-arch <b>AMD64 + ARM64</b></td></tr>
   <tr><td align="left" nowrap>🖥️ <b>Desktop (Electron)</b></td><td align="left" nowrap><code>npm run electron:build</code></td><td align="left">Native window + system tray — <b>Windows / macOS / Linux</b></td></tr>
   <tr><td align="left" nowrap>🎩 <b>Menu-bar (FlawraRouteTray)</b></td><td align="left" nowrap><code>brew install --cask zoispag/tap/flawraroute-tray</code></td><td align="left">Supervises &amp; auto-updates the server — <b>macOS</b></td></tr>
   <tr><td align="left" nowrap>💪 <b>ARM</b></td><td align="left" nowrap>native <code>arm64</code></td><td align="left">Raspberry Pi, ARM servers, Apple Silicon</td></tr>
@@ -748,7 +717,8 @@ of your shell history. → [CLI Integrations](docs/guides/CLI-INTEGRATIONS.md)
 > without a GitHub sign-in or a Copilot subscription — agent mode, tool calling and vision, for
 > free.
 
-Install the **[OmniCopilot](https://github.com/diegosouzapw/OmniCopilot)** extension, point it
+Install the **[OmniCopilot](https://github.com/diegosouzapw/OmniCopilot)** extension (by the
+upstream OmniRoute author — fully compatible with this gateway), point it
 at your FlawraRoute server (defaults to `localhost:20128`), then open Copilot Chat → model picker
 → **Manage Models…** → **FlawraRoute**.
 
@@ -758,7 +728,7 @@ at your FlawraRoute server (defaults to `localhost:20128`), then open Copilot Ch
   <tr><td align="left" nowrap>🔓 <b>Open VSX Registry</b></td><td align="left"><a href="https://open-vsx.org/extension/diegosouzapw/omnicopilot">Install →</a></td><td align="left">Cursor, Windsurf, VSCodium, Theia, code-server, Gitpod, Antigravity, Kiro…</td></tr>
 </table>
 
-From inside the editor: open the **Extensions** view, search **"FlawraRoute"**, click **Install**
+From inside the editor: open the **Extensions** view, search **"OmniCopilot"**, click **Install**
 — works the same way on both stores. Source, issues and the publishing runbook live at
 [diegosouzapw/OmniCopilot](https://github.com/diegosouzapw/OmniCopilot).
 
@@ -1026,7 +996,7 @@ Use these only for clients that cannot attach `Authorization: Bearer ...`. Heade
 
 ```bash
 docker run -d --name flawraroute --restart unless-stopped --stop-timeout 40 \
-  -p 127.0.0.1:20128:20128 -v flawraroute-data:/app/data diegosouzapw/flawraroute:latest
+  -p 127.0.0.1:20128:20128 -v flawraroute-data:/app/data Arhan-w/flawraroute:latest
 ```
 
 `:latest` follows the highest **published** stable SemVer. It does not track git `main`. Pin `:X.Y.Z` for GitOps. See [Docker Release Channels](docs/guides/DOCKER_GUIDE.md#release-channels).The image pins **`FLAWRAROUTE_MEMORY_MB=1024`**. That is enough for the dashboard and a light chat. **Coding agents** (`POST /v1/responses` from Claude Code, Codex, Grok, …) need a much larger V8 heap or the process `FATAL ERROR`s at ~12 GiB under two overlapping long contexts. Size the container above the heap (native buffers sit outside V8):
@@ -1040,13 +1010,13 @@ docker run -d --name flawraroute --restart unless-stopped --stop-timeout 40 \
 ```bash
 docker run -d --name flawraroute --restart unless-stopped --stop-timeout 40 \
   -e FLAWRAROUTE_MEMORY_MB=8192 --memory=10g \
-  -p 127.0.0.1:20128:20128 -v flawraroute-data:/app/data diegosouzapw/flawraroute:latest
+  -p 127.0.0.1:20128:20128 -v flawraroute-data:/app/data Arhan-w/flawraroute:latest
 ```
 
 Full table: [Docker Guide — runtime RAM](docs/guides/DOCKER_GUIDE.md#runtime-ram-for-coding-agents).
 
-> **Pre-release Docker channel:** `diegosouzapw/flawraroute:next` and
-> `diegosouzapw/flawraroute:next-web` follow the current default `release/v*`
+> **Pre-release Docker channel:** `Arhan-w/flawraroute:next` and
+> `Arhan-w/flawraroute:next-web` follow the current default `release/v*`
 > branch. These mutable tags are intended only for testing unreleased fixes and
 > are **not supported for production**. See
 > [Docker Release Channels](docs/guides/DOCKER_GUIDE.md#release-channels).
@@ -1203,7 +1173,7 @@ same process on one port, so there is no separate CLI-only package today.
 
 Métricas canônicas em 2026-08-24: **1.029 vídeos únicos** · **11.132.922 visualizações conhecidas** (`v > 0`) · **639 canais/perfis por rede**. O painel bruto contém 1.070 linhas; 41 duplicatas do Instagram foram normalizadas pela URL canônica, mantendo a maior contagem por vídeo.
 
-> 🎬 **Made a video about FlawraRoute?** Open an [issue](https://github.com/diegosouzapw/FlawraRoute/issues/new) or [discussion](https://github.com/diegosouzapw/FlawraRoute/discussions) with the link — we'll feature it here.
+> 🎬 **Made a video about FlawraRoute?** Open an [issue](https://github.com/Arhan-w/FlawraRoute/issues/new) or [discussion](https://github.com/Arhan-w/FlawraRoute/discussions) with the link — we'll feature it here.
 
 <br/>
 
@@ -1211,22 +1181,17 @@ Métricas canônicas em 2026-08-24: **1.029 vídeos únicos** · **11.132.922 vi
 
 # 📧 Community & Help
 
-> Everything in one place — follow the maintainer, chat with the community, or open an issue.
+> Everything in one place — follow the project, chat with the community, or open an issue.
 
 | Channel                                    | Where / how                                                                                                               |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| 💼 **LinkedIn** — follow the maintainer    | [linkedin.com/in/diegosouzapw](https://www.linkedin.com/in/diegosouzapw/)                                                 |
-| 🐙 **GitHub** — follow for releases & tips | [@diegosouzapw](https://github.com/diegosouzapw)                                                                          |
-| 💬 **Discord**                             | [discord.gg/U47eFqAXCn](https://discord.gg/U47eFqAXCn)                                                                    |
-| ✈️ **Telegram**                            | [t.me/flawrarouteOficial](https://t.me/flawrarouteOficial)                                                                    |
-| 🟢 **WhatsApp — 🌍 Global**                | [join the group](https://chat.whatsapp.com/FvuCbrpZmQ6I85n2vW5QIC?s=cl&p=a&mlu=4)                                         |
-| 🟢 **WhatsApp — 🇧🇷 Brasil**                | [entrar no grupo](https://chat.whatsapp.com/KWgatljAjmbELQory59Oti?s=cl&p=a&mlu=4)                                        |
+| 🐙 **GitHub** — follow for releases & tips | [@Arhan-w](https://github.com/Arhan-w)                                                                                    |
+| 💬 **Discord** (upstream OmniRoute)        | [discord.gg/U47eFqAXCn](https://discord.gg/U47eFqAXCn)                                                                    |
 | 🌍 **Website**                             | [flawraroute.online](https://flawraroute.online)                                                                              |
-| 🌍 **🌍StHub FlawraRoute Community (free)**  | [portal sthub](https://portal.sthub.com.br/communities/groups/st-hub/channels/Omniroute-World-8kRjmK)                     |
-| 📦 **Source code**                         | [github.com/diegosouzapw/FlawraRoute](https://github.com/diegosouzapw/FlawraRoute)                                            |
-| 🐛 **Report a bug**                        | [open an issue](https://github.com/diegosouzapw/FlawraRoute/issues) — attach `npm run system-info` output                   |
+| 📦 **Source code**                         | [github.com/Arhan-w/FlawraRoute](https://github.com/Arhan-w/FlawraRoute)                                            |
+| 🐛 **Report a bug**                        | [open an issue](https://github.com/Arhan-w/FlawraRoute/issues) — attach `npm run system-info` output                   |
 | 🤝 **Contribute**                          | [CONTRIBUTING.md](CONTRIBUTING.md) · [Branching & Release Model](docs/ops/BRANCHING_MODEL.md) · pick a `good first issue` |
-| 💚 **Support the project**                 | [Ways to support ↑](#-support-flawraroute) · [GitHub Sponsors](https://github.com/sponsors/diegosouzapw)                    |
+| 💚 **Support the project**                 | [Ways to support ↑](#-support-flawraroute)                                                                                |
 
 </div>
 
@@ -1257,7 +1222,7 @@ Métricas canônicas em 2026-08-24: **1.029 vídeos únicos** · **11.132.922 vi
   <tr><td nowrap><b>Testing</b></td><td>Node.js test runner + Vitest — <b>39,000+ static test declarations</b> across 5,100+ tracked test files (unit, integration, E2E, security, ecosystem)</td></tr>
   <tr><td nowrap><b>Platforms</b></td><td>Desktop (Electron) · Android (Termux) · PWA (any browser)</td></tr>
   <tr><td nowrap><b>CI/CD</b></td><td>GitHub Actions — auto npm publish + Docker Hub on release</td></tr>
-  <tr><td nowrap><b>Links</b></td><td><a href="https://flawraroute.online">Website</a> · <a href="https://www.npmjs.com/package/flawraroute">npm</a> · <a href="https://hub.docker.com/r/diegosouzapw/flawraroute">Docker Hub</a></td></tr>
+  <tr><td nowrap><b>Links</b></td><td><a href="https://flawraroute.online">Website</a> · <a href="https://www.npmjs.com/package/flawraroute">npm</a> · <a href="https://hub.docker.com/r/Arhan-w/flawraroute">Docker Hub</a></td></tr>
 </table>
 
 <div align="center">
@@ -1470,11 +1435,11 @@ Métricas canônicas em 2026-08-24: **1.029 vídeos únicos** · **11.132.922 vi
 
 <br/>
 
-## 💖 Sponsors
+## 💖 Credits
 
 <div align="center">
 
-A heartfelt thank-you to the people who fund FlawraRoute out of their own pocket — every contribution keeps the project free, independent and moving.
+FlawraRoute builds on [OmniRoute](https://github.com/diegosouzapw/OmniRoute). A heartfelt thank-you to the people who fund that original project out of their own pocket — every contribution keeps it free, independent and moving.
 
 <table>
   <tr>
@@ -1520,7 +1485,7 @@ A heartfelt thank-you to the people who fund FlawraRoute out of their own pocket
 
 <sub>Public GitHub Sponsors revalidated on 2026-08-24. GitHub's <code>activeOnly</code> status determines the active labels above; previously disclosed public one-time supporters remain thanked, and private sponsors remain anonymous.</sub>
 
-<b><a href="https://github.com/sponsors/diegosouzapw">💖 Become a sponsor →</a></b> — every dollar keeps FlawraRoute free and independent.
+<b><a href="https://github.com/sponsors/diegosouzapw">💖 Support the upstream OmniRoute project →</a></b>
 
 </div>
 
@@ -1528,13 +1493,14 @@ A heartfelt thank-you to the people who fund FlawraRoute out of their own pocket
 
 <div align="center">
 
-## 👥 600+ Contributors
+## 👥 Contributors
 
 </div>
 
-[![Contributors](https://contrib.rocks/image?repo=diegosouzapw/FlawraRoute&max=639&columns=20&anon=1)](https://github.com/diegosouzapw/FlawraRoute/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=Arhan-w/FlawraRoute&columns=20&anon=1)](https://github.com/Arhan-w/FlawraRoute/graphs/contributors)
 
-<sub>Audited on 2026-08-24 at frozen base <code>ac02c5b42f</code> and rechecked at live <code>release/v3.8.50</code> tip <code>dafb4ae808</code>: <b>639 normalized human Git identities</b> — 407 appear as commit authors (including the maintainer) and 232 only in explicit <code>Co-authored-by</code> trailers. The census normalizes GitHub noreply handles, excludes 26 bot/agent/service/placeholder identities, and does not merge ordinary email addresses merely because their display names match.</sub>
+<sub>FlawraRoute's codebase descends from [OmniRoute](https://github.com/diegosouzapw/OmniRoute), whose
+639-person contributor census (audited 2026-08-24) built the foundation this fork improves on.</sub>
 
 ### How to Contribute
 
@@ -1561,11 +1527,11 @@ gh release create "v${VERSION}" --title "v${VERSION}" --generate-notes
 
 ## 📊 Stars
 
-<a href="https://www.star-history.com/?repos=diegosouzapw%2FFlawraRoute&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=Arhan-w%2FFlawraRoute&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=diegosouzapw/FlawraRoute&type=date&theme=dark&legend=top-left&sealed_token=XP_ycEjv7s31p1edvhsMOXry51OWYsUjDRWjflSG7jQKRpO9hPGg7i_EHvwhI6QtrARTMH-YGjJhi8sumRYflEJD0DPlH_MMHjizhBYCX8fbHFrHEiNvVA" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=diegosouzapw/FlawraRoute&type=date&legend=top-left&sealed_token=XP_ycEjv7s31p1edvhsMOXry51OWYsUjDRWjflSG7jQKRpO9hPGg7i_EHvwhI6QtrARTMH-YGjJhi8sumRYflEJD0DPlH_MMHjizhBYCX8fbHFrHEiNvVA" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=diegosouzapw/FlawraRoute&type=date&legend=top-left&sealed_token=XP_ycEjv7s31p1edvhsMOXry51OWYsUjDRWjflSG7jQKRpO9hPGg7i_EHvwhI6QtrARTMH-YGjJhi8sumRYflEJD0DPlH_MMHjizhBYCX8fbHFrHEiNvVA" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Arhan-w/FlawraRoute&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Arhan-w/FlawraRoute&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=Arhan-w/FlawraRoute&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -1575,11 +1541,11 @@ gh release create "v${VERSION}" --title "v${VERSION}" --generate-notes
 
 ## 🌍 StarMapper
 
-<a href="https://starmapper.bruniaux.com/diegosouzapw/flawraroute">
+<a href="https://starmapper.bruniaux.com/Arhan-w/flawraroute">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://starmapper.bruniaux.com/api/map-image/diegosouzapw/flawraroute?theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://starmapper.bruniaux.com/api/map-image/diegosouzapw/flawraroute?theme=light" />
-    <img alt="StarMapper" src="https://starmapper.bruniaux.com/api/map-image/diegosouzapw/flawraroute" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://starmapper.bruniaux.com/api/map-image/Arhan-w/flawraroute?theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://starmapper.bruniaux.com/api/map-image/Arhan-w/flawraroute?theme=light" />
+    <img alt="StarMapper" src="https://starmapper.bruniaux.com/api/map-image/Arhan-w/flawraroute" />
   </picture>
 </a>
 </div>
