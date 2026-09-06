@@ -4,7 +4,7 @@
 
 ---
 
-Use this checklist before tagging or publishing a new OmniRoute release.
+Use this checklist before tagging or publishing a new FlawraRoute release.
 
 ## Version and Changelog
 

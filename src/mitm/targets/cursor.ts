@@ -20,10 +20,10 @@ export const CURSOR_TARGET: MitmTarget = {
   ],
   setupTutorial: {
     steps: [
-      "Install OmniRoute's root certificate",
+      "Install FlawraRoute's root certificate",
       "Enable DNS routing for Cursor",
       "Restart Cursor IDE",
-      "Done — Cursor traffic now routes through OmniRoute",
+      "Done — Cursor traffic now routes through FlawraRoute",
     ],
     detection: { command: "which cursor", platform: "all" },
   },

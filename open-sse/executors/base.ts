@@ -255,12 +255,12 @@ import {
 } from "../utils/thinkingBudget.ts";
 
 /**
- * Strip the OmniRoute provider prefix from tool model fields (e.g.
+ * Strip the FlawraRoute provider prefix from tool model fields (e.g.
  * `cc/claude-opus-4-8` → `claude-opus-4-8`). Versioned built-in tool types carry
  * an 8-digit date suffix (`advisor_20260301`, `bash_20250124`); non-versioned
  * server tools (Task/subagent, web_search) carry the same prefixed model. The
  * real Claude CLI sends a bare model id there, never a prefixed one, so a leaked
- * OmniRoute prefix makes Anthropic reject the request.
+ * FlawraRoute prefix makes Anthropic reject the request.
  *
  * Two mechanisms, applied to any tool with a string `model`:
  * 1. Versioned built-in types (`type` matches `_\d{8}$`): strip the last path
@@ -416,7 +416,7 @@ export class BaseExecutor {
    * and exfiltrate the stored upstream key. Mirror the provider VALIDATION
    * guard so runtime dispatch makes the same decision the validation layer
    * already makes: local / self-hosted providers are exempt (they legitimately
-   * use private URLs, and the OMNIROUTE_ALLOW_PRIVATE_PROVIDER_URLS opt-in still
+   * use private URLs, and the FLAWRAROUTE_ALLOW_PRIVATE_PROVIDER_URLS opt-in still
    * applies through the guard), and for everything else `public-only` mode
    * blocks private + metadata while the default `block-metadata` mode blocks the
    * cloud-metadata IMDS pivot. Throws on a blocked URL.
@@ -1003,23 +1003,23 @@ export class BaseExecutor {
             for (const t of tb.tools as Array<Record<string, unknown>>) {
               delete t.cache_control;
             }
-            // Also strip OmniRoute provider prefix from versioned built-in tool
+            // Also strip FlawraRoute provider prefix from versioned built-in tool
             // model fields (e.g. cc/claude-opus-4-8 → claude-opus-4-8).
             stripVersionedToolModelPrefix(tb.tools);
           }
 
           // Per-request behavior overrides via custom client headers.
-          //   x-omniroute-effort:   low | medium | high | xhigh | max | off
-          //   x-omniroute-thinking: adaptive | off
+          //   x-flawraroute-effort:   low | medium | high | xhigh | max | off
+          //   x-flawraroute-thinking: adaptive | off
           // A header value applies only when the corresponding body field is
           // not already set; "off" force-strips the field.
           const headerEffort = (
-            clientHeaders?.["x-omniroute-effort"] ?? clientHeaders?.["X-OmniRoute-Effort"]
+            clientHeaders?.["x-flawraroute-effort"] ?? clientHeaders?.["X-FlawraRoute-Effort"]
           )
             ?.trim()
             .toLowerCase();
           const headerThinking = (
-            clientHeaders?.["x-omniroute-thinking"] ?? clientHeaders?.["X-OmniRoute-Thinking"]
+            clientHeaders?.["x-flawraroute-thinking"] ?? clientHeaders?.["X-FlawraRoute-Thinking"]
           )
             ?.trim()
             .toLowerCase();
@@ -1075,7 +1075,7 @@ export class BaseExecutor {
           } else if (!effThinking && !headerEffort && isClaudeCodeClient) {
             // Default Claude Code logic when no override headers are present.
             // Generic OpenAI-compatible clients that route through native Claude OAuth
-            // must opt in with x-omniroute-thinking; force-injecting adaptive thinking
+            // must opt in with x-flawraroute-thinking; force-injecting adaptive thinking
             // leaks non-standard reasoning replay fields back into those clients.
             const isHaiku = typeof tb.model === "string" && tb.model.includes("haiku");
             // #5312 RC-B: honor the operator's proxy-level Thinking-Budget mode.
@@ -1137,7 +1137,7 @@ export class BaseExecutor {
           // For any Claude OAuth request, ignore client-supplied metadata.user_id /
           // X-Claude-Code-Session-Id and synthesize per-account: the CC device_id from
           // ~/.claude.json is shared across every account on one machine, which lets
-          // Anthropic correlate accounts behind one OmniRoute.
+          // Anthropic correlate accounts behind one FlawraRoute.
           const cloakIdentity = isClaudeCodeClient || hasClaudeOAuthToken;
           const upstreamUserId = cloakIdentity ? null : parseUpstreamMetadataUserId(tb);
           if (upstreamUserId) {
@@ -1283,7 +1283,7 @@ export class BaseExecutor {
             delete headers["X-Stainless-Helper-Method"];
 
             // OS/arch follow the host running the signed binary. Runtime version
-            // is pinned to the captured CLI wire image, not OmniRoute's Node.
+            // is pinned to the captured CLI wire image, not FlawraRoute's Node.
             headers["X-Stainless-Arch"] = stainlessArch();
             headers["X-Stainless-Lang"] = "js";
             headers["X-Stainless-OS"] = stainlessOS();

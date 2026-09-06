@@ -1,14 +1,14 @@
-// Minimal OmniRoute CLI plugin example.
+// Minimal FlawraRoute CLI plugin example.
 // Usage:
-//   1. Copy this folder to ~/.omniroute/plugins/omniroute-cmd-hello/
-//   2. Run `omniroute hello`
+//   1. Copy this folder to ~/.flawraroute/plugins/flawraroute-cmd-hello/
+//   2. Run `flawraroute hello`
 // See docs/dev/plugins.md for the full plugin contract.
 
 export const meta = {
-  name: "omniroute-cmd-hello",
+  name: "flawraroute-cmd-hello",
   version: "0.1.0",
-  description: "Hello-world OmniRoute CLI plugin example.",
-  omnirouteApi: ">=3.0.0",
+  description: "Hello-world FlawraRoute CLI plugin example.",
+  flawrarouteApi: ">=3.0.0",
 };
 
 export function register(program, ctx) {

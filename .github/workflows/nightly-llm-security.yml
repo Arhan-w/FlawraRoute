@@ -24,9 +24,9 @@ jobs:
       - name: Build CLI bundle
         env:
           JWT_SECRET: ci-build-secret-with-sufficient-length-for-validation
-          OMNIROUTE_BUILD_BACKEND_ONLY: "1"
+          FLAWRAROUTE_BUILD_BACKEND_ONLY: "1"
         run: npm run build:cli
-      - name: Start OmniRoute (block mode)
+      - name: Start FlawraRoute (block mode)
         env:
           JWT_SECRET: ci-build-secret-with-sufficient-length-for-validation
           PORT: "20128"
@@ -41,8 +41,8 @@ jobs:
       - name: promptfoo guard-validation
         run: npx --yes promptfoo@latest eval -c promptfooconfig.yaml --no-cache
         env:
-          OMNIROUTE_URL: http://localhost:20128
-          OMNIROUTE_API_KEY: not-needed-blocked-before-upstream
+          FLAWRAROUTE_URL: http://localhost:20128
+          FLAWRAROUTE_API_KEY: not-needed-blocked-before-upstream
       - name: Stop server
         if: always()
         run: kill "$(cat server.pid)" || true
@@ -82,9 +82,9 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         env:
           JWT_SECRET: ci-build-secret-with-sufficient-length-for-validation
-          OMNIROUTE_BUILD_BACKEND_ONLY: "1"
+          FLAWRAROUTE_BUILD_BACKEND_ONLY: "1"
         run: npm run build:cli
-      - name: Start OmniRoute
+      - name: Start FlawraRoute
         if: steps.gate.outputs.run == 'true'
         env:
           JWT_SECRET: ci-build-secret-with-sufficient-length-for-validation
@@ -106,7 +106,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.PROMPTFOO_PROVIDER_KEY }}
           OPENAI_BASE_URL: http://localhost:20128/v1
-        run: garak --model_type openai --model_name gpt-4o-mini --probes promptinject,dan,leakreplay --report_prefix garak-omniroute || true
+        run: garak --model_type openai --model_name gpt-4o-mini --probes promptinject,dan,leakreplay --report_prefix garak-flawraroute || true
       - name: Stop server
         if: always() && steps.gate.outputs.run == 'true'
         run: kill "$(cat server.pid)" || true

@@ -5,7 +5,7 @@ import path from "node:path";
 const mod = await import("../../src/lib/system/globalPackagePath.ts");
 
 const GLOBAL_ROOT = "/usr/lib/node_modules";
-const PACKAGE_ROOT = path.join(GLOBAL_ROOT, "omniroute");
+const PACKAGE_ROOT = path.join(GLOBAL_ROOT, "flawraroute");
 const LEGACY_ROOT = path.join(PACKAGE_ROOT, "app");
 
 function execStub(stdout: string) {

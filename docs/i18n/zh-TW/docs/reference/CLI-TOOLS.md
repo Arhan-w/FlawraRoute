@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI 工具 — OmniRoute"
+title: "CLI 工具 — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI 工具 — OmniRoute
+# CLI 工具 — FlawraRoute
 
 最後更新：2026-08-18
 
-OmniRoute 整合了三類 CLI 工具，分佈在三個專用的儀表板頁面上：
+FlawraRoute 整合了三類 CLI 工具，分佈在三個專用的儀表板頁面上：
 
 | 頁面         | 路徑                    | 概念                                                          | 數量       |
 | ------------ | ----------------------- | ------------------------------------------------------------- | ---------- |
-| **CLI 代碼** | `/dashboard/cli-code`   | 指向 OmniRoute 的編碼工具 (客戶端 → CLI → OmniRoute → 提供者) | 26         |
-| **CLI 代理** | `/dashboard/cli-agents` | 指向 OmniRoute 的自主代理 (相同流程，更廣泛的範圍)            | 8          |
-| **ACP 代理** | `/dashboard/acp-agents` | OmniRoute 通過 stdio/ACP 反向生成的 CLI (反向流程)            | 參見註冊表 |
+| **CLI 代碼** | `/dashboard/cli-code`   | 指向 FlawraRoute 的編碼工具 (客戶端 → CLI → FlawraRoute → 提供者) | 26         |
+| **CLI 代理** | `/dashboard/cli-agents` | 指向 FlawraRoute 的自主代理 (相同流程，更廣泛的範圍)            | 8          |
+| **ACP 代理** | `/dashboard/acp-agents` | FlawraRoute 通過 stdio/ACP 反向生成的 CLI (反向流程)            | 參見註冊表 |
 
 舊路徑通過 308 重定向：`/dashboard/cli-tools` → `/dashboard/cli-code`，`/dashboard/agents` → `/dashboard/acp-agents`。
 
@@ -33,14 +33,14 @@ OmniRoute 整合了三類 CLI 工具，分佈在三個專用的儀表板頁面�
 CLI 代碼 / CLI 代理 (消費流程):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (全部指向 OmniRoute)
+           ▼  (全部指向 FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute 將請求路由到正確的提供者)
+           ▼  (FlawraRoute 將請求路由到正確的提供者)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP 代理 (反向生成流程):
-    客戶端請求 → OmniRoute → 通過 stdio/ACP 生成 CLI → 回應
+    客戶端請求 → FlawraRoute → 通過 stdio/ACP 生成 CLI → 回應
 ```
 
 **好處：**
@@ -54,27 +54,27 @@ ACP 代理 (反向生成流程):
 
 ## 使用 `setup-*` 自動配置
 
-您不必手動編寫每個工具的配置。OmniRoute 為每個支持的 CLI 提供一個 `setup-*`
-命令，該命令從運行中的 OmniRoute (本地或遠程) 讀取 **實時** 模型目錄，並在您的機器上寫入工具的配置：
+您不必手動編寫每個工具的配置。FlawraRoute 為每個支持的 CLI 提供一個 `setup-*`
+命令，該命令從運行中的 FlawraRoute (本地或遠程) 讀取 **實時** 模型目錄，並在您的機器上寫入工具的配置：
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
-每個命令接受 `--remote <url> --api-key <key>` (將本地工具配置為遠程 OmniRoute)，`--dry-run` (預覽而不寫入)，以及 `--port`。沒有模型自動發現的工具 (Cline、Kilo、Roo、Goose、Aider、Qwen) 需要 `--model <id>` (並且 `--yes` 用於非互動運行)。要啟動一個 CLI，並注入正確的環境而不寫入任何配置，請使用通用的 `omniroute run <target>` 啟動器 (claude、codex、aider、goose、opencode、qwen、gemini — 目標和別名來自 `bin/cli/cli-manifest.mjs`)；舊的每個工具啟動器 `omniroute launch` (Claude Code) 和 `omniroute launch-codex` (Codex) 仍然可用。Gemini CLI 只能啟動：它是 `omniroute run` 的目標，但沒有 `setup-*`/`configure` 配方。
+每個命令接受 `--remote <url> --api-key <key>` (將本地工具配置為遠程 FlawraRoute)，`--dry-run` (預覽而不寫入)，以及 `--port`。沒有模型自動發現的工具 (Cline、Kilo、Roo、Goose、Aider、Qwen) 需要 `--model <id>` (並且 `--yes` 用於非互動運行)。要啟動一個 CLI，並注入正確的環境而不寫入任何配置，請使用通用的 `flawraroute run <target>` 啟動器 (claude、codex、aider、goose、opencode、qwen、gemini — 目標和別名來自 `bin/cli/cli-manifest.mjs`)；舊的每個工具啟動器 `flawraroute launch` (Claude Code) 和 `flawraroute launch-codex` (Codex) 仍然可用。Gemini CLI 只能啟動：它是 `flawraroute run` 的目標，但沒有 `setup-*`/`configure` 配方。
 
 > **完整參考：** 主表 — 每個命令寫入的內容、每個標誌、本地與遠程，以及哪些工具需要 `/v1` 後綴 — 存在於
 > **[CLI 整合](../guides/CLI-INTEGRATIONS.md)**。
 
 ### 在容器內運行這些命令
 
-在 OmniRoute 容器內執行的 `setup-*` 命令會寫入容器自己的主目錄，主機 CLI 無法讀取，並且隨著容器消失。OmniRoute 檢測到這一點，並以指示退出 `2`，而不是寫入。有兩種支持的解決方案 — 在主機上安裝 CLI，並使用 `omniroute connect` 連接到容器，或綁定掛載配置目錄並設置 `CLI_CONFIG_HOME` (compose `host` 配置)。每個 `setup-*` 命令，加上 `omniroute configure` 和 `omniroute config set`，在配置容器自己的 CLI 時接受 `--allow-container-write`；`OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` 對伺服器也有相同的效果。請參見
-[Docker 指南 → 配置主機 CLI 工具](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker)。
+在 FlawraRoute 容器內執行的 `setup-*` 命令會寫入容器自己的主目錄，主機 CLI 無法讀取，並且隨著容器消失。FlawraRoute 檢測到這一點，並以指示退出 `2`，而不是寫入。有兩種支持的解決方案 — 在主機上安裝 CLI，並使用 `flawraroute connect` 連接到容器，或綁定掛載配置目錄並設置 `CLI_CONFIG_HOME` (compose `host` 配置)。每個 `setup-*` 命令，加上 `flawraroute configure` 和 `flawraroute config set`，在配置容器自己的 CLI 時接受 `--allow-container-write`；`FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` 對伺服器也有相同的效果。請參見
+[Docker 指南 → 配置主機 CLI 工具](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker)。
 
-儀表板的 **應用端點** (`POST /api/cli-tools/apply`) 強制執行相同的保護：在容器中，目標不是從主機綁定掛載的寫入會返回 **`422`**，並帶有 `containerEphemeralTarget: true`，安全錯誤文本，以及 — 對於具有主機配方的工具 (claude、codex、opencode、cline、kilo、continue) — 一個 `hostSetupCommand` (例如 `omniroute setup-opencode`) 以便在主機上運行；不會寫入任何內容。`dryRun: true` 在容器模式下繼續工作，並返回生成的內容 + 目標路徑而不觸及磁碟，因此您可以從儀表板預覽並在主機上應用。這種行為是故意的，並由 `tests/unit/api/cli-tools/apply-container-guard.test.ts` 進行回歸保護 — 永遠不要通過刪除保護來“修復” 422。
+儀表板的 **應用端點** (`POST /api/cli-tools/apply`) 強制執行相同的保護：在容器中，目標不是從主機綁定掛載的寫入會返回 **`422`**，並帶有 `containerEphemeralTarget: true`，安全錯誤文本，以及 — 對於具有主機配方的工具 (claude、codex、opencode、cline、kilo、continue) — 一個 `hostSetupCommand` (例如 `flawraroute setup-opencode`) 以便在主機上運行；不會寫入任何內容。`dryRun: true` 在容器模式下繼續工作，並返回生成的內容 + 目標路徑而不觸及磁碟，因此您可以從儀表板預覽並在主機上應用。這種行為是故意的，並由 `tests/unit/api/cli-tools/apply-container-guard.test.ts` 進行回歸保護 — 永遠不要通過刪除保護來“修復” 422。
 
 ---
 
@@ -104,8 +104,8 @@ omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
 | ---------- | -------------------------------------------------------- | ------------------------------------------------------------ |
 | **已編目** | 出現在儀表板目錄中（名稱、提供者、文件、配置類型）       | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)             |
 | **可檢測** | 二進制/配置檢測、健康檢查、配置路徑                      | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` 運行時目錄) |
-| **可配置** | 由 `omniroute configure <cli>` 支持（存在設置食譜）      | `bin/cli/cli-manifest.mjs` (`configure: true`)               |
-| **可啟動** | 由 `omniroute run <target>` 支持（定義了 env/args 注入） | `bin/cli/cli-manifest.mjs` (`run: true`)                     |
+| **可配置** | 由 `flawraroute configure <cli>` 支持（存在設置食譜）      | `bin/cli/cli-manifest.mjs` (`configure: true`)               |
+| **可啟動** | 由 `flawraroute run <target>` 支持（定義了 env/args 注入） | `bin/cli/cli-manifest.mjs` (`run: true`)                     |
 
 `bin/cli/cli-manifest.mjs` 是 CLI 命令的標準可執行清單：
 `run`、`configure` 和 shell 完成生成器都從中派生其
@@ -169,7 +169,7 @@ omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
 
 ## 3. ACP 代理 (/dashboard/acp-agents)
 
-此頁面（從 `/dashboard/agents` 重新命名）顯示 OmniRoute 可以通過 stdio/ACP 協議 **生成** 的後端執行引擎 CLI。目錄在 `src/lib/acp/registry.ts` 中單獨維護，並且 **不** 與 `CLI_TOOLS` 相同。
+此頁面（從 `/dashboard/agents` 重新命名）顯示 FlawraRoute 可以通過 stdio/ACP 協議 **生成** 的後端執行引擎 CLI。目錄在 `src/lib/acp/registry.ts` 中單獨維護，並且 **不** 與 `CLI_TOOLS` 相同。
 
 ---
 
@@ -232,7 +232,7 @@ interface ToolBatchStatus {
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primary + legacy `~/.deepseek` sync) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                            |
 | `POST /api/cli-tools/pi-settings`           | Pi coding agent                                                  |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)            |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)            |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + dedicated `.env` key)       |
 
 所有路徑都使用 `sanitizeErrorMessage()` 來處理錯誤回應（硬性規則 #12）。
@@ -292,7 +292,7 @@ interface ToolBatchStatus {
 
 ## 9. 快速開始
 
-### 步驟 1 — 獲取 OmniRoute API 金鑰
+### 步驟 1 — 獲取 FlawraRoute API 金鑰
 
 1. 打開 `/dashboard/api-manager` → **創建 API 金鑰**
 2. 給它命名（例如 `cli-tools`）並選擇所有權限
@@ -325,7 +325,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (可通過 `omniroute run gemini` 啟動 → /v1beta surface)
+# Google Gemini CLI (可通過 `flawraroute run gemini` 啟動 → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -356,14 +356,14 @@ cargo install smelt  # 基於 Rust
 ### 步驟 4 — 設置全域環境變量
 
 ```bash
-# OmniRoute 通用端點
+# FlawraRoute 通用端點
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI 在根目錄讀取 GOOGLE_GEMINI_BASE_URL（其 SDK 自行附加 /v1beta/...）
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > 對於 **遠程伺服器**，將 `localhost:20128` 替換為伺服器 IP 或域名，
@@ -381,7 +381,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -397,20 +397,20 @@ EOF
 
 現代 Codex (v0.137+) 僅讀取 `~/.codex/config.toml` — 舊的
 `config.yaml` 屬於遺留的 npm CLI，並被靜默忽略。API
-金鑰保留在 `OMNIROUTE_API_KEY` 環境變量中（`env_key`），永遠
+金鑰保留在 `FLAWRAROUTE_API_KEY` 環境變量中（`env_key`），永遠
 不應放在文件內：
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 完整參考（配置文件、`wire_api`、上下文窗口）： [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md)。
@@ -426,12 +426,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -446,7 +446,7 @@ EOF
 
 **測試：** `opencode`
 
-> 使用 `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> 使用 `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > 來發送思考變體。
 
 ---
@@ -460,7 +460,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -468,7 +468,7 @@ EOF
 **VS Code 模式：**
 Cline 擴展設置 → API 提供者：`OpenAI Compatible` → 基本 URL：`http://localhost:20128/v1`
 
-或者使用 OmniRoute 儀表板 → **CLI 工具 → Cline → 應用配置**。
+或者使用 FlawraRoute 儀表板 → **CLI 工具 → Cline → 應用配置**。
 
 ---
 
@@ -477,7 +477,7 @@ Cline 擴展設置 → API 提供者：`OpenAI Compatible` → 基本 URL：`htt
 **CLI 模式：**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **VS Code 設置：**
@@ -485,11 +485,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-或者使用 OmniRoute 儀表板 → **CLI 工具 → KiloCode → 應用配置**。
+或者使用 FlawraRoute 儀表板 → **CLI 工具 → KiloCode → 應用配置**。
 
 ---
 
@@ -499,11 +499,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -513,25 +513,25 @@ models:
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-當 VS Code Insiders 配置為自定義端點模型時，使用此配置以便 OmniRoute 在沒有自定義標頭字段的情況下工作。
+當 VS Code Insiders 配置為自定義端點模型時，使用此配置以便 FlawraRoute 在沒有自定義標頭字段的情況下工作。
 
 **推薦位置：**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**使用標記的 OmniRoute 別名的示例：**
+**使用標記的 FlawraRoute 別名的示例：**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -544,7 +544,7 @@ models:
 
 **注意：**
 
-- 將 `sk-your-omniroute-key` 替換為在 OmniRoute 中創建的 API 金鑰。
+- 將 `sk-your-flawraroute-key` 替換為在 FlawraRoute 中創建的 API 金鑰。
 - `url` 字段應指向 `/api/v1/vscode/{token}/chat/completions`。
 - `modelsUrl` 字段應指向 `/api/v1/vscode/{token}/models`。
 - 當客戶端支持自定義標頭時，優先使用正常的 `/v1` + Bearer 標頭流。
@@ -558,39 +558,39 @@ models:
 # 登錄到您的 AWS/Kiro 帳戶：
 kiro-cli login
 
-# CLI 使用其自己的身份驗證 — OmniRoute 不需要作為 Kiro CLI 本身的後端。
-# 將 kiro-cli 與 OmniRoute 一起使用以支持其他工具。
+# CLI 使用其自己的身份驗證 — FlawraRoute 不需要作為 Kiro CLI 本身的後端。
+# 將 kiro-cli 與 FlawraRoute 一起使用以支持其他工具。
 kiro-cli status
 ```
 
-對於 **Kiro IDE** 桌面應用程序，使用 OmniRoute 在 `/dashboard/cli-tools → Kiro` 下暴露的 MITM 端點。
+對於 **Kiro IDE** 桌面應用程序，使用 FlawraRoute 在 `/dashboard/cli-tools → Kiro` 下暴露的 MITM 端點。
 
 ---
 
-## 10. 內部 OmniRoute CLI
+## 10. 內部 FlawraRoute CLI
 
-`omniroute` 二進位檔提供伺服器生命週期、設置、診斷和提供者管理的命令。進入點：`bin/omniroute.mjs`。
+`flawraroute` 二進位檔提供伺服器生命週期、設置、診斷和提供者管理的命令。進入點：`bin/flawraroute.mjs`。
 
 ```bash
-omniroute                              # 啟動伺服器（預設端口 20128）
-omniroute setup                        # 互動式設置嚮導
-omniroute doctor                       # 檢查配置、數據庫、端口、運行時
-omniroute providers list               # 已配置的提供者連接
-omniroute providers test-all           # 測試每個活動連接
-omniroute reset-password               # 重置管理員密碼
-omniroute logs                         # 串流請求日誌
-omniroute health                       # 詳細健康狀態（斷路器、快取、記憶體）
-omniroute --version                    # 輸出版本
-omniroute --help                       # 顯示所有命令
+flawraroute                              # 啟動伺服器（預設端口 20128）
+flawraroute setup                        # 互動式設置嚮導
+flawraroute doctor                       # 檢查配置、數據庫、端口、運行時
+flawraroute providers list               # 已配置的提供者連接
+flawraroute providers test-all           # 測試每個活動連接
+flawraroute reset-password               # 重置管理員密碼
+flawraroute logs                         # 串流請求日誌
+flawraroute health                       # 詳細健康狀態（斷路器、快取、記憶體）
+flawraroute --version                    # 輸出版本
+flawraroute --help                       # 顯示所有命令
 ```
 
 ### 設置與初始化
 
 ```bash
-omniroute setup                        # 互動式設置嚮導
-omniroute setup --non-interactive      # CI/自動化模式（讀取環境變數 + 標誌）
-omniroute setup --password '<value>'   # 直接設置管理員密碼
-omniroute setup --add-provider \
+flawraroute setup                        # 互動式設置嚮導
+flawraroute setup --non-interactive      # CI/自動化模式（讀取環境變數 + 標誌）
+flawraroute setup --password '<value>'   # 直接設置管理員密碼
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # 一次性添加並測試提供者
@@ -600,21 +600,21 @@ omniroute setup --add-provider \
 
 | 變數                | 目的                                                          |
 | ------------------- | ------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | 提供者 API 密鑰（通過 Commander `.env()` 綁定到 `--api-key`） |
-| `DATA_DIR`          | 覆蓋 OmniRoute 數據目錄                                       |
+| `FLAWRAROUTE_API_KEY` | 提供者 API 密鑰（通過 Commander `.env()` 綁定到 `--api-key`） |
+| `DATA_DIR`          | 覆蓋 FlawraRoute 數據目錄                                       |
 
 所有其他非互動式輸入作為標誌傳遞，而不是環境變數：
 `--password`、`--provider`、`--provider-name`、`--provider-base-url`、`--default-model`
-（請參見上面的 `omniroute setup` 選項）。
+（請參見上面的 `flawraroute setup` 選項）。
 
 ### 診斷
 
 ```bash
-omniroute doctor                       # 檢查配置、數據庫、端口、運行時、記憶體、存活性
-omniroute doctor --json                # 機器可讀的 JSON
-omniroute doctor --no-liveness         # 跳過 HTTP 健康探測
-omniroute doctor --host 0.0.0.0        # 覆蓋存活性主機
-omniroute doctor --liveness-url <url>  # 完整健康端點 URL 覆蓋
+flawraroute doctor                       # 檢查配置、數據庫、端口、運行時、記憶體、存活性
+flawraroute doctor --json                # 機器可讀的 JSON
+flawraroute doctor --no-liveness         # 跳過 HTTP 健康探測
+flawraroute doctor --host 0.0.0.0        # 覆蓋存活性主機
+flawraroute doctor --liveness-url <url>  # 完整健康端點 URL 覆蓋
 ```
 
 醫生運行這些檢查：`配置`、`數據庫`、`存儲/加密`、
@@ -624,47 +624,47 @@ omniroute doctor --liveness-url <url>  # 完整健康端點 URL 覆蓋
 ### 提供者管理
 
 ```bash
-omniroute providers available                       # OmniRoute 提供者目錄
-omniroute providers available --search openai       # 按 id/name/alias/category 過濾目錄
-omniroute providers available --category api-key    # 按類別過濾（api-key、oauth、free 等）
-omniroute providers available --json                # 機器可讀的 JSON
+flawraroute providers available                       # FlawraRoute 提供者目錄
+flawraroute providers available --search openai       # 按 id/name/alias/category 過濾目錄
+flawraroute providers available --category api-key    # 按類別過濾（api-key、oauth、free 等）
+flawraroute providers available --json                # 機器可讀的 JSON
 
-omniroute providers list                            # 已配置的提供者連接
-omniroute providers list --json
+flawraroute providers list                            # 已配置的提供者連接
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # 測試一個已配置的連接
-omniroute providers test-all                        # 測試每個活動連接
-omniroute providers validate                        # 僅限本地的結構驗證
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # 現有的 OAuth 流程
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # 測試一個已配置的連接
+flawraroute providers test-all                        # 測試每個活動連接
+flawraroute providers validate                        # 僅限本地的結構驗證
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # 現有的 OAuth 流程
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` 是 API 首先，因此針對
 活動的本地或遠程上下文工作。憑證輸入應使用
 `--credential-stdin` 或 `--credential-env`；`--dry-run --json` 僅報告
-已編輯的存在/形狀。`providers available` 讀取 OmniRoute 目錄；
+已編輯的存在/形狀。`providers available` 讀取 FlawraRoute 目錄；
 `providers list/test/test-all/validate` 保留其本地 SQLite 行為，並且
 不需要伺服器運行。
 
 ### 恢復與重置
 
 ```bash
-omniroute reset-password                # 重置管理員密碼（也可用：omniroute-reset-password）
-omniroute reset-encrypted-columns       # 顯示警告 + 加密憑證重置的乾運行
-omniroute reset-encrypted-columns --force  # 實際清除 SQLite 中的加密憑證
+flawraroute reset-password                # 重置管理員密碼（也可用：flawraroute-reset-password）
+flawraroute reset-encrypted-columns       # 顯示警告 + 加密憑證重置的乾運行
+flawraroute reset-encrypted-columns --force  # 實際清除 SQLite 中的加密憑證
 ```
 
 ### 憑證導出 (⚠ 請小心處理)
 
 ```bash
-omniroute auth export                                 # 顯示警告 + 確認門檻 — 無法訪問數據庫
-omniroute auth export --force                          # 將所有連接的解密憑證導出到 stdout 作為 JSON
-omniroute auth export --force --id <id>                 # 僅導出匹配的連接
-omniroute auth export --force --format env               # 輸出 OMNIROUTE_<PROVIDER>_<FIELD>=<value> 行
-omniroute auth export --force --out creds.json           # 寫入文件（以 0600 權限創建）
+flawraroute auth export                                 # 顯示警告 + 確認門檻 — 無法訪問數據庫
+flawraroute auth export --force                          # 將所有連接的解密憑證導出到 stdout 作為 JSON
+flawraroute auth export --force --id <id>                 # 僅導出匹配的連接
+flawraroute auth export --force --format env               # 輸出 FLAWRAROUTE_<PROVIDER>_<FIELD>=<value> 行
+flawraroute auth export --force --out creds.json           # 寫入文件（以 0600 權限創建）
 ```
 
 `auth export` 是 **僅限本地**（直接 SQLite 讀取，無 HTTP 路由）並故意打印/寫入
@@ -674,36 +674,36 @@ omniroute auth export --force --out creds.json           # 寫入文件（以 06
 
 ### 其他子命令
 
-這些假設正在運行的 OmniRoute 伺服器，除非另有說明：
+這些假設正在運行的 FlawraRoute 伺服器，除非另有說明：
 
 ```bash
-omniroute status                       # 綜合運行時狀態
-omniroute logs                         # 串流請求日誌 (--json, --search, --follow)
-omniroute config show                  # 顯示當前配置
+flawraroute status                       # 綜合運行時狀態
+flawraroute logs                         # 串流請求日誌 (--json, --search, --follow)
+flawraroute config show                  # 顯示當前配置
 
-omniroute provider list                # 列出可用提供者（providers list 的別名）
-omniroute provider add                 # 在工具上註冊 OmniRoute 作為提供者
-omniroute keys add | list | remove     # 管理 API 密鑰
-omniroute models [provider]            # 列出模型 (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # 列出可用提供者（providers list 的別名）
+flawraroute provider add                 # 在工具上註冊 FlawraRoute 作為提供者
+flawraroute keys add | list | remove     # 管理 API 密鑰
+flawraroute models [provider]            # 列出模型 (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # 快照配置 + 數據庫
-omniroute restore                      # 從先前的快照恢復
+flawraroute backup                       # 快照配置 + 數據庫
+flawraroute restore                      # 從先前的快照恢復
 
-omniroute health                       # 詳細健康狀態（斷路器、快取、記憶體）
-omniroute quota                        # 提供者配額使用情況
-omniroute cache                        # 快取狀態
-omniroute cache clear                  # 清除語義 + 簽名快取
+flawraroute health                       # 詳細健康狀態（斷路器、快取、記憶體）
+flawraroute quota                        # 提供者配額使用情況
+flawraroute cache                        # 快取狀態
+flawraroute cache clear                  # 清除語義 + 簽名快取
 
-omniroute mcp status | restart         # MCP 伺服器狀態 / 重啟
-omniroute a2a status | card            # A2A 伺服器狀態 / 代理卡
+flawraroute mcp status | restart         # MCP 伺服器狀態 / 重啟
+flawraroute a2a status | card            # A2A 伺服器狀態 / 代理卡
 
-omniroute tunnel list | create | stop  # 管理隧道（cloudflare/tailscale/ngrok）
-omniroute env show | get <k> | set <k> <v>  # 檢查 / 設置環境變數（臨時）
+flawraroute tunnel list | create | stop  # 管理隧道（cloudflare/tailscale/ngrok）
+flawraroute env show | get <k> | set <k> <v>  # 檢查 / 設置環境變數（臨時）
 
-omniroute test                         # 提供者連接性煙霧測試
-omniroute update                       # 檢查更新
-omniroute completion                   # 生成 shell 完成
+flawraroute test                         # 提供者連接性煙霧測試
+flawraroute update                       # 檢查更新
+flawraroute completion                   # 生成 shell 完成
 ```
 
 ### 常見標誌
@@ -730,7 +730,7 @@ omniroute completion                   # 生成 shell 完成
 | `/v1/audio/speech`         | 文本轉語音              | ElevenLabs，OpenAI TTS  |
 | `/v1/audio/transcriptions` | 語音轉文本              | Deepgram，AssemblyAI    |
 
-準備好粘貼的示例，帶有標記的 OmniRoute URL：
+準備好粘貼的示例，帶有標記的 FlawraRoute URL：
 
 ```txt
 Token example: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -749,7 +749,7 @@ Ollama 聊天： http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a4
 
 | 錯誤                            | 原因               | 修復                                       |
 | ------------------------------- | ------------------ | ------------------------------------------ |
-| `Connection refused`            | OmniRoute 未運行   | `omniroute serve`                          |
+| `Connection refused`            | FlawraRoute 未運行   | `flawraroute serve`                          |
 | `401 Unauthorized`              | 錯誤的 API 金鑰    | 在 `/dashboard/api-manager` 中檢查         |
 | `No combo configured`           | 沒有活動的路由組合 | 在 `/dashboard/combos` 中設置              |
 | CLI 顯示 "not installed"        | 二進制不在 PATH 中 | 檢查 `which <command>`                     |

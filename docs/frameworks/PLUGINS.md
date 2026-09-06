@@ -1,37 +1,37 @@
 ---
-title: "OmniRoute CLI Plugin System"
+title: "FlawraRoute CLI Plugin System"
 version: 3.8.40
 lastUpdated: 2026-06-28
 ---
 
-# OmniRoute CLI Plugin System
+# FlawraRoute CLI Plugin System
 
-Extend the `omniroute` CLI without modifying its core. Plugins follow the `omniroute-cmd-*` naming convention, similar to `gh extension` or `kubectl plugin`.
+Extend the `flawraroute` CLI without modifying its core. Plugins follow the `flawraroute-cmd-*` naming convention, similar to `gh extension` or `kubectl plugin`.
 
 ## Quick start
 
 ```bash
 # Install a plugin from npm
-omniroute plugin install stripe
+flawraroute plugin install stripe
 
 # Install a local plugin in development
-omniroute plugin install ./my-plugin
+flawraroute plugin install ./my-plugin
 
 # List installed plugins
-omniroute plugin list
+flawraroute plugin list
 
 # Scaffold a new plugin
-omniroute plugin scaffold myplugin
-cd omniroute-cmd-myplugin
-omniroute plugin install .
+flawraroute plugin scaffold myplugin
+cd flawraroute-cmd-myplugin
+flawraroute plugin install .
 ```
 
 ## Plugin anatomy
 
-A plugin is an npm package named `omniroute-cmd-<name>` (or `@scope/omniroute-cmd-<name>`).
+A plugin is an npm package named `flawraroute-cmd-<name>` (or `@scope/flawraroute-cmd-<name>`).
 
 ```
-omniroute-cmd-myplugin/
+flawraroute-cmd-myplugin/
 ├── package.json     # must have "type": "module" and "main": "index.mjs"
 ├── index.mjs        # exports register(program, ctx) + optional meta
 └── README.md
@@ -41,12 +41,12 @@ omniroute-cmd-myplugin/
 
 ```json
 {
-  "name": "omniroute-cmd-myplugin",
+  "name": "flawraroute-cmd-myplugin",
   "version": "0.1.0",
   "type": "module",
   "main": "index.mjs",
-  "engines": { "omniroute": ">=4.0.0" },
-  "keywords": ["omniroute-plugin", "omniroute-cmd"]
+  "engines": { "flawraroute": ">=4.0.0" },
+  "keywords": ["flawraroute-plugin", "flawraroute-cmd"]
 }
 ```
 
@@ -56,8 +56,8 @@ omniroute-cmd-myplugin/
 export const meta = {
   name: "myplugin",
   version: "0.1.0",
-  description: "My plugin for OmniRoute",
-  omnirouteApi: ">=4.0.0",
+  description: "My plugin for FlawraRoute",
+  flawrarouteApi: ">=4.0.0",
 };
 
 export function register(program, ctx) {
@@ -83,7 +83,7 @@ The `ctx` object passed to `register(program, ctx)`:
 
 | Property                     | Type             | Description                                        |
 | ---------------------------- | ---------------- | -------------------------------------------------- |
-| `ctx.apiFetch(path, opts)`   | `async function` | Authenticated fetch to the OmniRoute server        |
+| `ctx.apiFetch(path, opts)`   | `async function` | Authenticated fetch to the FlawraRoute server        |
 | `ctx.emit(data, opts)`       | `function`       | Output in table/json/jsonl/csv per `--output` flag |
 | `ctx.t(key)`                 | `async function` | i18n translation lookup                            |
 | `ctx.withSpinner(label, fn)` | `async function` | Wraps async fn with ora spinner                    |
@@ -94,12 +94,12 @@ The `ctx` object passed to `register(program, ctx)`:
 
 Plugins are discovered from:
 
-1. `~/.omniroute/plugins/<name>/` — user-local installs
-2. `OMNIROUTE_PLUGIN_PATH` env var — custom directory
+1. `~/.flawraroute/plugins/<name>/` — user-local installs
+2. `FLAWRAROUTE_PLUGIN_PATH` env var — custom directory
 
 Both are **CLI-only**. The server-side plugin runtime (the marketplace/`plugin.json`
 plugins that run inside the proxy) has its own scanner with its own override,
-`OMNIROUTE_PLUGINS_DIR` — see
+`FLAWRAROUTE_PLUGINS_DIR` — see
 [PLUGIN_MARKETPLACE.md → Plugin directory](./PLUGIN_MARKETPLACE.md#plugin-directory).
 Setting one does not affect the other.
 
@@ -107,14 +107,14 @@ Loading errors are caught and printed as warnings — a broken plugin never cras
 
 ## Security
 
-Plugins run with the same Node.js process privileges as `omniroute`. Only install plugins from sources you trust. `omniroute plugin install` shows an explicit warning and requires `--yes` or interactive confirmation.
+Plugins run with the same Node.js process privileges as `flawraroute`. Only install plugins from sources you trust. `flawraroute plugin install` shows an explicit warning and requires `--yes` or interactive confirmation.
 
 ## Publishing
 
-1. Ensure `package.json` has `"keywords": ["omniroute-plugin"]`
+1. Ensure `package.json` has `"keywords": ["flawraroute-plugin"]`
 2. `npm publish` as normal
-3. Users discover via `omniroute plugin search <query>` (searches npm registry)
+3. Users discover via `flawraroute plugin search <query>` (searches npm registry)
 
 ## Example plugin
 
-See [`examples/omniroute-cmd-hello/`](../../examples/omniroute-cmd-hello/index.mjs) for a minimal working example with `meta` + `register()`.
+See [`examples/flawraroute-cmd-hello/`](../../examples/flawraroute-cmd-hello/index.mjs) for a minimal working example with `meta` + `register()`.

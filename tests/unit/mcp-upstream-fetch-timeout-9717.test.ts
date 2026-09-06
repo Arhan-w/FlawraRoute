@@ -2,7 +2,7 @@
  * #9717 — the MCP server's internal fetch budget.
  *
  * `omniRouteFetch` applied one hardcoded 10s `AbortSignal.timeout` to every
- * internal hop, including `omniroute_route_request`'s call to
+ * internal hop, including `flawraroute_route_request`'s call to
  * `/v1/chat/completions`. That hop waits on an upstream provider (and on
  * auto-combo candidate probing before a provider is even chosen), so any route
  * slower than 10s aborted from the MCP side while the same request succeeded
@@ -94,7 +94,7 @@ function withEnv(vars: Record<string, string | undefined>) {
 }
 
 async function callRouteRequest() {
-  const handler = getRegisteredHandler(createMcpServer(), "omniroute_route_request");
+  const handler = getRegisteredHandler(createMcpServer(), "flawraroute_route_request");
   return handler(
     { model: "test-model", messages: [{ role: "user", content: "hi" }] },
     { authInfo: { clientId: "test-9717", scopes: ["execute:completions"] } }

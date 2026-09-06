@@ -1,8 +1,8 @@
 import {
   createCodexAccountPool,
   getCodexParentAccountDiagnostic,
-} from "@omniroute/open-sse/services/codexAccount/index.ts";
-import type { AdaptiveAdmissionPublicSnapshot } from "@omniroute/open-sse/services/admission/runtime.ts";
+} from "@flawraroute/open-sse/services/codexAccount/index.ts";
+import type { AdaptiveAdmissionPublicSnapshot } from "@flawraroute/open-sse/services/admission/runtime.ts";
 import type { PerConnectionAdmissionController } from "@/shared/middleware/chatBodyAdmission";
 
 type JsonRecord = Record<string, unknown>;

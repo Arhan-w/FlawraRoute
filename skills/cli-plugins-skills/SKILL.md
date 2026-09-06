@@ -11,8 +11,8 @@ Manage Omni Skills (list, install, test, remove), plugins (create, configure), a
 ## Quick install
 
 ```bash
-npm install -g omniroute   # or: npx omniroute
-omniroute --version
+npm install -g flawraroute   # or: npx flawraroute
+flawraroute --version
 ```
 
 ## Subcommands
@@ -22,7 +22,7 @@ omniroute --version
 **Example:**
 
 ```bash
-omniroute memory
+flawraroute memory
 ```
 
 ### `memory search <query>`
@@ -37,7 +37,7 @@ omniroute memory
 **Example:**
 
 ```bash
-omniroute memory search <query>
+flawraroute memory search <query>
 ```
 
 ### `memory add`
@@ -53,7 +53,7 @@ omniroute memory search <query>
 **Example:**
 
 ```bash
-omniroute memory add
+flawraroute memory add
 ```
 
 ### `memory clear`
@@ -68,7 +68,7 @@ omniroute memory add
 **Example:**
 
 ```bash
-omniroute memory clear
+flawraroute memory clear
 ```
 
 ### `memory list`
@@ -82,7 +82,7 @@ omniroute memory clear
 **Example:**
 
 ```bash
-omniroute memory list
+flawraroute memory list
 ```
 
 ### `memory get <id>`
@@ -90,7 +90,7 @@ omniroute memory list
 **Example:**
 
 ```bash
-omniroute memory get <id>
+flawraroute memory get <id>
 ```
 
 ### `memory delete <id>`
@@ -102,7 +102,7 @@ omniroute memory get <id>
 **Example:**
 
 ```bash
-omniroute memory delete <id>
+flawraroute memory delete <id>
 ```
 
 ### `memory health`
@@ -110,7 +110,7 @@ omniroute memory delete <id>
 **Example:**
 
 ```bash
-omniroute memory health
+flawraroute memory health
 ```
 
 ### `PLUGIN_NAME`
@@ -118,7 +118,7 @@ omniroute memory health
 **Example:**
 
 ```bash
-omniroute PLUGIN_NAME
+flawraroute PLUGIN_NAME
 ```
 
 ### `plugin plugin`
@@ -126,7 +126,7 @@ omniroute PLUGIN_NAME
 **Example:**
 
 ```bash
-omniroute plugin plugin
+flawraroute plugin plugin
 ```
 
 ### `plugin list`
@@ -134,7 +134,7 @@ omniroute plugin plugin
 **Example:**
 
 ```bash
-omniroute plugin list
+flawraroute plugin list
 ```
 
 ### `plugin install <name>`
@@ -146,7 +146,7 @@ omniroute plugin list
 **Example:**
 
 ```bash
-omniroute plugin install <name>
+flawraroute plugin install <name>
 ```
 
 ### `plugin remove <name>`
@@ -158,7 +158,7 @@ omniroute plugin install <name>
 **Example:**
 
 ```bash
-omniroute plugin remove <name>
+flawraroute plugin remove <name>
 ```
 
 ### `plugin info <name>`
@@ -166,7 +166,7 @@ omniroute plugin remove <name>
 **Example:**
 
 ```bash
-omniroute plugin info <name>
+flawraroute plugin info <name>
 ```
 
 ### `plugin search [query]`
@@ -174,7 +174,7 @@ omniroute plugin info <name>
 **Example:**
 
 ```bash
-omniroute plugin search [query]
+flawraroute plugin search [query]
 ```
 
 ### `plugin update [name]`
@@ -182,7 +182,7 @@ omniroute plugin search [query]
 **Example:**
 
 ```bash
-omniroute plugin update [name]
+flawraroute plugin update [name]
 ```
 
 ### `plugin scaffold <name>`
@@ -190,7 +190,7 @@ omniroute plugin update [name]
 **Example:**
 
 ```bash
-omniroute plugin scaffold <name>
+flawraroute plugin scaffold <name>
 ```
 
 ### `marketplace`
@@ -198,7 +198,7 @@ omniroute plugin scaffold <name>
 **Example:**
 
 ```bash
-omniroute marketplace
+flawraroute marketplace
 ```
 
 ### `skills search [query]`
@@ -213,7 +213,7 @@ omniroute marketplace
 **Example:**
 
 ```bash
-omniroute skills search [query]
+flawraroute skills search [query]
 ```
 
 ### `skills info <packageId>`
@@ -221,7 +221,7 @@ omniroute skills search [query]
 **Example:**
 
 ```bash
-omniroute skills info <packageId>
+flawraroute skills info <packageId>
 ```
 
 ### `skills install <packageId>`
@@ -235,7 +235,7 @@ omniroute skills info <packageId>
 **Example:**
 
 ```bash
-omniroute skills install <packageId>
+flawraroute skills install <packageId>
 ```
 
 ### `skills categories`
@@ -243,7 +243,7 @@ omniroute skills install <packageId>
 **Example:**
 
 ```bash
-omniroute skills categories
+flawraroute skills categories
 ```
 
 ### `skills featured`
@@ -251,7 +251,7 @@ omniroute skills categories
 **Example:**
 
 ```bash
-omniroute skills featured
+flawraroute skills featured
 ```
 
 ### `skills skills`
@@ -259,7 +259,7 @@ omniroute skills featured
 **Example:**
 
 ```bash
-omniroute skills skills
+flawraroute skills skills
 ```
 
 ### `skills list`
@@ -274,7 +274,7 @@ omniroute skills skills
 **Example:**
 
 ```bash
-omniroute skills list
+flawraroute skills list
 ```
 
 ### `skills get <id>`
@@ -282,7 +282,7 @@ omniroute skills list
 **Example:**
 
 ```bash
-omniroute skills get <id>
+flawraroute skills get <id>
 ```
 
 ### `skills install`
@@ -297,7 +297,7 @@ omniroute skills get <id>
 **Example:**
 
 ```bash
-omniroute skills install
+flawraroute skills install
 ```
 
 ### `skills enable <id>`
@@ -305,7 +305,7 @@ omniroute skills install
 **Example:**
 
 ```bash
-omniroute skills enable <id>
+flawraroute skills enable <id>
 ```
 
 ### `skills disable <id>`
@@ -317,7 +317,7 @@ omniroute skills enable <id>
 **Example:**
 
 ```bash
-omniroute skills disable <id>
+flawraroute skills disable <id>
 ```
 
 ### `skills delete <id>`
@@ -329,7 +329,7 @@ omniroute skills disable <id>
 **Example:**
 
 ```bash
-omniroute skills delete <id>
+flawraroute skills delete <id>
 ```
 
 ### `skills execute <id>`
@@ -343,7 +343,7 @@ omniroute skills delete <id>
 **Example:**
 
 ```bash
-omniroute skills execute <id>
+flawraroute skills execute <id>
 ```
 
 ### `skills executions`
@@ -357,7 +357,7 @@ omniroute skills execute <id>
 **Example:**
 
 ```bash
-omniroute skills executions
+flawraroute skills executions
 ```
 
 ### `skills skillssh`
@@ -365,7 +365,7 @@ omniroute skills executions
 **Example:**
 
 ```bash
-omniroute skills skillssh
+flawraroute skills skillssh
 ```
 
 ### `skills list`
@@ -373,7 +373,7 @@ omniroute skills skillssh
 **Example:**
 
 ```bash
-omniroute skills list
+flawraroute skills list
 ```
 
 ### `skills install <url>`
@@ -381,5 +381,5 @@ omniroute skills list
 **Example:**
 
 ```bash
-omniroute skills install <url>
+flawraroute skills install <url>
 ```

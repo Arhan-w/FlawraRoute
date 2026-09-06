@@ -28,7 +28,7 @@ import {
 import { replaceSyncedAvailableModelsForConnection } from "@/lib/db/models";
 import { GET as getProviderModels } from "../models/route";
 import { isDegradedDiscovery } from "./degradedLocalCatalog";
-import { sanitizeErrorMessage } from "@omniroute/open-sse/utils/error";
+import { sanitizeErrorMessage } from "@flawraroute/open-sse/utils/error";
 
 type JsonRecord = Record<string, unknown>;
 
@@ -364,7 +364,7 @@ async function fetchProviderModelsForSync(request: Request, connectionId: string
     "?refresh=true&excludeCustom=true";
   const headers = {
     cookie: request.headers.get("cookie") || "",
-    "x-omniroute-model-surface": "chat",
+    "x-flawraroute-model-surface": "chat",
     ...buildModelSyncInternalHeaders(),
   };
 

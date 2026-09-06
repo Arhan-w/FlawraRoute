@@ -46,7 +46,7 @@ export interface MemoryHitsDeps {
 /**
  * Collect the memories consulted for a task's last user message, as pure observability.
  *
- * - Kill-switch: `OMNIROUTE_A2A_MEMORY_HITS=0` returns `[]` without querying anything.
+ * - Kill-switch: `FLAWRAROUTE_A2A_MEMORY_HITS=0` returns `[]` without querying anything.
  * - Query = the content of the LAST message with `role === "user"`; empty/absent ⇒ `[]`.
  * - Owner id = `task.owner ?? "mcp"` — the same keyless fallback the MCP memory tools use
  *   (`open-sse/mcp-server/tools/memoryTools.ts::resolveMemoryOwnerId`).
@@ -70,7 +70,7 @@ export async function collectMemoryHits(
   task: A2ATask,
   deps?: MemoryHitsDeps
 ): Promise<MemoryHit[]> {
-  if (process.env.OMNIROUTE_A2A_MEMORY_HITS === "0") return [];
+  if (process.env.FLAWRAROUTE_A2A_MEMORY_HITS === "0") return [];
 
   const messages = task.input?.messages ?? [];
   let query: string | undefined;

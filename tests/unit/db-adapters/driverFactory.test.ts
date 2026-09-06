@@ -30,7 +30,7 @@ function forceNodeSqlite() {
 }
 
 function createTempDatabasePath(t: TestContext) {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-node-sqlite-"));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "flawraroute-node-sqlite-"));
   const databasePath = path.join(dir, "database.sqlite");
   t.after(() => fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }));
   return databasePath;
@@ -39,7 +39,7 @@ function createTempDatabasePath(t: TestContext) {
 describe("driverFactory", () => {
   test("runtimeRequire loads Node built-ins outside webpack", () => {
     const nodePath = runtimeRequire("node:path") as typeof NodePath;
-    assert.equal(nodePath.basename("/tmp/omniroute.sqlite"), "omniroute.sqlite");
+    assert.equal(nodePath.basename("/tmp/flawraroute.sqlite"), "flawraroute.sqlite");
   });
   test("tryOpenSync retorna adapter síncrono ou null", () => {
     const adapter = tryOpenSync(":memory:");
@@ -463,12 +463,12 @@ describe("driverFactory", () => {
 
   test("pack-boot sql.js forcing requires both smoke-only markers", () => {
     assert.equal(isPackBootForcedSqlJsSmoke({}), false);
-    assert.equal(isPackBootForcedSqlJsSmoke({ OMNIROUTE_PACK_BOOT_SMOKE: "1" }), false);
-    assert.equal(isPackBootForcedSqlJsSmoke({ OMNIROUTE_PACK_BOOT_FORCE_SQLJS: "1" }), false);
+    assert.equal(isPackBootForcedSqlJsSmoke({ FLAWRAROUTE_PACK_BOOT_SMOKE: "1" }), false);
+    assert.equal(isPackBootForcedSqlJsSmoke({ FLAWRAROUTE_PACK_BOOT_FORCE_SQLJS: "1" }), false);
     assert.equal(
       isPackBootForcedSqlJsSmoke({
-        OMNIROUTE_PACK_BOOT_SMOKE: "1",
-        OMNIROUTE_PACK_BOOT_FORCE_SQLJS: "1",
+        FLAWRAROUTE_PACK_BOOT_SMOKE: "1",
+        FLAWRAROUTE_PACK_BOOT_FORCE_SQLJS: "1",
       }),
       true
     );

@@ -11,8 +11,8 @@ Manage provider connections from the CLI: list available/configured providers, a
 ## Quick install
 
 ```bash
-npm install -g omniroute   # or: npx omniroute
-omniroute --version
+npm install -g flawraroute   # or: npx flawraroute
+flawraroute --version
 ```
 
 ## Subcommands
@@ -24,7 +24,7 @@ Manage provider connections (use
 **Example:**
 
 ```bash
-omniroute provider-cmd provider [subcommand]
+flawraroute provider-cmd provider [subcommand]
 ```
 
 ### `providers`
@@ -32,12 +32,12 @@ omniroute provider-cmd provider [subcommand]
 **Example:**
 
 ```bash
-omniroute providers
+flawraroute providers
 ```
 
 ### `providers available`
 
-Show available providers in the OmniRoute catalog
+Show available providers in the FlawraRoute catalog
 
 **Flags:**
 
@@ -49,7 +49,7 @@ Show available providers in the OmniRoute catalog
 **Example:**
 
 ```bash
-omniroute providers available
+flawraroute providers available
 ```
 
 ### `providers list`
@@ -63,7 +63,7 @@ List configured provider connections
 **Example:**
 
 ```bash
-omniroute providers list
+flawraroute providers list
 ```
 
 ### `providers test <idOrName>`
@@ -77,7 +77,7 @@ Test a configured provider connection
 **Example:**
 
 ```bash
-omniroute providers test <idOrName>
+flawraroute providers test <idOrName>
 ```
 
 ### `providers test-all`
@@ -91,7 +91,7 @@ Test all active provider connections
 **Example:**
 
 ```bash
-omniroute providers test-all
+flawraroute providers test-all
 ```
 
 ### `providers validate`
@@ -105,7 +105,7 @@ Validate local provider configuration without calling upstream
 **Example:**
 
 ```bash
-omniroute providers validate
+flawraroute providers validate
 ```
 
 ### `providers rotate <idOrName>`
@@ -122,7 +122,7 @@ omniroute providers validate
 **Example:**
 
 ```bash
-omniroute providers rotate <idOrName>
+flawraroute providers rotate <idOrName>
 ```
 
 ### `providers status`
@@ -135,7 +135,7 @@ omniroute providers rotate <idOrName>
 **Example:**
 
 ```bash
-omniroute providers status
+flawraroute providers status
 ```
 
 ### `providers metrics`
@@ -154,7 +154,7 @@ omniroute providers status
 **Example:**
 
 ```bash
-omniroute providers metrics
+flawraroute providers metrics
 ```
 
 ### `providers metric <connectionId> <metric>`
@@ -166,7 +166,7 @@ omniroute providers metrics
 **Example:**
 
 ```bash
-omniroute providers metric <connectionId> <metric>
+flawraroute providers metric <connectionId> <metric>
 ```
 
 ### `test-provider test [provider] [model]`
@@ -183,23 +183,23 @@ omniroute providers metric <connectionId> <metric>
 **Example:**
 
 ```bash
-omniroute test-provider test [provider] [model]
+flawraroute test-provider test [provider] [model]
 ```
 
 <!-- skill:custom-start -->
-<!-- Migrated from skills/omniroute-cli-providers/SKILL.md (preserved curated content) -->
+<!-- Migrated from skills/flawraroute-cli-providers/SKILL.md (preserved curated content) -->
 
-# OmniRoute — CLI Providers & Keys
+# FlawraRoute — CLI Providers & Keys
 
-Requires the `omniroute` CLI. See [CLI entry-point skill](https://raw.githubusercontent.com/diegosouzapw/OmniRoute/main/skills/omniroute-cli/SKILL.md) for install + global flags.
+Requires the `flawraroute` CLI. See [CLI entry-point skill](https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/skills/flawraroute-cli/SKILL.md) for install + global flags.
 
 ## Provider catalog (available providers)
 
 ```bash
-omniroute providers available                        # Full OmniRoute provider catalog
-omniroute providers available --search openai        # Filter by id, name, alias
-omniroute providers available --category api-key     # Filter by category
-omniroute providers available --json                 # Machine-readable JSON
+flawraroute providers available                        # Full FlawraRoute provider catalog
+flawraroute providers available --search openai        # Filter by id, name, alias
+flawraroute providers available --category api-key     # Filter by category
+flawraroute providers available --json                 # Machine-readable JSON
 ```
 
 Categories: `api-key`, `oauth`, `free`, `local`, `combo`.
@@ -207,46 +207,46 @@ Categories: `api-key`, `oauth`, `free`, `local`, `combo`.
 ## Configured provider connections
 
 ```bash
-omniroute providers list                             # Connections in your DB
-omniroute providers list --json
+flawraroute providers list                             # Connections in your DB
+flawraroute providers list --json
 ```
 
 ## Testing connections
 
 ```bash
-omniroute providers test <id|name>                   # Test one configured connection
-omniroute providers test-all                         # Test every active connection (TUI progress)
-omniroute providers validate                         # Local-only structural validation (no HTTP)
+flawraroute providers test <id|name>                   # Test one configured connection
+flawraroute providers test-all                         # Test every active connection (TUI progress)
+flawraroute providers validate                         # Local-only structural validation (no HTTP)
 ```
 
 `test-all` opens an interactive TUI that shows live pass/fail per connection. Use `--json` to get a machine-readable result:
 
 ```bash
-omniroute providers test-all --json
+flawraroute providers test-all --json
 ```
 
-## API key management (OmniRoute keys)
+## API key management (FlawraRoute keys)
 
-These manage the OmniRoute API keys issued under **API Manager** — not provider credentials.
+These manage the FlawraRoute API keys issued under **API Manager** — not provider credentials.
 
 ```bash
-omniroute keys list                                  # List all OmniRoute API keys
-omniroute keys add <provider> [apiKey]               # Add an API key for a provider
-omniroute keys remove <provider>                     # Remove an API key
-omniroute keys regenerate <id>                       # Regenerate (rotate) a key
-omniroute keys revoke <id>                           # Revoke a key (disables it)
-omniroute keys reveal <id>                           # Show the full key value
-omniroute keys usage <id>                            # Show usage stats for a key
+flawraroute keys list                                  # List all FlawraRoute API keys
+flawraroute keys add <provider> [apiKey]               # Add an API key for a provider
+flawraroute keys remove <provider>                     # Remove an API key
+flawraroute keys regenerate <id>                       # Regenerate (rotate) a key
+flawraroute keys revoke <id>                           # Revoke a key (disables it)
+flawraroute keys reveal <id>                           # Show the full key value
+flawraroute keys usage <id>                            # Show usage stats for a key
 
-omniroute keys rotate <id>                           # Rotate + revoke old key atomically
-omniroute keys expiration list                       # List key expiration times
+flawraroute keys rotate <id>                           # Rotate + revoke old key atomically
+flawraroute keys expiration list                       # List key expiration times
 ```
 
 ### Key policies
 
 ```bash
-omniroute keys policy show <id>                      # Show rate-limit / permission policy
-omniroute keys policy set <id> \
+flawraroute keys policy show <id>                      # Show rate-limit / permission policy
+flawraroute keys policy set <id> \
   --rate-limit 100 \
   --rate-window minute \
   --permissions chat,models                          # Set policy on a key
@@ -255,33 +255,33 @@ omniroute keys policy set <id> \
 ## Models
 
 ```bash
-omniroute models                                     # List all models (all providers)
-omniroute models openai                              # Filter by provider
-omniroute models --search gpt                        # Search by name
-omniroute models --json                              # JSON output
+flawraroute models                                     # List all models (all providers)
+flawraroute models openai                              # Filter by provider
+flawraroute models --search gpt                        # Search by name
+flawraroute models --json                              # JSON output
 ```
 
 ## OAuth providers
 
 ```bash
-omniroute oauth list                                 # List OAuth-configured providers
-omniroute oauth login <provider>                     # Start browser-based OAuth flow
-omniroute oauth logout <provider>                    # Revoke OAuth token
-omniroute oauth status <provider>                    # Show token state + expiry
-omniroute oauth refresh <provider>                   # Force token refresh
+flawraroute oauth list                                 # List OAuth-configured providers
+flawraroute oauth login <provider>                     # Start browser-based OAuth flow
+flawraroute oauth logout <provider>                    # Revoke OAuth token
+flawraroute oauth status <provider>                    # Show token state + expiry
+flawraroute oauth refresh <provider>                   # Force token refresh
 ```
 
-For OAuth providers (Gemini, Windsurf, Antigravity, etc.) the `login` command opens the OmniRoute dashboard OAuth flow in your browser.
+For OAuth providers (Gemini, Windsurf, Antigravity, etc.) the `login` command opens the FlawraRoute dashboard OAuth flow in your browser.
 
 ## Provider nodes (multi-account routing)
 
 Provider nodes let you attach multiple API keys / accounts to one logical provider for round-robin or failover.
 
 ```bash
-omniroute nodes list <provider>                      # List nodes for a provider
-omniroute nodes add <provider> --api-key <key>       # Add a node
-omniroute nodes remove <provider> <nodeId>           # Remove a node
-omniroute nodes test <provider> <nodeId>             # Test one node
+flawraroute nodes list <provider>                      # List nodes for a provider
+flawraroute nodes add <provider> --api-key <key>       # Add a node
+flawraroute nodes remove <provider> <nodeId>           # Remove a node
+flawraroute nodes test <provider> <nodeId>             # Test one node
 ```
 
 ## Routing combos (CLI)
@@ -289,39 +289,39 @@ omniroute nodes test <provider> <nodeId>             # Test one node
 Create and manage routing combos from the terminal:
 
 ```bash
-omniroute combo list                                 # List all combos
-omniroute combo create <name> \
+flawraroute combo list                                 # List all combos
+flawraroute combo create <name> \
   --strategy priority \
   --targets anthropic/claude-opus-4-7,openai/gpt-4o  # Create combo
-omniroute combo switch <name>                        # Activate a combo as default
-omniroute combo delete <name>                        # Delete a combo
-omniroute combo suggest --task "code review"         # Ask OmniRoute to recommend a combo
+flawraroute combo switch <name>                        # Activate a combo as default
+flawraroute combo delete <name>                        # Delete a combo
+flawraroute combo suggest --task "code review"         # Ask FlawraRoute to recommend a combo
 ```
 
-For the full REST API for combos see [omniroute-routing skill](https://raw.githubusercontent.com/diegosouzapw/OmniRoute/main/skills/omniroute-routing/SKILL.md).
+For the full REST API for combos see [flawraroute-routing skill](https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/skills/flawraroute-routing/SKILL.md).
 
 ## Quota & usage
 
 ```bash
-omniroute quota                                      # Provider quota usage + reset times
-omniroute usage                                      # Request + token usage summary
-omniroute cost                                       # Cost breakdown (by provider/model)
+flawraroute quota                                      # Provider quota usage + reset times
+flawraroute usage                                      # Request + token usage summary
+flawraroute cost                                       # Cost breakdown (by provider/model)
 ```
 
 ## Compression (CLI)
 
 ```bash
-omniroute compression status                         # Current compression mode + savings stats
-omniroute compression set --mode rtk                 # Enable RTK compression
-omniroute compression set --mode stacked             # Enable stacked (RTK + Caveman)
-omniroute compression set --mode off                 # Disable compression
-omniroute compression preview --mode rtk --text "..."  # Preview savings for sample text
+flawraroute compression status                         # Current compression mode + savings stats
+flawraroute compression set --mode rtk                 # Enable RTK compression
+flawraroute compression set --mode stacked             # Enable stacked (RTK + Caveman)
+flawraroute compression set --mode off                 # Disable compression
+flawraroute compression preview --mode rtk --text "..."  # Preview savings for sample text
 ```
 
 ## Health
 
 ```bash
-omniroute health                                     # Detailed health: circuit breakers, cache, memory
+flawraroute health                                     # Detailed health: circuit breakers, cache, memory
 ```
 
 ## Errors

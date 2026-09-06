@@ -1,1 +1,1 @@
-- Stop advertising Gemini Live-only models as supported audio endpoints until OmniRoute proxies the bidirectional Live protocol.
+- Stop advertising Gemini Live-only models as supported audio endpoints until FlawraRoute proxies the bidirectional Live protocol.

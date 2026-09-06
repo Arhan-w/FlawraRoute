@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI Værktøjer — OmniRoute"
+title: "CLI Værktøjer — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI Værktøjer — OmniRoute
+# CLI Værktøjer — FlawraRoute
 
 Sidst opdateret: 2026-08-18
 
-OmniRoute integrerer med tre kategorier af CLI værktøjer fordelt på tre dedikerede dashboard sider:
+FlawraRoute integrerer med tre kategorier af CLI værktøjer fordelt på tre dedikerede dashboard sider:
 
 | Side            | Rute                    | Koncept                                                                       | Antal       |
 | --------------- | ----------------------- | ----------------------------------------------------------------------------- | ----------- |
-| **CLI Kode's**  | `/dashboard/cli-code`   | Kodningsværktøjer, du peger på OmniRoute (Klient → CLI → OmniRoute → Udbyder) | 26          |
-| **CLI Agenter** | `/dashboard/cli-agents` | Autonome agenter, du peger på OmniRoute (samme flow, bredere omfang)          | 8           |
-| **ACP Agenter** | `/dashboard/acp-agents` | CLIs, som OmniRoute genererer som backend via stdio/ACP (omvendt flow)        | se register |
+| **CLI Kode's**  | `/dashboard/cli-code`   | Kodningsværktøjer, du peger på FlawraRoute (Klient → CLI → FlawraRoute → Udbyder) | 26          |
+| **CLI Agenter** | `/dashboard/cli-agents` | Autonome agenter, du peger på FlawraRoute (samme flow, bredere omfang)          | 8           |
+| **ACP Agenter** | `/dashboard/acp-agents` | CLIs, som FlawraRoute genererer som backend via stdio/ACP (omvendt flow)        | se register |
 
 Legacy ruter omdirigerer via 308: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ Legacy ruter omdirigerer via 308: `/dashboard/cli-tools` → `/dashboard/cli-cod
 CLI Kode's / CLI Agenter (forbrugsflow):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (alle peger på OmniRoute)
+           ▼  (alle peger på FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute ruter til den rigtige udbyder)
+           ▼  (FlawraRoute ruter til den rigtige udbyder)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP Agenter (omvendt genereringsflow):
-    Klientanmodning → OmniRoute → genererer CLI via stdio/ACP → svar
+    Klientanmodning → FlawraRoute → genererer CLI via stdio/ACP → svar
 ```
 
 **Fordele:**
@@ -54,26 +54,26 @@ ACP Agenter (omvendt genereringsflow):
 
 ## Auto-konfigurer med `setup-*`
 
-Du behøver ikke at skrive hver værktøjs konfiguration i hånden. OmniRoute leverer en `setup-*`
+Du behøver ikke at skrive hver værktøjs konfiguration i hånden. FlawraRoute leverer en `setup-*`
 kommando pr. understøttet CLI, der læser den **live** modelkatalog fra en kørende
-OmniRoute (lokal eller fjern) og skriver værktøjets egen konfiguration på din maskine:
+FlawraRoute (lokal eller fjern) og skriver værktøjets egen konfiguration på din maskine:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
 Hver accepterer `--remote <url> --api-key <key>` (konfigurer et lokalt værktøj mod en
-fjern OmniRoute), `--dry-run` (forhåndsvisning uden at skrive), og `--port`. Værktøjer
+fjern FlawraRoute), `--dry-run` (forhåndsvisning uden at skrive), og `--port`. Værktøjer
 uden model auto-opdagelse (Cline, Kilo, Roo, Goose, Aider, Qwen) tager
 `--model <id>` (og `--yes` for ikke-interaktive kørsel). For at starte en CLI med den
 rette miljøvariabel injiceret og ingen konfiguration skrevet overhovedet, brug den generiske
-`omniroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
+`flawraroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
 gemini — mål og aliaser kommer fra `bin/cli/cli-manifest.mjs`); de legacy
-per-værktøj launchers `omniroute launch` (Claude Code) og `omniroute launch-codex`
-(Codex) forbliver tilgængelige. Gemini CLI er kun til lancering: det er et `omniroute run`
+per-værktøj launchers `flawraroute launch` (Claude Code) og `flawraroute launch-codex`
+(Codex) forbliver tilgængelige. Gemini CLI er kun til lancering: det er et `flawraroute run`
 mål, men har ingen `setup-*`/`configure` opskrift.
 
 > **Fuld reference:** mastertabellen — hvad hver kommando skriver, hver flag,
@@ -82,23 +82,23 @@ mål, men har ingen `setup-*`/`configure` opskrift.
 
 ### Kørsel af disse inde i en container
 
-En `setup-*` kommando udført inde i OmniRoute containeren skriver ind i
+En `setup-*` kommando udført inde i FlawraRoute containeren skriver ind i
 containerens egen hjemmemappe, som ingen værts-CLI læser og som forsvinder med
-containeren. OmniRoute opdager det og afslutter med `2` med instruktioner i stedet for
+containeren. FlawraRoute opdager det og afslutter med `2` med instruktioner i stedet for
 at skrive. To understøttede måder fremad — installer CLI på værten og
-`omniroute connect` til containeren, eller bind-mount konfigurationsmapperne og sæt
+`flawraroute connect` til containeren, eller bind-mount konfigurationsmapperne og sæt
 `CLI_CONFIG_HOME` (den compose `host` profil). Hver `setup-*` kommando, plus
-`omniroute configure` og `omniroute config set`, accepterer
+`flawraroute configure` og `flawraroute config set`, accepterer
 `--allow-container-write`, når konfiguration af containerens egne CLIs er det, du
-faktisk mente; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` gør det samme for
+faktisk mente; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` gør det samme for
 serveren. Se
-[Docker Guide → Konfigurering af værts-CLI værktøjer](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+[Docker Guide → Konfigurering af værts-CLI værktøjer](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
 Dashboardets **apply endpoint** (`POST /api/cli-tools/apply`) håndhæver den
 samme beskyttelse: i en container, en skrivning hvis mål ikke er bind-mountet fra
 værten svarer **`422`** med `containerEphemeralTarget: true`, den sikre fejltekst og — for
 de værktøjer med en værtsopskrift (claude, codex, opencode, cline,
-kilo, continue) — en `hostSetupCommand` (f.eks. `omniroute setup-opencode`) der skal køres
+kilo, continue) — en `hostSetupCommand` (f.eks. `flawraroute setup-opencode`) der skal køres
 på værten i stedet; intet skrives. `dryRun: true` fortsætter med at fungere i container
 tilstand og returnerer det genererede indhold + målsti uden at røre disken, så
 du kan forhåndsvise fra dashboardet og anvende på værten. Denne adfærd er
@@ -134,8 +134,8 @@ erklærende kilde, og en driftstest holder dem synkroniseret:
 | ----------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | **Katalogiseret** | Visas i dashboard-kataloget (navn, leverandør, dokumentation, konfigurationstype) | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                  |
 | **Detekterbar**   | Binær/konfigurationsdetektion, sundhedstjek, konfigurationsstier                  | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` runtime katalog) |
-| **Konfigurerbar** | Understøttet af `omniroute configure <cli>` (opsætningsopskrift eksisterer)       | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
-| **Lancerbar**     | Understøttet af `omniroute run <target>` (env/args injektion defineret)           | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
+| **Konfigurerbar** | Understøttet af `flawraroute configure <cli>` (opsætningsopskrift eksisterer)       | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
+| **Lancerbar**     | Understøttet af `flawraroute run <target>` (env/args injektion defineret)           | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
 
 `bin/cli/cli-manifest.mjs` er det kanoniske eksekverbare manifest for CLI-kommandoerne
 overflader: `run`, `configure` og shell-completion generatorer afleder alle deres
@@ -199,7 +199,7 @@ Autonome agenter, der vises i `/dashboard/cli-agents`:
 
 ## 3. ACP Agenter (/dashboard/acp-agents)
 
-Denne side (omdøbt fra `/dashboard/agents`) viser CLIs, som OmniRoute kan **spawne** som backend eksekveringsmotorer via stdio/ACP protokol. Katalogen vedligeholdes separat i `src/lib/acp/registry.ts` og er **ikke** den samme som `CLI_TOOLS`.
+Denne side (omdøbt fra `/dashboard/agents`) viser CLIs, som FlawraRoute kan **spawne** som backend eksekveringsmotorer via stdio/ACP protokol. Katalogen vedligeholdes separat i `src/lib/acp/registry.ts` og er **ikke** den samme som `CLI_TOOLS`.
 
 ---
 
@@ -262,7 +262,7 @@ Nye værktøjer med `configType: "custom"` har dedikerede indstillings-API-ruter
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primær + legacy `~/.deepseek` synk) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                           |
 | `POST /api/cli-tools/pi-settings`           | Pi coding agent                                                 |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)           |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)           |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + dedikeret `.env` nøgle)    |
 
 Alle ruter bruger `sanitizeErrorMessage()` til fejlrespons (Hard Rule #12).
@@ -322,7 +322,7 @@ Fuld PT-BR og EN oversættelser er tilgængelige. 39 andre lokaliteter falder au
 
 ## 9. Hurtig Start
 
-### Trin 1 — Få en OmniRoute API-nøgle
+### Trin 1 — Få en FlawraRoute API-nøgle
 
 1. Åbn `/dashboard/api-manager` → **Opret API-nøgle**
 2. Giv den et navn (f.eks. `cli-tools`) og vælg alle tilladelser
@@ -355,7 +355,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (kan startes via `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (kan startes via `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -386,14 +386,14 @@ cargo install smelt  # Rust-baseret
 ### Trin 4 — Indstil globale miljøvariabler
 
 ```bash
-# OmniRoute Universal Endpoint
+# FlawraRoute Universal Endpoint
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI læser GOOGLE_GEMINI_BASE_URL ved ROOT (dens SDK tilføjer /v1beta/... selv)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > For en **fjernserver** erstat `localhost:20128` med serverens IP eller domæne,
@@ -411,7 +411,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -427,20 +427,20 @@ Brug den samlede Anthropic gateway root til Claude Code. Tilføj ikke `/v1` her.
 
 Moderne Codex (v0.137+) læser kun `~/.codex/config.toml` — den gamle
 `config.yaml` tilhører den forældede npm CLI og ignoreres stille. API-nøglen
-forbliver i miljøvariablen `OMNIROUTE_API_KEY` (`env_key`), aldrig
+forbliver i miljøvariablen `FLAWRAROUTE_API_KEY` (`env_key`), aldrig
 inde i filen:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Fuld reference (profiler, `wire_api`, kontekstvinduer): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -456,12 +456,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -476,7 +476,7 @@ EOF
 
 **Test:** `opencode`
 
-> Brug `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> Brug `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > for at sende tænkevarianter.
 
 ---
@@ -490,7 +490,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -498,7 +498,7 @@ EOF
 **VS Code-tilstand:**
 Cline-udvidelsesindstillinger → API-udbyder: `OpenAI Compatible` → Base URL: `http://localhost:20128/v1`
 
-Eller brug OmniRoute-dashboardet → **CLI Tools → Cline → Anvend konfiguration**.
+Eller brug FlawraRoute-dashboardet → **CLI Tools → Cline → Anvend konfiguration**.
 
 ---
 
@@ -507,7 +507,7 @@ Eller brug OmniRoute-dashboardet → **CLI Tools → Cline → Anvend konfigurat
 **CLI-tilstand:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **VS Code-indstillinger:**
@@ -515,11 +515,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Eller brug OmniRoute-dashboardet → **CLI Tools → KiloCode → Anvend konfiguration**.
+Eller brug FlawraRoute-dashboardet → **CLI Tools → KiloCode → Anvend konfiguration**.
 
 ---
 
@@ -529,11 +529,11 @@ Rediger `~/.continue/config.yaml`:
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -543,25 +543,25 @@ Genstart VS Code efter redigering.
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Brug dette, når VS Code Insiders er konfigureret til brugerdefinerede endpoint-modeller, og du ønsker, at OmniRoute skal fungere uden et brugerdefineret headerfelt.
+Brug dette, når VS Code Insiders er konfigureret til brugerdefinerede endpoint-modeller, og du ønsker, at FlawraRoute skal fungere uden et brugerdefineret headerfelt.
 
 **Anbefalet placering:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Eksempel ved brug af den tokeniserede OmniRoute-alias:**
+**Eksempel ved brug af den tokeniserede FlawraRoute-alias:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -574,7 +574,7 @@ Brug dette, når VS Code Insiders er konfigureret til brugerdefinerede endpoint-
 
 **Bemærkninger:**
 
-- Erstat `sk-your-omniroute-key` med en API-nøgle oprettet i OmniRoute.
+- Erstat `sk-your-flawraroute-key` med en API-nøgle oprettet i FlawraRoute.
 - Feltet `url` skal pege på `/api/v1/vscode/{token}/chat/completions`.
 - Feltet `modelsUrl` skal pege på `/api/v1/vscode/{token}/models`.
 - Foretræk den normale `/v1` + Bearer header-flow, når klienten understøtter brugerdefinerede headers.
@@ -588,40 +588,40 @@ Brug dette, når VS Code Insiders er konfigureret til brugerdefinerede endpoint-
 # Log ind på din AWS/Kiro-konto:
 kiro-cli login
 
-# CLI'en bruger sin egen autentificering — OmniRoute er ikke nødvendig som backend for Kiro CLI selv.
-# Brug kiro-cli sammen med OmniRoute til andre værktøjer.
+# CLI'en bruger sin egen autentificering — FlawraRoute er ikke nødvendig som backend for Kiro CLI selv.
+# Brug kiro-cli sammen med FlawraRoute til andre værktøjer.
 kiro-cli status
 ```
 
-For **Kiro IDE** desktopapp, brug MITM-endpointet, der er eksponeret af OmniRoute
+For **Kiro IDE** desktopapp, brug MITM-endpointet, der er eksponeret af FlawraRoute
 under `/dashboard/cli-tools → Kiro`.
 
 ---
 
-## 10. Intern OmniRoute CLI
+## 10. Intern FlawraRoute CLI
 
-Den `omniroute` binære fil giver kommandoer til serverlivscyklus, opsætning, diagnostik og leverandørstyring. Indgangspunkt: `bin/omniroute.mjs`.
+Den `flawraroute` binære fil giver kommandoer til serverlivscyklus, opsætning, diagnostik og leverandørstyring. Indgangspunkt: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Start server (standard port 20128)
-omniroute setup                        # Interaktiv opsætningsguide
-omniroute doctor                       # Tjek konfiguration, DB, porte, runtime
-omniroute providers list               # Konfigurerede leverandørforbindelser
-omniroute providers test-all           # Test hver aktiv forbindelse
-omniroute reset-password               # Nulstil adminadgangskode
-omniroute logs                         # Stream anmodningslogs
-omniroute health                       # Detaljeret sundhed (afbrydere, cache, hukommelse)
-omniroute --version                    # Udskriv version
-omniroute --help                       # Vis alle kommandoer
+flawraroute                              # Start server (standard port 20128)
+flawraroute setup                        # Interaktiv opsætningsguide
+flawraroute doctor                       # Tjek konfiguration, DB, porte, runtime
+flawraroute providers list               # Konfigurerede leverandørforbindelser
+flawraroute providers test-all           # Test hver aktiv forbindelse
+flawraroute reset-password               # Nulstil adminadgangskode
+flawraroute logs                         # Stream anmodningslogs
+flawraroute health                       # Detaljeret sundhed (afbrydere, cache, hukommelse)
+flawraroute --version                    # Udskriv version
+flawraroute --help                       # Vis alle kommandoer
 ```
 
 ### Opsætning & Initialisering
 
 ```bash
-omniroute setup                        # Interaktiv opsætningsguide
-omniroute setup --non-interactive      # CI/automatiseringsmode (læser miljøvariabler + flags)
-omniroute setup --password '<value>'   # Indstil adminadgangskode direkte
-omniroute setup --add-provider \
+flawraroute setup                        # Interaktiv opsætningsguide
+flawraroute setup --non-interactive      # CI/automatiseringsmode (læser miljøvariabler + flags)
+flawraroute setup --password '<value>'   # Indstil adminadgangskode direkte
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Tilføj og test en leverandør i ét hug
@@ -631,21 +631,21 @@ Anerkendte miljøvariabler til ikke-interaktiv opsætning:
 
 | Var                 | Formål                                                               |
 | ------------------- | -------------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | Leverandør API-nøgle (bundet til `--api-key` via Commander `.env()`) |
-| `DATA_DIR`          | Overskriv OmniRoute data katalog                                     |
+| `FLAWRAROUTE_API_KEY` | Leverandør API-nøgle (bundet til `--api-key` via Commander `.env()`) |
+| `DATA_DIR`          | Overskriv FlawraRoute data katalog                                     |
 
 Alle andre ikke-interaktive input gives som flags, ikke miljøvariabler:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(se `omniroute setup` mulighederne ovenfor).
+(se `flawraroute setup` mulighederne ovenfor).
 
 ### Diagnostik
 
 ```bash
-omniroute doctor                       # Tjek konfiguration, DB, porte, runtime, hukommelse, livlighed
-omniroute doctor --json                # Maskinlæsbart JSON
-omniroute doctor --no-liveness         # Spring HTTP sundhedsprobe over
-omniroute doctor --host 0.0.0.0        # Overskriv livlighedsvært
-omniroute doctor --liveness-url <url>  # Fuldt sundhedsendepunkt URL-overskrivning
+flawraroute doctor                       # Tjek konfiguration, DB, porte, runtime, hukommelse, livlighed
+flawraroute doctor --json                # Maskinlæsbart JSON
+flawraroute doctor --no-liveness         # Spring HTTP sundhedsprobe over
+flawraroute doctor --host 0.0.0.0        # Overskriv livlighedsvært
+flawraroute doctor --liveness-url <url>  # Fuldt sundhedsendepunkt URL-overskrivning
 ```
 
 Doktoren kører disse tjek: `Konfiguration`, `Database`, `Lagring/kryptering`,
@@ -655,47 +655,47 @@ Doktoren kører disse tjek: `Konfiguration`, `Database`, `Lagring/kryptering`,
 ### Leverandørstyring
 
 ```bash
-omniroute providers available                       # OmniRoute leverandørkatalog
-omniroute providers available --search openai       # Filtrer katalog efter id/navn/alias/kategori
-omniroute providers available --category api-key    # Filtrer efter kategori (api-key, oauth, gratis, ...)
-omniroute providers available --json                # Maskinlæsbart JSON
+flawraroute providers available                       # FlawraRoute leverandørkatalog
+flawraroute providers available --search openai       # Filtrer katalog efter id/navn/alias/kategori
+flawraroute providers available --category api-key    # Filtrer efter kategori (api-key, oauth, gratis, ...)
+flawraroute providers available --json                # Maskinlæsbart JSON
 
-omniroute providers list                            # Konfigurerede leverandørforbindelser
-omniroute providers list --json
+flawraroute providers list                            # Konfigurerede leverandørforbindelser
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Test én konfigureret forbindelse
-omniroute providers test-all                        # Test hver aktiv forbindelse
-omniroute providers validate                        # Lokalt strukturel validering
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Eksisterende OAuth-flow
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Test én konfigureret forbindelse
+flawraroute providers test-all                        # Test hver aktiv forbindelse
+flawraroute providers validate                        # Lokalt strukturel validering
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Eksisterende OAuth-flow
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` er API-først og fungerer derfor mod
 den aktive lokale eller fjerntliggende kontekst. Credential input bør bruge
 `--credential-stdin` eller `--credential-env`; `--dry-run --json` rapporterer kun
-redigeret tilstedeværelse/form. `providers available` læser OmniRoute kataloget;
+redigeret tilstedeværelse/form. `providers available` læser FlawraRoute kataloget;
 `providers list/test/test-all/validate` bevarer deres lokale SQLite adfærd og
 kræver ikke, at serveren kører.
 
 ### Gendannelse & Nulstilling
 
 ```bash
-omniroute reset-password                # Nulstil adminadgangskode (også: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Vis advarsel + tørkørsel for nulstilling af krypterede legitimationsoplysninger
-omniroute reset-encrypted-columns --force  # Faktisk nulstil krypterede legitimationsoplysninger i SQLite
+flawraroute reset-password                # Nulstil adminadgangskode (også: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Vis advarsel + tørkørsel for nulstilling af krypterede legitimationsoplysninger
+flawraroute reset-encrypted-columns --force  # Faktisk nulstil krypterede legitimationsoplysninger i SQLite
 ```
 
 ### Eksport af legitimationsoplysninger (⚠ håndter med omhu)
 
 ```bash
-omniroute auth export                                 # Vis advarsel + bekræftelsesport — ingen DB-adgang
-omniroute auth export --force                          # Eksporter ALLE forbindelsers DEKRYPPERET legitimationsoplysninger til stdout som JSON
-omniroute auth export --force --id <id>                 # Eksporter kun den matchende forbindelse
-omniroute auth export --force --format env               # Udsend OMNIROUTE_<PROVIDER>_<FIELD>=<value> linjer
-omniroute auth export --force --out creds.json           # Skriv til en fil (oprettet med 0600 tilladelser)
+flawraroute auth export                                 # Vis advarsel + bekræftelsesport — ingen DB-adgang
+flawraroute auth export --force                          # Eksporter ALLE forbindelsers DEKRYPPERET legitimationsoplysninger til stdout som JSON
+flawraroute auth export --force --id <id>                 # Eksporter kun den matchende forbindelse
+flawraroute auth export --force --format env               # Udsend FLAWRAROUTE_<PROVIDER>_<FIELD>=<value> linjer
+flawraroute auth export --force --out creds.json           # Skriv til en fil (oprettet med 0600 tilladelser)
 ```
 
 `auth export` er **lokal-only** (direkte SQLite læsning, ingen HTTP rute) og udskriver/skriver
@@ -707,36 +707,36 @@ være indstillet. Et felt, der ikke kan dekrypteres (gammel nøgle, beskadiget c
 
 ### Andre underkommandoer
 
-Disse antager en kørende OmniRoute server, medmindre andet er angivet:
+Disse antager en kørende FlawraRoute server, medmindre andet er angivet:
 
 ```bash
-omniroute status                       # Omfattende runtime status
-omniroute logs                         # Stream anmodningslogs (--json, --search, --follow)
-omniroute config show                  # Vis nuværende konfiguration
+flawraroute status                       # Omfattende runtime status
+flawraroute logs                         # Stream anmodningslogs (--json, --search, --follow)
+flawraroute config show                  # Vis nuværende konfiguration
 
-omniroute provider list                # Liste over tilgængelige leverandører (alias af providers list)
-omniroute provider add                 # Registrer OmniRoute som en leverandør på et værktøj
-omniroute keys add | list | remove     # Administrer API-nøgler
-omniroute models [provider]            # Liste over modeller (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Liste over tilgængelige leverandører (alias af providers list)
+flawraroute provider add                 # Registrer FlawraRoute som en leverandør på et værktøj
+flawraroute keys add | list | remove     # Administrer API-nøgler
+flawraroute models [provider]            # Liste over modeller (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Snapshot konfiguration + DB
-omniroute restore                      # Gendan fra et tidligere snapshot
+flawraroute backup                       # Snapshot konfiguration + DB
+flawraroute restore                      # Gendan fra et tidligere snapshot
 
-omniroute health                       # Detaljeret sundhed (afbrydere, cache, hukommelse)
-omniroute quota                        # Leverandør kvote brug
-omniroute cache                        # Cache status
-omniroute cache clear                  # Ryd semantiske + signatur caches
+flawraroute health                       # Detaljeret sundhed (afbrydere, cache, hukommelse)
+flawraroute quota                        # Leverandør kvote brug
+flawraroute cache                        # Cache status
+flawraroute cache clear                  # Ryd semantiske + signatur caches
 
-omniroute mcp status | restart         # MCP server status / genstart
-omniroute a2a status | card            # A2A server status / agentkort
+flawraroute mcp status | restart         # MCP server status / genstart
+flawraroute a2a status | card            # A2A server status / agentkort
 
-omniroute tunnel list | create | stop  # Administrer tunneler (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Inspicer / indstil miljøvariabler (midlertidige)
+flawraroute tunnel list | create | stop  # Administrer tunneler (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Inspicer / indstil miljøvariabler (midlertidige)
 
-omniroute test                         # Leverandør tilslutning røgtest
-omniroute update                       # Tjek for opdateringer
-omniroute completion                   # Generer shell completion
+flawraroute test                         # Leverandør tilslutning røgtest
+flawraroute update                       # Tjek for opdateringer
+flawraroute completion                   # Generer shell completion
 ```
 
 ### Almindelige flags
@@ -763,7 +763,7 @@ omniroute completion                   # Generer shell completion
 | `/v1/audio/speech`         | Tekst-til-tale                | ElevenLabs, OpenAI TTS               |
 | `/v1/audio/transcriptions` | Tale-til-tekst                | Deepgram, AssemblyAI                 |
 
-Klar-til-at-indsætte eksempler med en tokeniseret OmniRoute URL:
+Klar-til-at-indsætte eksempler med en tokeniseret FlawraRoute URL:
 
 ```txt
 Token eksempel: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -782,7 +782,7 @@ Ollama chat: http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a4-070
 
 | Fejl                                              | Årsag                     | Løsning                                            |
 | ------------------------------------------------- | ------------------------- | -------------------------------------------------- |
-| `Connection refused`                              | OmniRoute kører ikke      | `omniroute serve`                                  |
+| `Connection refused`                              | FlawraRoute kører ikke      | `flawraroute serve`                                  |
 | `401 Unauthorized`                                | Forkert API-nøgle         | Tjek i `/dashboard/api-manager`                    |
 | `No combo configured`                             | Ingen aktiv routing combo | Opsæt i `/dashboard/combos`                        |
 | CLI viser "not installed"                         | Binær ikke i PATH         | Tjek `which <command>`                             |

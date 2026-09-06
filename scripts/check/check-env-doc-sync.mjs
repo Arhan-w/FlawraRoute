@@ -2,7 +2,7 @@
 /**
  * Strict environment variable contract checker.
  *
- * Enforces that every env var referenced in OmniRoute source code appears in
+ * Enforces that every env var referenced in FlawraRoute source code appears in
  * both `.env.example` and `docs/reference/ENVIRONMENT.md`, and that the two files agree
  * on the documented var set. Falls back to a small allowlist for variables
  * that are intentionally documented but not literally referenced (legacy
@@ -62,7 +62,7 @@ const IGNORE_FROM_CODE = new Set([
   "LOCALAPPDATA",
   "PROGRAMFILES",
   "XDG_CONFIG_HOME",
-  // Codex-owned task/runtime locations and child-process markers. OmniRoute reads
+  // Codex-owned task/runtime locations and child-process markers. FlawraRoute reads
   // them as external execution context, not as product configuration.
   "CODEX_HOME",
   "CODEX_CHATGPT_WEB_BROWSER_HELPER_PROCESS",
@@ -70,12 +70,12 @@ const IGNORE_FROM_CODE = new Set([
   // scripts/dev/systemd-notify.mjs) — set by systemd only when running under
   // a unit, never user config.
   "NOTIFY_SOCKET",
-  // XDG Base Directory cache root — read (never defined by OmniRoute) so the
+  // XDG Base Directory cache root — read (never defined by FlawraRoute) so the
   // Android/Termux serve path can honor an operator-set cache location (#8519).
   "XDG_CACHE_HOME",
   "USERPROFILE",
   "PREFIX",
-  // X11 display server — set by the OS/session manager, not OmniRoute config.
+  // X11 display server — set by the OS/session manager, not FlawraRoute config.
   "DISPLAY",
   // POSIX session vars surfaced by cloudflaredTunnel.ts (env passthrough).
   "LOGNAME",
@@ -85,34 +85,34 @@ const IGNORE_FROM_CODE = new Set([
   "NEXT_PHASE",
   "NEXT_RUNTIME",
   // Set/read by Next.js's own dev server (next-dev-server.js) when the turbopack
-  // bundler is active — framework-internal. The OmniRoute-facing knob is
-  // OMNIROUTE_USE_TURBOPACK (scripts/dev/run-next.mjs), which IS documented.
+  // bundler is active — framework-internal. The FlawraRoute-facing knob is
+  // FLAWRAROUTE_USE_TURBOPACK (scripts/dev/run-next.mjs), which IS documented.
   "TURBOPACK",
   "NODE_TEST_CONTEXT",
   "VITEST",
-  // Instruction snippet shown to users (Traffic Inspector HttpProxySnippetCard) — not OmniRoute config.
+  // Instruction snippet shown to users (Traffic Inspector HttpProxySnippetCard) — not FlawraRoute config.
   "NODE_TLS_REJECT_UNAUTHORIZED",
   // Claude Code's own auth env var — read from the CLI environment to detect
   // existing auth and written into the generated Claude Code settings (so the CLI
-  // points at OmniRoute). A downstream client-tool var, not an OmniRoute server
+  // points at FlawraRoute). A downstream client-tool var, not an FlawraRoute server
   // input (src/shared/services/claudeCliConfig.ts, api/cli-tools/claude-settings).
   "ANTHROPIC_AUTH_TOKEN",
   // CI providers (set by the runner).
   "GITHUB_BASE_REF",
   "GITHUB_BASE_SHA",
   // Set by the Actions runner; the ts7 ratchet appends its job summary there
-  // (scripts/check/check-ts7-diagnostics-ratchet.mjs) — never OmniRoute runtime config (#9985).
+  // (scripts/check/check-ts7-diagnostics-ratchet.mjs) — never FlawraRoute runtime config (#9985).
   "GITHUB_STEP_SUMMARY",
   // Same class as BASE_REF: CI passes the PR base ref to the ts7 diagnostics ratchet
   // (scripts/check/check-ts7-diagnostics-ratchet.mjs) — a check signal, not runtime config (#9985).
   "TS7_BASE_REF",
   // CI passes BASE_REF=${{ github.base_ref }} to the OpenAPI breaking-change gate
-  // (scripts/check/check-openapi-breaking.mjs) — a build/check signal, not OmniRoute runtime config.
+  // (scripts/check/check-openapi-breaking.mjs) — a build/check signal, not FlawraRoute runtime config.
   "BASE_REF",
   // Same class as BASE_REF above: the `changes` job passes these four to the
   // self-targeting-PR guard (scripts/check/check-pr-self-target.mjs) so it can compare a PR's
   // head against its base. CI-only signals from github.head_ref / github.base_ref /
-  // pull_request.{head,base}.sha — never OmniRoute runtime config, and meaningless in a .env.
+  // pull_request.{head,base}.sha — never FlawraRoute runtime config, and meaningless in a .env.
   "HEAD_REF",
   "HEAD_SHA",
   "BASE_SHA",
@@ -122,17 +122,17 @@ const IGNORE_FROM_CODE = new Set([
   // A gate tuning knob, not application configuration.
   "TEST_MASKING_MAX_CHANGED_TESTS",
   // PR body injected by GitHub Actions into the pr-evidence gate (github.event.pull_request.body);
-  // a CI-only signal, never an OmniRoute runtime config (Phase 7.10).
+  // a CI-only signal, never an FlawraRoute runtime config (Phase 7.10).
   "PR_BODY",
   // CLI machine-id token opt-out (server-side flag; not user-configurable via .env).
-  "OMNIROUTE_DISABLE_CLI_TOKEN",
+  "FLAWRAROUTE_DISABLE_CLI_TOKEN",
   // Gated combo live-smoke harness (scripts/test/_vpsClient.mjs) — override the VPS HTTP
   // smoke target host/key. Test/CI-only signals with safe defaults
-  // ("http://192.168.0.15:20128" / null), never OmniRoute runtime config (#5151).
+  // ("http://192.168.0.15:20128" / null), never FlawraRoute runtime config (#5151).
   "COMBO_LIVE_BASE_URL",
   "COMBO_LIVE_API_KEY",
   // Ad-hoc mesh/coverage scripts under scripts/ad-hoc/*.mjs (mesh-send, mesh-run,
-  // verify-coverage). Operator-supplied script secrets, not OmniRoute runtime config.
+  // verify-coverage). Operator-supplied script secrets, not FlawraRoute runtime config.
   "BOT_TOKEN",
   "BOT_URL",
   // Homologation E2E suite (npm run homolog) vars — configured via the dedicated
@@ -145,11 +145,11 @@ const IGNORE_FROM_CODE = new Set([
   "HOMOLOG_CRITICAL_PROVIDERS",
   "HOMOLOG_EXPECT_VERSION",
   // update-notifier opt-out for the CLI binary.
-  "OMNIROUTE_NO_UPDATE_NOTIFIER",
+  "FLAWRAROUTE_NO_UPDATE_NOTIFIER",
   // Headless CLI execution flag for Electron.
-  "OMNIROUTE_HEADLESS",
+  "FLAWRAROUTE_HEADLESS",
   // Platform / OS detection vars read by CLI environment helper (bin/cli/utils/environment.mjs).
-  // These are external signals set by the host OS or cloud provider — not OmniRoute config.
+  // These are external signals set by the host OS or cloud provider — not FlawraRoute config.
   "CODESPACES",
   "GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN",
   "GITPOD_WORKSPACE_ID",
@@ -180,49 +180,49 @@ const IGNORE_FROM_CODE = new Set([
   "QA_ROUTES",
   // Post-publish verifier (scripts/release/verify-published.mjs): env passed INTO the
   // clean Docker container script (Hard Rule #13 env-option pattern) — release tooling
-  // internals, never OmniRoute runtime config.
+  // internals, never FlawraRoute runtime config.
   "VERIFY_DEADLINE_S",
   "VERIFY_PORT",
   "VERIFY_VERSION",
   // Doctor diagnostic flags (no runtime behavior yet — placeholders).
-  "OMNIROUTE_DOCTOR_HOST",
-  "OMNIROUTE_DOCTOR_LIVENESS_URL",
-  "OMNIROUTE_PROVIDER_CATALOG_PATH",
-  "OMNIROUTE_PROVIDER_TEST_MODEL",
-  // Test-only opt-out: instructs bin/omniroute.mjs to skip auto-loading the
+  "FLAWRAROUTE_DOCTOR_HOST",
+  "FLAWRAROUTE_DOCTOR_LIVENESS_URL",
+  "FLAWRAROUTE_PROVIDER_CATALOG_PATH",
+  "FLAWRAROUTE_PROVIDER_TEST_MODEL",
+  // Test-only opt-out: instructs bin/flawraroute.mjs to skip auto-loading the
   // repository .env so isolation tests get a deterministic environment.
-  "OMNIROUTE_CLI_SKIP_REPO_ENV",
+  "FLAWRAROUTE_CLI_SKIP_REPO_ENV",
   // Eval-harness only: operator-supplied provider credentials JSON read by the
   // opt-in `npm run eval:compression` CLI (scripts/compression-eval/index.ts).
-  // A dev/ops measurement tool, never OmniRoute runtime config.
-  "OMNIROUTE_EVAL_CREDENTIALS",
+  // A dev/ops measurement tool, never FlawraRoute runtime config.
+  "FLAWRAROUTE_EVAL_CREDENTIALS",
   // Build-time only: set by `build:release` (git short SHA) and read by
   // write-build-sha.mjs to stamp dist/BUILD_SHA — injected by the build, never
   // configured by users in .env.
-  "OMNIROUTE_BUILD_SHA",
+  "FLAWRAROUTE_BUILD_SHA",
   // Listener-owned self-fetch transport signal. The HTTP/HTTPS launchers set
   // this before application imports; it is not user-configurable product env.
-  "OMNIROUTE_INTERNAL_SCHEME",
+  "FLAWRAROUTE_INTERNAL_SCHEME",
   // Source typo / placeholder.
   "OMNIROUT",
-  // Static config alias path (the canonical var is OMNIROUTE_PAYLOAD_RULES_PATH).
+  // Static config alias path (the canonical var is FLAWRAROUTE_PAYLOAD_RULES_PATH).
   "PAYLOAD_RULES_PATH",
-  // Node.js module resolution path — OS/Node internal, not an OmniRoute config var.
+  // Node.js module resolution path — OS/Node internal, not an FlawraRoute config var.
   // Referenced in resolveSpawnArgs (ninerouter) to pass bundled native modules to subprocess.
   "NODE_PATH",
   // NVIDIA diagnostic/test helpers used only by ad-hoc scripts.
   "NVIDIA_BASE_URL",
   "NVIDIA_MODEL",
   // Discord integration ad-hoc script (scripts/ad-hoc/mesh-send.mjs) —
-  // operator-supplied bot credentials, not user-facing OmniRoute config.
+  // operator-supplied bot credentials, not user-facing FlawraRoute config.
   "BOT_TOKEN",
   "BOT_URL",
-  // XDG standard data directory — set by OS/desktop session, not OmniRoute config.
+  // XDG standard data directory — set by OS/desktop session, not FlawraRoute config.
   // Read by setup-open-code.mjs to locate platform-specific OpenCode data dir.
   "XDG_DATA_HOME",
   // Test-only override: points setup-open-code.mjs at a fixture plugin dir without
   // requiring the real bundled plugin to be built.
-  "OMNIROUTE_OPENCODE_PLUGIN_DIR",
+  "FLAWRAROUTE_OPENCODE_PLUGIN_DIR",
 ]);
 
 // Vars documented in ENVIRONMENT.md but intentionally absent from .env.example.
@@ -256,8 +256,8 @@ const DOC_ONLY_ALLOWLIST = new Set([
   "CHANGEME",
   // Legacy aliases — present in docs as "would be aliases" but read-only
   // through their canonical names today.
-  "OMNIROUTE_CRYPT_KEY",
-  "OMNIROUTE_API_KEY_BASE64",
+  "FLAWRAROUTE_CRYPT_KEY",
+  "FLAWRAROUTE_API_KEY_BASE64",
   // Future-supported hooks: documented but currently hardcoded constants.
   "MAX_RETRY_INTERVAL_SEC",
   "REQUEST_RETRY",
@@ -278,7 +278,7 @@ const ENV_ONLY_ALLOWLIST = new Set([
   "CODEX_REFRESH_SPACING_MS",
   "DEBUG",
   "HEAP_PRESSURE_THRESHOLD_MB",
-  "OMNIROUTE_TRACE",
+  "FLAWRAROUTE_TRACE",
   "PII_TEST_BYPASS_MIN_WINDOW",
   "PII_WINDOW_SIZE",
   "TRAE_STREAM_TIMEOUT_MS",

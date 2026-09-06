@@ -375,7 +375,7 @@ export function buildOpenAIStoreSessionId(sessionId: unknown): string | undefine
     .slice(0, 96);
 
   if (!normalized) return undefined;
-  return `omniroute-session-${normalized}`;
+  return `flawraroute-session-${normalized}`;
 }
 
 export function ensureOpenAIStoreSessionFallback(

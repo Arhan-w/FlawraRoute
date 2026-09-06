@@ -6,22 +6,22 @@
 
 ---
 
-title: "Alat CLI — OmniRoute"
+title: "Alat CLI — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# Alat CLI — OmniRoute
+# Alat CLI — FlawraRoute
 
 Terakhir diperbarui: 2026-08-18
 
-OmniRoute terintegrasi dengan tiga kategori alat CLI yang tersebar di tiga halaman dasbor khusus:
+FlawraRoute terintegrasi dengan tiga kategori alat CLI yang tersebar di tiga halaman dasbor khusus:
 
 | Halaman      | Rute                    | Konsep                                                                              | Jumlah         |
 | ------------ | ----------------------- | ----------------------------------------------------------------------------------- | -------------- |
-| **Kode CLI** | `/dashboard/cli-code`   | Alat pengkodean yang Anda arahkan ke OmniRoute (Klien → CLI → OmniRoute → Penyedia) | 26             |
-| **Agen CLI** | `/dashboard/cli-agents` | Agen otonom yang Anda arahkan ke OmniRoute (alur yang sama, cakupan lebih luas)     | 8              |
-| **Agen ACP** | `/dashboard/acp-agents` | CLI yang diluncurkan OmniRoute sebagai backend melalui stdio/ACP (alur terbalik)    | lihat registri |
+| **Kode CLI** | `/dashboard/cli-code`   | Alat pengkodean yang Anda arahkan ke FlawraRoute (Klien → CLI → FlawraRoute → Penyedia) | 26             |
+| **Agen CLI** | `/dashboard/cli-agents` | Agen otonom yang Anda arahkan ke FlawraRoute (alur yang sama, cakupan lebih luas)     | 8              |
+| **Agen ACP** | `/dashboard/acp-agents` | CLI yang diluncurkan FlawraRoute sebagai backend melalui stdio/ACP (alur terbalik)    | lihat registri |
 
 Rute warisan mengalihkan melalui 308: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ Rute warisan mengalihkan melalui 308: `/dashboard/cli-tools` → `/dashboard/cli
 Kode CLI / Agen CLI (alur konsumsi):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (semua mengarah ke OmniRoute)
+           ▼  (semua mengarah ke FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute mengarahkan ke penyedia yang tepat)
+           ▼  (FlawraRoute mengarahkan ke penyedia yang tepat)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 Agen ACP (alur peluncuran terbalik):
-    Permintaan Klien → OmniRoute → meluncurkan CLI melalui stdio/ACP → respons
+    Permintaan Klien → FlawraRoute → meluncurkan CLI melalui stdio/ACP → respons
 ```
 
 **Manfaat:**
@@ -54,26 +54,26 @@ Agen ACP (alur peluncuran terbalik):
 
 ## Konfigurasi otomatis dengan `setup-*`
 
-Anda tidak perlu menulis konfigurasi setiap alat dengan tangan. OmniRoute menyediakan perintah `setup-*`
-untuk setiap CLI yang didukung yang membaca katalog model **langsung** dari OmniRoute yang berjalan
+Anda tidak perlu menulis konfigurasi setiap alat dengan tangan. FlawraRoute menyediakan perintah `setup-*`
+untuk setiap CLI yang didukung yang membaca katalog model **langsung** dari FlawraRoute yang berjalan
 (lokal atau jarak jauh) dan menulis konfigurasi alat itu sendiri di mesin Anda:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
 Setiap perintah menerima `--remote <url> --api-key <key>` (mengonfigurasi alat lokal terhadap
-OmniRoute jarak jauh), `--dry-run` (prabaca tanpa menulis), dan `--port`. Alat
+FlawraRoute jarak jauh), `--dry-run` (prabaca tanpa menulis), dan `--port`. Alat
 tanpa penemuan model otomatis (Cline, Kilo, Roo, Goose, Aider, Qwen) menggunakan
 `--model <id>` (dan `--yes` untuk eksekusi non-interaktif). Untuk meluncurkan CLI dengan
 lingkungan yang tepat disuntikkan dan tanpa konfigurasi yang ditulis sama sekali, gunakan
-peluncur generik `omniroute run <target>` (claude, codex, aider, goose, opencode, qwen,
+peluncur generik `flawraroute run <target>` (claude, codex, aider, goose, opencode, qwen,
 gemini — target dan alias berasal dari `bin/cli/cli-manifest.mjs`); peluncur per-alat warisan
-`omniroute launch` (Claude Code) dan `omniroute launch-codex`
-(Codex) tetap tersedia. CLI Gemini hanya untuk peluncuran: itu adalah target `omniroute run`
+`flawraroute launch` (Claude Code) dan `flawraroute launch-codex`
+(Codex) tetap tersedia. CLI Gemini hanya untuk peluncuran: itu adalah target `flawraroute run`
 tetapi tidak memiliki resep `setup-*`/`configure`.
 
 > **Referensi lengkap:** tabel utama — apa yang ditulis setiap perintah, setiap flag,
@@ -82,22 +82,22 @@ tetapi tidak memiliki resep `setup-*`/`configure`.
 
 ### Menjalankan ini di dalam kontainer
 
-Perintah `setup-*` yang dieksekusi di dalam kontainer OmniRoute menulis ke
+Perintah `setup-*` yang dieksekusi di dalam kontainer FlawraRoute menulis ke
 rumah kontainer itu sendiri, yang tidak dibaca oleh CLI host dan yang menghilang bersama
-kontainer. OmniRoute mendeteksi itu dan keluar dengan kode `2` dengan instruksi daripada
+kontainer. FlawraRoute mendeteksi itu dan keluar dengan kode `2` dengan instruksi daripada
 menulis. Dua cara yang didukung untuk melanjutkan — instal CLI di host dan
-`omniroute connect` ke kontainer, atau bind-mount direktori konfigurasi dan set
+`flawraroute connect` ke kontainer, atau bind-mount direktori konfigurasi dan set
 `CLI_CONFIG_HOME` (profil `host` compose). Setiap perintah `setup-*`, ditambah
-`omniroute configure` dan `omniroute config set`, menerima
-`--allow-container-write` ketika mengonfigurasi CLI kontainer itu sendiri adalah apa yang sebenarnya Anda maksud; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` melakukan hal yang sama untuk
+`flawraroute configure` dan `flawraroute config set`, menerima
+`--allow-container-write` ketika mengonfigurasi CLI kontainer itu sendiri adalah apa yang sebenarnya Anda maksud; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` melakukan hal yang sama untuk
 server. Lihat
-[Panduan Docker → Mengonfigurasi alat CLI host](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+[Panduan Docker → Mengonfigurasi alat CLI host](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
 **Titik akhir apply** di dasbor (`POST /api/cli-tools/apply`) menerapkan
 pengaman yang sama: di dalam kontainer, penulisan yang targetnya tidak bind-mounted dari
 host menjawab **`422`** dengan `containerEphemeralTarget: true`, teks kesalahan yang aman
 dan — untuk alat dengan resep host (claude, codex, opencode, cline,
-kilo, continue) — sebuah `hostSetupCommand` (misalnya `omniroute setup-opencode`) untuk dijalankan
+kilo, continue) — sebuah `hostSetupCommand` (misalnya `flawraroute setup-opencode`) untuk dijalankan
 di host sebagai gantinya; tidak ada yang ditulis. `dryRun: true` tetap berfungsi dalam
 mode kontainer dan mengembalikan konten yang dihasilkan + jalur target tanpa menyentuh disk, sehingga
 Anda dapat prabaca dari dasbor dan menerapkan di host. Perilaku ini
@@ -132,8 +132,8 @@ Tidak semua alat yang tercatalog dapat terdeteksi, dapat dikonfigurasi, atau dap
 | ---------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | **Cataloged**    | Muncul di katalog dasbor (nama, vendor, dokumen, tipe konfigurasi)      | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                  |
 | **Detectable**   | Deteksi biner/konfigurasi, pemeriksaan kesehatan, jalur konfigurasi     | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` runtime catalog) |
-| **Configurable** | Didukung oleh `omniroute configure <cli>` (resep pengaturan ada)        | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
-| **Launchable**   | Didukung oleh `omniroute run <target>` (injeksi env/args didefinisikan) | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
+| **Configurable** | Didukung oleh `flawraroute configure <cli>` (resep pengaturan ada)        | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
+| **Launchable**   | Didukung oleh `flawraroute run <target>` (injeksi env/args didefinisikan) | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
 
 `bin/cli/cli-manifest.mjs` adalah manifest eksekusi kanonik untuk perintah CLI yang muncul: `run`, `configure` dan generator penyelesaian shell semuanya mengambil daftar target, resolusi alias (misalnya `kilocode`/`kilo-code`/`kilo_cli` → `kilo`) dan pengkabelan flag `--model` darinya. Penjaga drift `tests/unit/cli/cli-manifest-drift.test.ts` memastikan bahwa manifest, katalog runtime, katalog UI, dan setiap permukaan konsumen tetap sinkron — target yang ditambahkan ke satu permukaan tanpa yang lainnya akan gagal dalam suite alih-alih mengalir diam-diam.
 
@@ -191,7 +191,7 @@ Agen otonom yang muncul di `/dashboard/cli-agents`:
 
 ## 3. Agen ACP (/dashboard/acp-agents)
 
-Halaman ini (yang diubah namanya dari `/dashboard/agents`) menunjukkan CLI yang dapat **dibuat** oleh OmniRoute sebagai mesin eksekusi backend melalui protokol stdio/ACP. Katalog ini dikelola secara terpisah di `src/lib/acp/registry.ts` dan **tidak** sama dengan `CLI_TOOLS`.
+Halaman ini (yang diubah namanya dari `/dashboard/agents`) menunjukkan CLI yang dapat **dibuat** oleh FlawraRoute sebagai mesin eksekusi backend melalui protokol stdio/ACP. Katalog ini dikelola secara terpisah di `src/lib/acp/registry.ts` dan **tidak** sama dengan `CLI_TOOLS`.
 
 ---
 
@@ -254,7 +254,7 @@ Alat baru dengan `configType: "custom"` memiliki rute API pengaturan khusus:
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primary + legacy `~/.deepseek` sync) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                            |
 | `POST /api/cli-tools/pi-settings`           | Agen pemrograman Pi                                              |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)            |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)            |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + kunci `.env` khusus)        |
 
 Semua rute menggunakan `sanitizeErrorMessage()` untuk respons kesalahan (Aturan Keras #12).
@@ -314,7 +314,7 @@ Terjemahan lengkap PT-BR dan EN disediakan. 39 lokalitas lainnya secara otomatis
 
 ## 9. Memulai dengan Cepat
 
-### Langkah 1 — Dapatkan Kunci API OmniRoute
+### Langkah 1 — Dapatkan Kunci API FlawraRoute
 
 1. Buka `/dashboard/api-manager` → **Buat Kunci API**
 2. Beri nama (misalnya `cli-tools`) dan pilih semua izin
@@ -347,7 +347,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (dapat diluncurkan melalui `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (dapat diluncurkan melalui `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -378,14 +378,14 @@ cargo install smelt  # Berbasis Rust
 ### Langkah 4 — Atur Variabel Lingkungan Global
 
 ```bash
-# OmniRoute Universal Endpoint
+# FlawraRoute Universal Endpoint
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI membaca GOOGLE_GEMINI_BASE_URL di ROOT (SDK-nya menambahkan /v1beta/... sendiri)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > Untuk **server jarak jauh** ganti `localhost:20128` dengan IP atau domain server,
@@ -403,7 +403,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -417,19 +417,19 @@ Gunakan root gateway Anthropic yang bersatu untuk Claude Code. Jangan tambahkan 
 
 #### OpenAI Codex
 
-Codex modern (v0.137+) hanya membaca `~/.codex/config.toml` — `config.yaml` lama milik CLI npm warisan dan diabaikan tanpa suara. Kunci API tetap di variabel lingkungan `OMNIROUTE_API_KEY` (`env_key`), tidak pernah di dalam file:
+Codex modern (v0.137+) hanya membaca `~/.codex/config.toml` — `config.yaml` lama milik CLI npm warisan dan diabaikan tanpa suara. Kunci API tetap di variabel lingkungan `FLAWRAROUTE_API_KEY` (`env_key`), tidak pernah di dalam file:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Referensi lengkap (profil, `wire_api`, jendela konteks): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -445,12 +445,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -465,7 +465,7 @@ EOF
 
 **Uji:** `opencode`
 
-> Gunakan `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> Gunakan `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > untuk mengirim varian berpikir.
 
 ---
@@ -479,7 +479,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -487,7 +487,7 @@ EOF
 **Mode VS Code:**
 Pengaturan ekstensi Cline → Penyedia API: `OpenAI Compatible` → URL Dasar: `http://localhost:20128/v1`
 
-Atau gunakan dashboard OmniRoute → **CLI Tools → Cline → Terapkan Konfigurasi**.
+Atau gunakan dashboard FlawraRoute → **CLI Tools → Cline → Terapkan Konfigurasi**.
 
 ---
 
@@ -496,7 +496,7 @@ Atau gunakan dashboard OmniRoute → **CLI Tools → Cline → Terapkan Konfigur
 **Mode CLI:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **Pengaturan VS Code:**
@@ -504,11 +504,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Atau gunakan dashboard OmniRoute → **CLI Tools → KiloCode → Terapkan Konfigurasi**.
+Atau gunakan dashboard FlawraRoute → **CLI Tools → KiloCode → Terapkan Konfigurasi**.
 
 ---
 
@@ -518,11 +518,11 @@ Edit `~/.continue/config.yaml`:
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -532,25 +532,25 @@ Restart VS Code setelah mengedit.
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Gunakan ini ketika VS Code Insiders dikonfigurasi untuk model endpoint kustom dan Anda ingin OmniRoute berfungsi tanpa bidang header kustom.
+Gunakan ini ketika VS Code Insiders dikonfigurasi untuk model endpoint kustom dan Anda ingin FlawraRoute berfungsi tanpa bidang header kustom.
 
 **Lokasi yang Disarankan:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Contoh menggunakan alias OmniRoute yang ditokenisasi:**
+**Contoh menggunakan alias FlawraRoute yang ditokenisasi:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -563,7 +563,7 @@ Gunakan ini ketika VS Code Insiders dikonfigurasi untuk model endpoint kustom da
 
 **Catatan:**
 
-- Ganti `sk-your-omniroute-key` dengan kunci API yang dibuat di OmniRoute.
+- Ganti `sk-your-flawraroute-key` dengan kunci API yang dibuat di FlawraRoute.
 - Bidang `url` harus mengarah ke `/api/v1/vscode/{token}/chat/completions`.
 - Bidang `modelsUrl` harus mengarah ke `/api/v1/vscode/{token}/models`.
 - Utamakan alur normal `/v1` + header Bearer ketika klien mendukung header kustom.
@@ -577,40 +577,40 @@ Gunakan ini ketika VS Code Insiders dikonfigurasi untuk model endpoint kustom da
 # Masuk ke akun AWS/Kiro Anda:
 kiro-cli login
 
-# CLI menggunakan otentikasi sendiri — OmniRoute tidak diperlukan sebagai backend untuk Kiro CLI itu sendiri.
-# Gunakan kiro-cli bersamaan dengan OmniRoute untuk alat lainnya.
+# CLI menggunakan otentikasi sendiri — FlawraRoute tidak diperlukan sebagai backend untuk Kiro CLI itu sendiri.
+# Gunakan kiro-cli bersamaan dengan FlawraRoute untuk alat lainnya.
 kiro-cli status
 ```
 
-Untuk aplikasi desktop **Kiro IDE**, gunakan endpoint MITM yang diekspos oleh OmniRoute
+Untuk aplikasi desktop **Kiro IDE**, gunakan endpoint MITM yang diekspos oleh FlawraRoute
 di bawah `/dashboard/cli-tools → Kiro`.
 
 ---
 
-## 10. Internal OmniRoute CLI
+## 10. Internal FlawraRoute CLI
 
-Biner `omniroute` menyediakan perintah untuk siklus hidup server, pengaturan, diagnostik, dan manajemen penyedia. Titik masuk: `bin/omniroute.mjs`.
+Biner `flawraroute` menyediakan perintah untuk siklus hidup server, pengaturan, diagnostik, dan manajemen penyedia. Titik masuk: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Mulai server (port default 20128)
-omniroute setup                        # Wizard pengaturan interaktif
-omniroute doctor                       # Periksa konfigurasi, DB, port, runtime
-omniroute providers list               # Koneksi penyedia yang dikonfigurasi
-omniroute providers test-all           # Uji setiap koneksi aktif
-omniroute reset-password               # Atur ulang kata sandi admin
-omniroute logs                         # Streaming log permintaan
-omniroute health                       # Kesehatan terperinci (pemutus, cache, memori)
-omniroute --version                    # Cetak versi
-omniroute --help                       # Tampilkan semua perintah
+flawraroute                              # Mulai server (port default 20128)
+flawraroute setup                        # Wizard pengaturan interaktif
+flawraroute doctor                       # Periksa konfigurasi, DB, port, runtime
+flawraroute providers list               # Koneksi penyedia yang dikonfigurasi
+flawraroute providers test-all           # Uji setiap koneksi aktif
+flawraroute reset-password               # Atur ulang kata sandi admin
+flawraroute logs                         # Streaming log permintaan
+flawraroute health                       # Kesehatan terperinci (pemutus, cache, memori)
+flawraroute --version                    # Cetak versi
+flawraroute --help                       # Tampilkan semua perintah
 ```
 
 ### Pengaturan & Inisialisasi
 
 ```bash
-omniroute setup                        # Wizard pengaturan interaktif
-omniroute setup --non-interactive      # Mode CI/automasi (membaca variabel env + flag)
-omniroute setup --password '<value>'   # Atur kata sandi admin langsung
-omniroute setup --add-provider \
+flawraroute setup                        # Wizard pengaturan interaktif
+flawraroute setup --non-interactive      # Mode CI/automasi (membaca variabel env + flag)
+flawraroute setup --password '<value>'   # Atur kata sandi admin langsung
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Tambah dan uji penyedia dalam satu langkah
@@ -620,21 +620,21 @@ Variabel lingkungan yang dikenali untuk pengaturan non-interaktif:
 
 | Var                 | Tujuan                                                                 |
 | ------------------- | ---------------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | Kunci API penyedia (terikat ke `--api-key` melalui Commander `.env()`) |
-| `DATA_DIR`          | Ganti direktori data OmniRoute                                         |
+| `FLAWRAROUTE_API_KEY` | Kunci API penyedia (terikat ke `--api-key` melalui Commander `.env()`) |
+| `DATA_DIR`          | Ganti direktori data FlawraRoute                                         |
 
 Semua input non-interaktif lainnya diteruskan sebagai flag, bukan variabel lingkungan:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(lihat opsi `omniroute setup` di atas).
+(lihat opsi `flawraroute setup` di atas).
 
 ### Diagnostik
 
 ```bash
-omniroute doctor                       # Periksa konfigurasi, DB, port, runtime, memori, kelangsungan
-omniroute doctor --json                # JSON yang dapat dibaca mesin
-omniroute doctor --no-liveness         # Lewati probe kesehatan HTTP
-omniroute doctor --host 0.0.0.0        # Ganti host kelangsungan
-omniroute doctor --liveness-url <url>  # Ganti URL endpoint kesehatan penuh
+flawraroute doctor                       # Periksa konfigurasi, DB, port, runtime, memori, kelangsungan
+flawraroute doctor --json                # JSON yang dapat dibaca mesin
+flawraroute doctor --no-liveness         # Lewati probe kesehatan HTTP
+flawraroute doctor --host 0.0.0.0        # Ganti host kelangsungan
+flawraroute doctor --liveness-url <url>  # Ganti URL endpoint kesehatan penuh
 ```
 
 Dokter menjalankan pemeriksaan ini: `Konfigurasi`, `Database`, `Penyimpanan/enkripsi`,
@@ -644,47 +644,47 @@ Dokter menjalankan pemeriksaan ini: `Konfigurasi`, `Database`, `Penyimpanan/enkr
 ### Manajemen Penyedia
 
 ```bash
-omniroute providers available                       # Katalog penyedia OmniRoute
-omniroute providers available --search openai       # Filter katalog berdasarkan id/nama/alias/kategori
-omniroute providers available --category api-key    # Filter berdasarkan kategori (api-key, oauth, gratis, ...)
-omniroute providers available --json                # JSON yang dapat dibaca mesin
+flawraroute providers available                       # Katalog penyedia FlawraRoute
+flawraroute providers available --search openai       # Filter katalog berdasarkan id/nama/alias/kategori
+flawraroute providers available --category api-key    # Filter berdasarkan kategori (api-key, oauth, gratis, ...)
+flawraroute providers available --json                # JSON yang dapat dibaca mesin
 
-omniroute providers list                            # Koneksi penyedia yang dikonfigurasi
-omniroute providers list --json
+flawraroute providers list                            # Koneksi penyedia yang dikonfigurasi
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Uji satu koneksi yang dikonfigurasi
-omniroute providers test-all                        # Uji setiap koneksi aktif
-omniroute providers validate                        # Validasi struktural hanya lokal
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Alur OAuth yang ada
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Uji satu koneksi yang dikonfigurasi
+flawraroute providers test-all                        # Uji setiap koneksi aktif
+flawraroute providers validate                        # Validasi struktural hanya lokal
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Alur OAuth yang ada
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` adalah API-first dan oleh karena itu bekerja terhadap
 konteks lokal atau jarak jauh yang aktif. Input kredensial harus menggunakan
 `--credential-stdin` atau `--credential-env`; `--dry-run --json` hanya melaporkan
-keberadaan/bentuk yang disunting. `providers available` membaca katalog OmniRoute;
+keberadaan/bentuk yang disunting. `providers available` membaca katalog FlawraRoute;
 `providers list/test/test-all/validate` mempertahankan perilaku SQLite lokal mereka dan
 tidak memerlukan server untuk berjalan.
 
 ### Pemulihan & Atur Ulang
 
 ```bash
-omniroute reset-password                # Atur ulang kata sandi admin (juga: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Tampilkan peringatan + dry-run untuk atur ulang kredensial terenkripsi
-omniroute reset-encrypted-columns --force  # Benar-benar menghapus kredensial terenkripsi di SQLite
+flawraroute reset-password                # Atur ulang kata sandi admin (juga: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Tampilkan peringatan + dry-run untuk atur ulang kredensial terenkripsi
+flawraroute reset-encrypted-columns --force  # Benar-benar menghapus kredensial terenkripsi di SQLite
 ```
 
 ### Ekspor Kredensial (⚠ tangani dengan hati-hati)
 
 ```bash
-omniroute auth export                                 # Tampilkan peringatan + gerbang konfirmasi — tidak ada akses DB
-omniroute auth export --force                          # Ekspor SEMUA kredensial DECRYPTED koneksi ke stdout sebagai JSON
-omniroute auth export --force --id <id>                 # Ekspor hanya koneksi yang cocok
-omniroute auth export --force --format env               # Emit OMNIROUTE_<PROVIDER>_<FIELD>=<value> baris
-omniroute auth export --force --out creds.json           # Tulis ke file (dibuat dengan izin 0600)
+flawraroute auth export                                 # Tampilkan peringatan + gerbang konfirmasi — tidak ada akses DB
+flawraroute auth export --force                          # Ekspor SEMUA kredensial DECRYPTED koneksi ke stdout sebagai JSON
+flawraroute auth export --force --id <id>                 # Ekspor hanya koneksi yang cocok
+flawraroute auth export --force --format env               # Emit FLAWRAROUTE_<PROVIDER>_<FIELD>=<value> baris
+flawraroute auth export --force --out creds.json           # Tulis ke file (dibuat dengan izin 0600)
 ```
 
 `auth export` adalah **hanya lokal** (baca SQLite langsung, tidak ada rute HTTP) dan dengan sengaja mencetak/menulis
@@ -696,36 +696,36 @@ diatur. Sebuah field yang gagal untuk didekripsi (kunci kadaluarsa, ciphertext r
 
 ### Subperintah Lainnya
 
-Ini mengasumsikan server OmniRoute yang berjalan, kecuali dinyatakan sebaliknya:
+Ini mengasumsikan server FlawraRoute yang berjalan, kecuali dinyatakan sebaliknya:
 
 ```bash
-omniroute status                       # Status runtime yang komprehensif
-omniroute logs                         # Streaming log permintaan (--json, --search, --follow)
-omniroute config show                  # Tampilkan konfigurasi saat ini
+flawraroute status                       # Status runtime yang komprehensif
+flawraroute logs                         # Streaming log permintaan (--json, --search, --follow)
+flawraroute config show                  # Tampilkan konfigurasi saat ini
 
-omniroute provider list                # Daftar penyedia yang tersedia (alias dari providers list)
-omniroute provider add                 # Daftarkan OmniRoute sebagai penyedia di alat
-omniroute keys add | list | remove     # Kelola kunci API
-omniroute models [provider]            # Daftar model (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Daftar penyedia yang tersedia (alias dari providers list)
+flawraroute provider add                 # Daftarkan FlawraRoute sebagai penyedia di alat
+flawraroute keys add | list | remove     # Kelola kunci API
+flawraroute models [provider]            # Daftar model (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Snapshot konfigurasi + DB
-omniroute restore                      # Pulihkan dari snapshot sebelumnya
+flawraroute backup                       # Snapshot konfigurasi + DB
+flawraroute restore                      # Pulihkan dari snapshot sebelumnya
 
-omniroute health                       # Kesehatan terperinci (pemutus, cache, memori)
-omniroute quota                        # Penggunaan kuota penyedia
-omniroute cache                        # Status cache
-omniroute cache clear                  # Hapus cache semantik + tanda tangan
+flawraroute health                       # Kesehatan terperinci (pemutus, cache, memori)
+flawraroute quota                        # Penggunaan kuota penyedia
+flawraroute cache                        # Status cache
+flawraroute cache clear                  # Hapus cache semantik + tanda tangan
 
-omniroute mcp status | restart         # Status server MCP / restart
-omniroute a2a status | card            # Status server A2A / kartu agen
+flawraroute mcp status | restart         # Status server MCP / restart
+flawraroute a2a status | card            # Status server A2A / kartu agen
 
-omniroute tunnel list | create | stop  # Kelola terowongan (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Periksa / atur variabel env (sementara)
+flawraroute tunnel list | create | stop  # Kelola terowongan (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Periksa / atur variabel env (sementara)
 
-omniroute test                         # Uji konektivitas penyedia
-omniroute update                       # Periksa pembaruan
-omniroute completion                   # Hasilkan penyelesaian shell
+flawraroute test                         # Uji konektivitas penyedia
+flawraroute update                       # Periksa pembaruan
+flawraroute completion                   # Hasilkan penyelesaian shell
 ```
 
 ### Flag Umum
@@ -752,7 +752,7 @@ omniroute completion                   # Hasilkan penyelesaian shell
 | `/v1/audio/speech`         | Teks-ke-suara                    | ElevenLabs, OpenAI TTS               |
 | `/v1/audio/transcriptions` | Suara-ke-teks                    | Deepgram, AssemblyAI                 |
 
-Contoh siap-tempel dengan URL OmniRoute yang ter-tokenisasi:
+Contoh siap-tempel dengan URL FlawraRoute yang ter-tokenisasi:
 
 ```txt
 Token contoh: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -771,7 +771,7 @@ Obrolan Ollama: http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a4-
 
 | Kesalahan                                              | Penyebab                          | Perbaikan                                                  |
 | ------------------------------------------------------ | --------------------------------- | ---------------------------------------------------------- |
-| `Connection refused`                                   | OmniRoute tidak berjalan          | `omniroute serve`                                          |
+| `Connection refused`                                   | FlawraRoute tidak berjalan          | `flawraroute serve`                                          |
 | `401 Unauthorized`                                     | Kunci API salah                   | Periksa di `/dashboard/api-manager`                        |
 | `No combo configured`                                  | Tidak ada kombinasi routing aktif | Siapkan di `/dashboard/combos`                             |
 | CLI menunjukkan "not installed"                        | Biner tidak ada di PATH           | Periksa `which <command>`                                  |

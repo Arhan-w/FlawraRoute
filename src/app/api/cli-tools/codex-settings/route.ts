@@ -30,7 +30,7 @@ const parseToml = (content: string) => {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith("#")) return;
 
-    // Section header like [model_providers.omniroute]
+    // Section header like [model_providers.flawraroute]
     const sectionMatch = trimmed.match(/^\[(.+)\]$/);
     if (sectionMatch) {
       currentSection = sectionMatch[1];
@@ -125,13 +125,13 @@ const readConfig = async () => {
   }
 };
 
-// Check if config has OmniRoute settings
-const hasOmniRouteConfig = (config: string | null) => {
+// Check if config has FlawraRoute settings
+const hasFlawraRouteConfig = (config: string | null) => {
   if (!config) return false;
   return (
     config.includes("openai_base_url") ||
-    config.includes('model_provider = "omniroute"') ||
-    config.includes("[model_providers.omniroute]")
+    config.includes('model_provider = "flawraroute"') ||
+    config.includes("[model_providers.flawraroute]")
   );
 };
 
@@ -169,7 +169,7 @@ export async function GET(request: Request) {
       runtimeMode: runtime.runtimeMode,
       reason: runtime.reason,
       config,
-      hasOmniRoute: hasOmniRouteConfig(config),
+      hasFlawraRoute: hasFlawraRouteConfig(config),
       configPath: getCodexConfigPath(),
     });
   } catch (error) {
@@ -178,7 +178,7 @@ export async function GET(request: Request) {
   }
 }
 
-// POST - Update OmniRoute settings (merge with existing config)
+// POST - Update FlawraRoute settings (merge with existing config)
 export async function POST(request: Request) {
   const authError = await requireCliToolsAuth(request);
   if (authError) return authError;
@@ -256,7 +256,7 @@ export async function POST(request: Request) {
     // Carry the user's intent forward off the deprecated Codex feature flag (#1327).
     migrateCodexFeatureFlags(parsed);
 
-    // Update only OmniRoute related fields (api_key goes to auth.json, not config.toml)
+    // Update only FlawraRoute related fields (api_key goes to auth.json, not config.toml)
     parsed._root.model = model;
 
     if (reasoningEffort && reasoningEffort !== "none") {
@@ -269,10 +269,10 @@ export async function POST(request: Request) {
     const effectiveWireApi = wireApi ?? "responses";
     const normalizedBaseUrl = normalizeCodexBaseUrl(baseUrl, effectiveWireApi);
 
-    // Always create a custom provider to reliably pass wire_api and use OMNIROUTE_API_KEY
-    parsed._root.model_provider = "omniroute";
-    parsed._sections["model_providers.omniroute"] = {
-      name: "OmniRoute",
+    // Always create a custom provider to reliably pass wire_api and use FLAWRAROUTE_API_KEY
+    parsed._root.model_provider = "flawraroute";
+    parsed._sections["model_providers.flawraroute"] = {
+      name: "FlawraRoute",
       base_url: normalizedBaseUrl,
       wire_api: effectiveWireApi,
       env_key: "OPENAI_API_KEY",
@@ -325,7 +325,7 @@ export async function POST(request: Request) {
   }
 }
 
-// DELETE - Remove OmniRoute settings only (keep other settings)
+// DELETE - Remove FlawraRoute settings only (keep other settings)
 export async function DELETE(request: Request) {
   const authError = await requireCliToolsAuth(request);
   if (authError) return authError;
@@ -359,16 +359,16 @@ export async function DELETE(request: Request) {
     // Carry the user's intent forward off the deprecated Codex feature flag (#1327).
     migrateCodexFeatureFlags(parsed);
 
-    // Remove OmniRoute related root fields
+    // Remove FlawraRoute related root fields
     delete parsed._root.openai_base_url;
 
-    if (parsed._root.model_provider === "omniroute") {
+    if (parsed._root.model_provider === "flawraroute") {
       delete parsed._root.model;
       delete parsed._root.model_provider;
     }
 
-    // Remove omniroute provider section
-    delete parsed._sections["model_providers.omniroute"];
+    // Remove flawraroute provider section
+    delete parsed._sections["model_providers.flawraroute"];
 
     // Write updated config
     const configContent = toToml(parsed);
@@ -400,7 +400,7 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "OmniRoute settings removed successfully",
+      message: "FlawraRoute settings removed successfully",
     });
   } catch (error) {
     console.log("Error resetting codex settings:", error);

@@ -169,7 +169,7 @@ function proxyUpgrade(
 }
 
 declare global {
-  var __omnirouteApiBridgeStarted: boolean | undefined;
+  var __flawrarouteApiBridgeStarted: boolean | undefined;
 }
 
 export function initApiBridgeServer(): void {
@@ -178,7 +178,7 @@ export function initApiBridgeServer(): void {
   // becomes an uncaughtException that kills the server. Benign aborts are
   // swallowed; genuine errors still crash loudly (#fix-dev-server-aborted).
   installProcessCrashGuard();
-  if (globalThis.__omnirouteApiBridgeStarted) return;
+  if (globalThis.__flawrarouteApiBridgeStarted) return;
 
   const { apiPort, dashboardPort } = getRuntimePorts();
   if (apiPort === dashboardPort) return;
@@ -240,7 +240,7 @@ export function initApiBridgeServer(): void {
   });
 
   server.listen(apiPort, host, () => {
-    globalThis.__omnirouteApiBridgeStarted = true;
+    globalThis.__flawrarouteApiBridgeStarted = true;
     console.log(`[API Bridge] Listening on ${host}:${apiPort} -> dashboard:${dashboardPort}`);
   });
 }

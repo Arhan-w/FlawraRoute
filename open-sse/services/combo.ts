@@ -734,14 +734,14 @@ export async function resolveTargetTimeoutMsForTarget(
 
 /**
  * #10681 egress: every combo response carries the opaque trace id in an
- * `X-OmniRoute-Combo-Trace` header so a post-incident lookup of the ordered
+ * `X-FlawraRoute-Combo-Trace` header so a post-incident lookup of the ordered
  * per-target decisions is possible; the finalized summary is also emitted as
  * one metadata-only log line for durability across restarts.
  */
 export async function handleComboChat(options: HandleComboChatOptions): Promise<Response> {
   const traceInvocationId = options.invocationId ?? createInvocationId();
   const response = await handleComboChatInner({ ...options, invocationId: traceInvocationId });
-  response.headers.set("X-OmniRoute-Combo-Trace", traceInvocationId);
+  response.headers.set("X-FlawraRoute-Combo-Trace", traceInvocationId);
   const trace = getComboTrace(traceInvocationId);
   options.log.info(
     "COMBO",
@@ -1427,12 +1427,12 @@ async function handleComboChatInner({
           }
         }
 
-        // Quota-aware scheduling (opt-in, OMNIROUTE_QUOTA_AWARE_ROUTING=1):
+        // Quota-aware scheduling (opt-in, FLAWRAROUTE_QUOTA_AWARE_ROUTING=1):
         // when a per-connection token budget is configured (provider_quota_state),
         // skip targets whose remaining budget cannot afford this request —
         // BEFORE dispatching — instead of waiting for a 429. Fails open: when
         // no budget is configured the decision is always affordable.
-        if (process.env.OMNIROUTE_QUOTA_AWARE_ROUTING === "1" && provider && target.connectionId) {
+        if (process.env.FLAWRAROUTE_QUOTA_AWARE_ROUTING === "1" && provider && target.connectionId) {
           const quotaDecision = canAffordRequest(
             target.connectionId,
             modelStr,
@@ -1758,8 +1758,8 @@ async function handleComboChatInner({
           // Success — validate response quality before returning
           if (result.ok) {
             const selectedConnectionId =
-              result.headers?.get("X-OmniRoute-Selected-Connection-Id") ||
-              result.headers?.get("x-omniroute-selected-connection-id") ||
+              result.headers?.get("X-FlawraRoute-Selected-Connection-Id") ||
+              result.headers?.get("x-flawraroute-selected-connection-id") ||
               undefined;
             const effectiveConnectionId = selectedConnectionId || target.connectionId || "";
 
@@ -2256,8 +2256,8 @@ async function handleComboChatInner({
             fallbackResult.retryHintSource
           );
           const selectedConnectionId =
-            result.headers?.get("X-OmniRoute-Selected-Connection-Id") ||
-            result.headers?.get("x-omniroute-selected-connection-id") ||
+            result.headers?.get("X-FlawraRoute-Selected-Connection-Id") ||
+            result.headers?.get("x-flawraroute-selected-connection-id") ||
             undefined;
           const targetWithConnection = selectedConnectionId
             ? { ...target, connectionId: selectedConnectionId }
@@ -3540,7 +3540,7 @@ async function handleRoundRobinCombo({
           // dispatch (opt-in, same env gate as the pre-request check). Best-effort
           // and non-blocking — recording must never break the request path.
           if (
-            process.env.OMNIROUTE_QUOTA_AWARE_ROUTING === "1" &&
+            process.env.FLAWRAROUTE_QUOTA_AWARE_ROUTING === "1" &&
             target.connectionId &&
             attemptBody &&
             typeof attemptBody === "object"
@@ -3581,8 +3581,8 @@ async function handleRoundRobinCombo({
               // so release the sticky pin here rather than on the next turn.
               {
                 const rrSelectedConnectionId =
-                  result.headers?.get("X-OmniRoute-Selected-Connection-Id") ||
-                  result.headers?.get("x-omniroute-selected-connection-id") ||
+                  result.headers?.get("X-FlawraRoute-Selected-Connection-Id") ||
+                  result.headers?.get("x-flawraroute-selected-connection-id") ||
                   undefined;
                 releaseStickyPinOnFailure(
                   _rrSessionSticky.messageHash,
@@ -3625,8 +3625,8 @@ async function handleRoundRobinCombo({
             recordedAttempts++;
 
             const selectedConnectionId =
-              result.headers?.get("X-OmniRoute-Selected-Connection-Id") ||
-              result.headers?.get("x-omniroute-selected-connection-id") ||
+              result.headers?.get("X-FlawraRoute-Selected-Connection-Id") ||
+              result.headers?.get("x-flawraroute-selected-connection-id") ||
               undefined;
             const effectiveConnectionId = selectedConnectionId || target.connectionId || "";
 
@@ -3808,8 +3808,8 @@ async function handleRoundRobinCombo({
           );
           const { cooldownMs } = fallbackResult;
           const selectedConnectionId =
-            result.headers?.get("X-OmniRoute-Selected-Connection-Id") ||
-            result.headers?.get("x-omniroute-selected-connection-id") ||
+            result.headers?.get("X-FlawraRoute-Selected-Connection-Id") ||
+            result.headers?.get("x-flawraroute-selected-connection-id") ||
             undefined;
           const targetWithConnection = selectedConnectionId
             ? { ...target, connectionId: selectedConnectionId }

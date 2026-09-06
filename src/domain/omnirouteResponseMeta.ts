@@ -1,10 +1,10 @@
 import { getProviderAlias } from "@/shared/constants/providers";
-import { OMNIROUTE_RESPONSE_HEADERS } from "@/shared/constants/headers";
+import { FLAWRAROUTE_RESPONSE_HEADERS } from "@/shared/constants/headers";
 import { APP_CONFIG } from "@/shared/constants/appConfig";
 import {
   generationDurationMs,
   tokensPerSecond,
-} from "@omniroute/open-sse/utils/generationThroughput";
+} from "@flawraroute/open-sse/utils/generationThroughput";
 
 type UsageLike = Record<string, unknown> | null | undefined;
 
@@ -55,7 +55,7 @@ function toHeaderValue(value: string): string {
   return encodeURIComponent(toWellFormedUnicode(withoutControls));
 }
 
-export function getOmniRouteTokenCounts(usage: UsageLike): { input: number; output: number } {
+export function getFlawraRouteTokenCounts(usage: UsageLike): { input: number; output: number } {
   if (!usage || typeof usage !== "object") {
     return { input: 0, output: 0 };
   }
@@ -78,24 +78,24 @@ export function getOmniRouteTokenCounts(usage: UsageLike): { input: number; outp
   };
 }
 
-export function formatOmniRouteCost(costUsd: unknown): string {
+export function formatFlawraRouteCost(costUsd: unknown): string {
   const normalized = toFiniteNumber(costUsd);
   return normalized > 0 ? normalized.toFixed(10) : "0.0000000000";
 }
 
 /**
- * Build the `X-OmniRoute-Decision` composite header value: `strategy=<name>;
+ * Build the `X-FlawraRoute-Decision` composite header value: `strategy=<name>;
  * provider=<alias>; latency_ms=<n>`. Returns `null` when both `strategy` and
  * `provider` are absent/blank (mirrors the per-field guard pattern used for the
  * other optional headers). Reuses `getProviderAlias()` for the provider segment
- * (same alias normalization the `X-OmniRoute-Provider` header already applies)
+ * (same alias normalization the `X-FlawraRoute-Provider` header already applies)
  * and `toNonNegativeInteger()` for latency. The whole formatted string is passed
  * through `toHeaderValue()` before returning, so a strategy/provider id
  * containing control chars cannot corrupt the header line (Hard Rule #12 — this
  * header only ever carries a routing strategy name, the already-public provider
  * alias, and a latency integer; never an error message, stack trace, or secret).
  */
-export function buildOmniRouteDecisionHeaderValue({
+export function buildFlawraRouteDecisionHeaderValue({
   strategy = null,
   provider = null,
   latencyMs = 0,
@@ -116,7 +116,7 @@ export function buildOmniRouteDecisionHeaderValue({
   return toHeaderValue(parts.join("; "));
 }
 
-export function buildOmniRouteResponseMetaHeaders({
+export function buildFlawraRouteResponseMetaHeaders({
   cacheHit = false,
   costUsd = 0,
   costSavedUsd = undefined,
@@ -135,7 +135,7 @@ export function buildOmniRouteResponseMetaHeaders({
    * Cost the cache AVOIDED. A semantic-cache HIT serves at ≈0 incremental cost
    * (`costUsd: 0`) but saved the original call's cost — surface it here so billing
    * consumers don't charge for hits while analytics can still see what was saved.
-   * Emitted as `X-OmniRoute-Cost-Saved` only when provided (omitted on normal
+   * Emitted as `X-FlawraRoute-Cost-Saved` only when provided (omitted on normal
    * responses); pass `0` to explicitly mark a free-model HIT that saved nothing.
    */
   costSavedUsd?: unknown;
@@ -146,7 +146,7 @@ export function buildOmniRouteResponseMetaHeaders({
   requestId?: string | null;
   /**
    * Routing decision (combo strategy name, or `"single"` for a non-combo
-   * request) surfaced via `X-OmniRoute-Decision`. See #6022.
+   * request) surfaced via `X-FlawraRoute-Decision`. See #6022.
    */
   strategy?: string | null;
   usage?: UsageLike;
@@ -157,44 +157,44 @@ export function buildOmniRouteResponseMetaHeaders({
    */
   ttftMs?: number | null;
 }): Record<string, string> {
-  const tokens = getOmniRouteTokenCounts(usage);
+  const tokens = getFlawraRouteTokenCounts(usage);
   const headers: Record<string, string> = {
-    [OMNIROUTE_RESPONSE_HEADERS.cacheHit]: toHeaderValue(String(cacheHit)),
-    [OMNIROUTE_RESPONSE_HEADERS.latencyMs]: toHeaderValue(String(toNonNegativeInteger(latencyMs))),
-    [OMNIROUTE_RESPONSE_HEADERS.responseCost]: toHeaderValue(formatOmniRouteCost(costUsd)),
-    [OMNIROUTE_RESPONSE_HEADERS.tokensIn]: toHeaderValue(String(tokens.input)),
-    [OMNIROUTE_RESPONSE_HEADERS.tokensOut]: toHeaderValue(String(tokens.output)),
-    [OMNIROUTE_RESPONSE_HEADERS.version]: toHeaderValue(APP_CONFIG.version),
+    [FLAWRAROUTE_RESPONSE_HEADERS.cacheHit]: toHeaderValue(String(cacheHit)),
+    [FLAWRAROUTE_RESPONSE_HEADERS.latencyMs]: toHeaderValue(String(toNonNegativeInteger(latencyMs))),
+    [FLAWRAROUTE_RESPONSE_HEADERS.responseCost]: toHeaderValue(formatFlawraRouteCost(costUsd)),
+    [FLAWRAROUTE_RESPONSE_HEADERS.tokensIn]: toHeaderValue(String(tokens.input)),
+    [FLAWRAROUTE_RESPONSE_HEADERS.tokensOut]: toHeaderValue(String(tokens.output)),
+    [FLAWRAROUTE_RESPONSE_HEADERS.version]: toHeaderValue(APP_CONFIG.version),
   };
 
   if (typeof model === "string" && model.trim().length > 0) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.model] = toHeaderValue(model);
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.model] = toHeaderValue(model);
   }
 
   if (typeof requestId === "string" && requestId.trim().length > 0) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.requestId] = toHeaderValue(requestId);
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.requestId] = toHeaderValue(requestId);
   }
 
   if (typeof provider === "string" && provider.trim().length > 0) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.provider] = toHeaderValue(getProviderAlias(provider));
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.provider] = toHeaderValue(getProviderAlias(provider));
   }
 
   // Cache-saved cost: emitted only when the caller passes a value (cache HITs), so
   // non-cache responses keep their existing header shape. `0` is a valid saved cost.
   if (costSavedUsd != null) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.costSaved] = toHeaderValue(
-      formatOmniRouteCost(costSavedUsd)
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.costSaved] = toHeaderValue(
+      formatFlawraRouteCost(costSavedUsd)
     );
   }
 
   const attempts = toNonNegativeInteger(fallbackAttempts);
   if (attempts > 0) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.fallbackAttempts] = toHeaderValue(String(attempts));
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.fallbackAttempts] = toHeaderValue(String(attempts));
   }
 
-  const decisionValue = buildOmniRouteDecisionHeaderValue({ strategy, provider, latencyMs });
+  const decisionValue = buildFlawraRouteDecisionHeaderValue({ strategy, provider, latencyMs });
   if (decisionValue !== null) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.decision] = decisionValue;
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.decision] = decisionValue;
   }
 
   let tps = tokensPerSecond(tokens.output, generationDurationMs(toFiniteNumber(latencyMs), ttftMs));
@@ -203,16 +203,16 @@ export function buildOmniRouteResponseMetaHeaders({
     if (fromUsage > 0) tps = fromUsage;
   }
   if (tps != null) {
-    headers[OMNIROUTE_RESPONSE_HEADERS.tokensPerSecond] = toHeaderValue(tps.toFixed(3));
+    headers[FLAWRAROUTE_RESPONSE_HEADERS.tokensPerSecond] = toHeaderValue(tps.toFixed(3));
   }
 
   return headers;
 }
 
-export function buildOmniRouteSseMetadataComment(
-  options: Parameters<typeof buildOmniRouteResponseMetaHeaders>[0]
+export function buildFlawraRouteSseMetadataComment(
+  options: Parameters<typeof buildFlawraRouteResponseMetaHeaders>[0]
 ): string {
-  const headers = buildOmniRouteResponseMetaHeaders(options);
+  const headers = buildFlawraRouteResponseMetaHeaders(options);
   const lines = Object.entries(headers)
     .filter(([, value]) => typeof value === "string" && value.trim().length > 0)
     .map(([name, value]) => `: ${name.toLowerCase()}=${value}`);
@@ -221,15 +221,15 @@ export function buildOmniRouteSseMetadataComment(
 }
 
 /**
- * Single choke-point for attaching the X-OmniRoute-* response meta headers.
+ * Single choke-point for attaching the X-FlawraRoute-* response meta headers.
  * Mutates `headers` in place (accepts a Headers instance OR a plain Record).
  * Use at EVERY non-streaming success return so no route forgets the telemetry.
  */
-export function attachOmniRouteMetaHeaders(
+export function attachFlawraRouteMetaHeaders(
   headers: Headers | Record<string, string>,
-  meta: Parameters<typeof buildOmniRouteResponseMetaHeaders>[0]
+  meta: Parameters<typeof buildFlawraRouteResponseMetaHeaders>[0]
 ): void {
-  const built = buildOmniRouteResponseMetaHeaders(meta);
+  const built = buildFlawraRouteResponseMetaHeaders(meta);
   if (headers instanceof Headers) {
     for (const [name, value] of Object.entries(built)) headers.set(name, value);
   } else {
@@ -238,21 +238,21 @@ export function attachOmniRouteMetaHeaders(
 }
 
 /**
- * Attach the X-OmniRoute-* meta headers onto an already-built Response, ADDING
+ * Attach the X-FlawraRoute-* meta headers onto an already-built Response, ADDING
  * (never replacing) headers so the original Content-Type / body stay intact.
  * Tries to mutate in place; if the Response headers are immutable, clones the
  * Response carrying over body + status + headers (mirrors
  * `chatHelpers.ts::withSessionHeader`). Use for opaque handler-built Responses
  * (audio streams, passthrough proxies) where the body cannot be re-serialized.
  */
-export function attachOmniRouteMetaToResponse(
+export function attachFlawraRouteMetaToResponse(
   response: Response,
-  meta: Parameters<typeof buildOmniRouteResponseMetaHeaders>[0]
+  meta: Parameters<typeof buildFlawraRouteResponseMetaHeaders>[0]
 ): Response {
   if (!response) return response;
 
   try {
-    attachOmniRouteMetaHeaders(response.headers, meta);
+    attachFlawraRouteMetaHeaders(response.headers, meta);
     return response;
   } catch {
     const cloned = new Response(response.body, {
@@ -260,7 +260,7 @@ export function attachOmniRouteMetaToResponse(
       statusText: response.statusText,
       headers: response.headers,
     });
-    attachOmniRouteMetaHeaders(cloned.headers, meta);
+    attachFlawraRouteMetaHeaders(cloned.headers, meta);
     return cloned;
   }
 }

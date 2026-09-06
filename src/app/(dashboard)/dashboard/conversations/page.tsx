@@ -164,7 +164,7 @@ function toTurn(node: ConversationTurn): NormalizedTurn {
 
 /**
  * Renders a conversation's turns top to bottom, oldest first — always a
- * flat, chronological list. Every OmniRoute conversation is a single
+ * flat, chronological list. Every FlawraRoute conversation is a single
  * straight line (an edited/duplicated turn mints its own independent
  * conversation instead of branching this one — see conversationTracker.ts's
  * 2026-08-06 redesign), so there is no fork/indentation logic here at all

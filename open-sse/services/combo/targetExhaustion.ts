@@ -370,7 +370,7 @@ function markAgentrouterConnectionQuotaExhaustion(
 }
 
 /**
- * #1731v2: connection-level errors (408/5xx, excluding the OmniRoute circuit-open signal) suggest
+ * #1731v2: connection-level errors (408/5xx, excluding the FlawraRoute circuit-open signal) suggest
  * the provider connection itself is bad → skip remaining same-connection (or same-provider, when
  * no connectionId) targets this request. Only runs when the provider was NOT already marked fully
  * exhausted above. Split out to keep applyComboTargetExhaustion under the complexity ceiling.

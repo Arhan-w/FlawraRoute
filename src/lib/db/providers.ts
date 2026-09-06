@@ -18,12 +18,12 @@ import { reorderConnections } from "./providers/deletion";
 import {
   removeConnectionHealth,
   removeConnectionIndex,
-} from "@omniroute/open-sse/services/apiKeyRotator.ts";
+} from "@flawraroute/open-sse/services/apiKeyRotator.ts";
 import { invalidateReasoningRoutingRuleCache } from "./reasoningRoutingRules";
 import { normalizeProviderSpecificData } from "@/lib/providers/requestDefaults";
 import { withDerivedCookieExpiry } from "@/shared/utils/webCookieExpiry";
 import { WEB_COOKIE_PROVIDERS } from "@/shared/constants/providers";
-import { ensureCodexFingerprintSeed } from "@omniroute/open-sse/config/codexIdentity.ts";
+import { ensureCodexFingerprintSeed } from "@flawraroute/open-sse/config/codexIdentity.ts";
 import { bumpProxyConfigGeneration, getSettings } from "./settings";
 import {
   getStoredManagementPassword,
@@ -49,7 +49,7 @@ import { isRuntimeRetiredProviderId } from "@/shared/constants/providerRetiremen
  * persist, edit, import) is covered; the seed is never regenerated once valid,
  * so identities stay put across saves. Pre-seed connections rotate from the
  * legacy connection-id derivation exactly once on their next write — the
- * OmniRoute analog of sub2api's migration-225 backfill (v0.1.178, #5696).
+ * FlawraRoute analog of sub2api's migration-225 backfill (v0.1.178, #5696).
  */
 function normalizeConnectionProviderSpecificData(
   provider: string | null,

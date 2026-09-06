@@ -7,8 +7,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import type { RequestPipelinePayloads } from "@omniroute/open-sse/utils/requestLogger.ts";
-import { sanitizeErrorMessage } from "@omniroute/open-sse/utils/errorSanitization.ts";
+import type { RequestPipelinePayloads } from "@flawraroute/open-sse/utils/requestLogger.ts";
+import { sanitizeErrorMessage } from "@flawraroute/open-sse/utils/errorSanitization.ts";
 import { getDbInstance } from "../db/core";
 import { getRequestDetailLogByCallLogId } from "../db/detailedLogs";
 import { shouldPersistToDisk } from "./migrations";
@@ -519,7 +519,7 @@ async function saveCallLogOperation(entry: any): Promise<void> {
       sessionTag: entry.sessionTag || null,
       // OpenAI Responses API response id, when this attempt produced one --
       // indexed so a later request's `previous_response_id` can resolve
-      // this row's artifact for OmniRoute-native continuation. See
+      // this row's artifact for FlawraRoute-native continuation. See
       // src/lib/db/responsesContinuationStore.ts.
       responseId: typeof entry.responseId === "string" ? entry.responseId : null,
       // #12150 P2 surface 2: 1 when this request's persisted client snapshot had

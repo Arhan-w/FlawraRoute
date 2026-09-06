@@ -16,10 +16,10 @@
  * @module domain/quotaCache
  */
 
-import { getUsageForProvider } from "@omniroute/open-sse/services/usage.ts";
+import { getUsageForProvider } from "@flawraroute/open-sse/services/usage.ts";
 import { getCachedProviderConnectionById } from "@/lib/db/readCache";
 import { resolveProxyForConnection } from "@/lib/db/settings";
-import { runWithProxyContext } from "@omniroute/open-sse/utils/proxyFetch.ts";
+import { runWithProxyContext } from "@flawraroute/open-sse/utils/proxyFetch.ts";
 import { safePercentage } from "@/shared/utils/formatting";
 import {
   saveQuotaSnapshot,
@@ -31,14 +31,14 @@ import {
   CODEX_SPARK_QUOTA_SESSION,
   CODEX_SPARK_QUOTA_WEEKLY,
   getCodexQuotaWindowFilterForModel,
-} from "@omniroute/open-sse/config/codexQuotaScopes.ts";
+} from "@flawraroute/open-sse/config/codexQuotaScopes.ts";
 import {
   createCodexAccountPool,
   getCodexChildQuotaHydration,
   resolveCodexAccount,
   type CodexPersistedQuotaState,
-} from "@omniroute/open-sse/services/codexAccount/index.ts";
-import { selectAntigravityQuotaWindowNames } from "@omniroute/open-sse/services/antigravityQuotaFamily.ts";
+} from "@flawraroute/open-sse/services/codexAccount/index.ts";
+import { selectAntigravityQuotaWindowNames } from "@flawraroute/open-sse/services/antigravityQuotaFamily.ts";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -105,19 +105,19 @@ interface QuotaCacheState {
 }
 
 declare global {
-  var __omnirouteQuotaCacheState: QuotaCacheState | undefined;
+  var __flawrarouteQuotaCacheState: QuotaCacheState | undefined;
 }
 
 function getState(): QuotaCacheState {
-  if (!globalThis.__omnirouteQuotaCacheState) {
-    globalThis.__omnirouteQuotaCacheState = {
+  if (!globalThis.__flawrarouteQuotaCacheState) {
+    globalThis.__flawrarouteQuotaCacheState = {
       cache: new Map(),
       refreshingSet: new Set(),
       refreshTimer: null,
       tickRunning: false,
     };
   }
-  return globalThis.__omnirouteQuotaCacheState;
+  return globalThis.__flawrarouteQuotaCacheState;
 }
 
 const MAX_CONCURRENT_REFRESHES = 5;

@@ -11,8 +11,8 @@ Inspect the MCP server status, list registered tools and scopes, run tool invoca
 ## Quick install
 
 ```bash
-npm install -g omniroute   # or: npx omniroute
-omniroute --version
+npm install -g flawraroute   # or: npx flawraroute
+flawraroute --version
 ```
 
 ## Subcommands
@@ -22,7 +22,7 @@ omniroute --version
 **Example:**
 
 ```bash
-omniroute mcp
+flawraroute mcp
 ```
 
 ### `mcp status`
@@ -36,7 +36,7 @@ Show MCP server status
 **Example:**
 
 ```bash
-omniroute mcp status
+flawraroute mcp status
 ```
 
 ### `mcp restart`
@@ -46,7 +46,7 @@ Restart the MCP server
 **Example:**
 
 ```bash
-omniroute mcp restart
+flawraroute mcp restart
 ```
 
 ### `mcp call <tool> [argsJson]`
@@ -61,7 +61,7 @@ omniroute mcp restart
 **Example:**
 
 ```bash
-omniroute mcp call <tool> [argsJson]
+flawraroute mcp call <tool> [argsJson]
 ```
 
 ### `mcp scopes`
@@ -73,5 +73,5 @@ omniroute mcp call <tool> [argsJson]
 **Example:**
 
 ```bash
-omniroute mcp scopes
+flawraroute mcp scopes
 ```

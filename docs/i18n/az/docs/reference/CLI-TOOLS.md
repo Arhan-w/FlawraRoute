@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI Alətləri — OmniRoute"
+title: "CLI Alətləri — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI Alətləri — OmniRoute
+# CLI Alətləri — FlawraRoute
 
 Sonuncu yeniləmə: 2026-08-18
 
-OmniRoute, üç xüsusi idarəetmə səhifəsində yayılmış üç kateqoriyalı CLI alətləri ilə inteqrasiya edir:
+FlawraRoute, üç xüsusi idarəetmə səhifəsində yayılmış üç kateqoriyalı CLI alətləri ilə inteqrasiya edir:
 
 | Səhifə            | Marşrut                 | Konsept                                                                                    | Say              |
 | ----------------- | ----------------------- | ------------------------------------------------------------------------------------------ | ---------------- |
-| **CLI Kodu**      | `/dashboard/cli-code`   | OmniRoute-a yönləndirdiyiniz kodlaşdırma alətləri (Müştəri → CLI → OmniRoute → Təchizatçı) | 26               |
-| **CLI Agentləri** | `/dashboard/cli-agents` | OmniRoute-a yönləndirdiyiniz müstəqil agentlər (eyni axın, daha geniş əhatə)               | 8                |
-| **ACP Agentləri** | `/dashboard/acp-agents` | OmniRoute-un stdio/ACP vasitəsilə arxa planda yaratdığı CLİ-lər (tərs axın)                | qeydiyyata baxın |
+| **CLI Kodu**      | `/dashboard/cli-code`   | FlawraRoute-a yönləndirdiyiniz kodlaşdırma alətləri (Müştəri → CLI → FlawraRoute → Təchizatçı) | 26               |
+| **CLI Agentləri** | `/dashboard/cli-agents` | FlawraRoute-a yönləndirdiyiniz müstəqil agentlər (eyni axın, daha geniş əhatə)               | 8                |
+| **ACP Agentləri** | `/dashboard/acp-agents` | FlawraRoute-un stdio/ACP vasitəsilə arxa planda yaratdığı CLİ-lər (tərs axın)                | qeydiyyata baxın |
 
 Köhnə marşrutlar 308 ilə yönləndirilir: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ Köhnə marşrutlar 308 ilə yönləndirilir: `/dashboard/cli-tools` → `/dashb
 CLI Kodu / CLI Agentləri (istehlak axını):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (hamısı OmniRoute-a yönləndirilir)
+           ▼  (hamısı FlawraRoute-a yönləndirilir)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute düzgün təchizatçıya yönləndirir)
+           ▼  (FlawraRoute düzgün təchizatçıya yönləndirir)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP Agentləri (tərs yaradılma axını):
-    Müştəri tələbi → OmniRoute → stdio/ACP vasitəsilə CLİ yaradır → cavab
+    Müştəri tələbi → FlawraRoute → stdio/ACP vasitəsilə CLİ yaradır → cavab
 ```
 
 **Faydaları:**
@@ -54,25 +54,25 @@ ACP Agentləri (tərs yaradılma axını):
 
 ## `setup-*` ilə Avtomatik Konfiqurasiya
 
-Hər alətin konfiqurasiyasını əl ilə yazmağa ehtiyac yoxdur. OmniRoute, dəstəklənən hər bir CLİ üçün **canlı** model kataloqunu oxuyan və alətin öz konfiqurasiyasını sizin maşınınıza yazan `setup-*` komandasını təqdim edir:
+Hər alətin konfiqurasiyasını əl ilə yazmağa ehtiyac yoxdur. FlawraRoute, dəstəklənən hər bir CLİ üçün **canlı** model kataloqunu oxuyan və alətin öz konfiqurasiyasını sizin maşınınıza yazan `setup-*` komandasını təqdim edir:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
-Hər biri `--remote <url> --api-key <key>` (uzaq OmniRoute-a qarşı yerli aləti konfiqurasiya etmək), `--dry-run` (yazmadan önizləmə) və `--port` qəbul edir. Model avtomatik aşkar edilməyən alətlər (Cline, Kilo, Roo, Goose, Aider, Qwen) `--model <id>` (və interaktiv olmayan işlər üçün `--yes`) qəbul edir. Doğru mühitin daxil edildiyi və heç bir konfiqurasiya yazılmadan CLİ başlatmaq üçün, ümumi `omniroute run <target>` başlatıcısını istifadə edin (claude, codex, aider, goose, opencode, qwen, gemini — hədəflər və təyin etmələr `bin/cli/cli-manifest.mjs`-dən gəlir); köhnə alət başlatmaçıları `omniroute launch` (Claude Kodu) və `omniroute launch-codex` (Codex) hələ də mövcuddur. Gemini CLİ yalnız başlatma üçündür: bu `omniroute run` hədəfidir, lakin `setup-*`/`configure` resepti yoxdur.
+Hər biri `--remote <url> --api-key <key>` (uzaq FlawraRoute-a qarşı yerli aləti konfiqurasiya etmək), `--dry-run` (yazmadan önizləmə) və `--port` qəbul edir. Model avtomatik aşkar edilməyən alətlər (Cline, Kilo, Roo, Goose, Aider, Qwen) `--model <id>` (və interaktiv olmayan işlər üçün `--yes`) qəbul edir. Doğru mühitin daxil edildiyi və heç bir konfiqurasiya yazılmadan CLİ başlatmaq üçün, ümumi `flawraroute run <target>` başlatıcısını istifadə edin (claude, codex, aider, goose, opencode, qwen, gemini — hədəflər və təyin etmələr `bin/cli/cli-manifest.mjs`-dən gəlir); köhnə alət başlatmaçıları `flawraroute launch` (Claude Kodu) və `flawraroute launch-codex` (Codex) hələ də mövcuddur. Gemini CLİ yalnız başlatma üçündür: bu `flawraroute run` hədəfidir, lakin `setup-*`/`configure` resepti yoxdur.
 
 > **Tam istinad:** ustad cədvəl — hər bir komandanın yazdığı, hər bir bayraq, yerli vs uzaq və hansı alətlərin `/v1` əlavəsinə ehtiyacı olduğu — **[CLI İnteqrasiyaları](../guides/CLI-INTEGRATIONS.md)**-da yerləşir.
 
 ### Bir konteyner içində bunları işlətmək
 
-OmniRoute konteyneri içində icra olunan `setup-*` komandası konteynerin öz evinə yazır, bu da heç bir ev sahibi CLİ tərəfindən oxunmur və konteynerlə birlikdə yox olur. OmniRoute bunu aşkar edir və yazmadan əvvəl təlimatlarla `2` ilə çıxır. İki dəstəklənən yol — CLİ-ni ev sahibində quraşdırmaq və konteynerə `omniroute connect` etmək, ya da konfiqurasiya qovluqlarını bağlamaq və `CLI_CONFIG_HOME` təyin etməkdir (compose `host` profili). Hər `setup-*` komandası, eləcə də `omniroute configure` və `omniroute config set`, konteynerin öz CLİ-lərini konfiqurasiya etmək istədiyiniz zaman `--allow-container-write` qəbul edir; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` server üçün eyni şeyi edir. Baxın
-[Docker Bələdçisi → Ev sahibi CLİ alətlərini konfiqurasiya etmək](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+FlawraRoute konteyneri içində icra olunan `setup-*` komandası konteynerin öz evinə yazır, bu da heç bir ev sahibi CLİ tərəfindən oxunmur və konteynerlə birlikdə yox olur. FlawraRoute bunu aşkar edir və yazmadan əvvəl təlimatlarla `2` ilə çıxır. İki dəstəklənən yol — CLİ-ni ev sahibində quraşdırmaq və konteynerə `flawraroute connect` etmək, ya da konfiqurasiya qovluqlarını bağlamaq və `CLI_CONFIG_HOME` təyin etməkdir (compose `host` profili). Hər `setup-*` komandası, eləcə də `flawraroute configure` və `flawraroute config set`, konteynerin öz CLİ-lərini konfiqurasiya etmək istədiyiniz zaman `--allow-container-write` qəbul edir; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` server üçün eyni şeyi edir. Baxın
+[Docker Bələdçisi → Ev sahibi CLİ alətlərini konfiqurasiya etmək](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
-İdarəetmə panelinin **tətbiq son nöqtəsi** (`POST /api/cli-tools/apply`) eyni qorumağı tətbiq edir: konteynerdə, ev sahibi tərəfindən bağlanmamış bir yazı **`422`** ilə `containerEphemeralTarget: true` cavabını verir, təhlükəsiz xəta mətni və — ev sahibi resepti olan alətlər üçün (claude, codex, opencode, cline, kilo, continue) — ev sahibində işlətmək üçün `hostSetupCommand` (məsələn, `omniroute setup-opencode`) təqdim edir; heç nə yazılmır. `dryRun: true` konteyner rejimində işləməyə davam edir və diskə toxunmadan yaradılan məzmunu + hədəf yolunu qaytarır, beləliklə, siz idarəetmə panelindən önizləyə və ev sahibində tətbiq edə bilərsiniz. Bu davranış məqsədli və `tests/unit/api/cli-tools/apply-container-guard.test.ts` ilə geriyə qorunmuşdur — heç vaxt qorumanı aradan qaldıraraq 422-ni "düzəltməyin".
+İdarəetmə panelinin **tətbiq son nöqtəsi** (`POST /api/cli-tools/apply`) eyni qorumağı tətbiq edir: konteynerdə, ev sahibi tərəfindən bağlanmamış bir yazı **`422`** ilə `containerEphemeralTarget: true` cavabını verir, təhlükəsiz xəta mətni və — ev sahibi resepti olan alətlər üçün (claude, codex, opencode, cline, kilo, continue) — ev sahibində işlətmək üçün `hostSetupCommand` (məsələn, `flawraroute setup-opencode`) təqdim edir; heç nə yazılmır. `dryRun: true` konteyner rejimində işləməyə davam edir və diskə toxunmadan yaradılan məzmunu + hədəf yolunu qaytarır, beləliklə, siz idarəetmə panelindən önizləyə və ev sahibində tətbiq edə bilərsiniz. Bu davranış məqsədli və `tests/unit/api/cli-tools/apply-container-guard.test.ts` ilə geriyə qorunmuşdur — heç vaxt qorumanı aradan qaldıraraq 422-ni "düzəltməyin".
 
 ---
 
@@ -102,8 +102,8 @@ bəyannamə mənbəyi var və bir drift testi onları uyğun saxlayır:
 | ----------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | **Kataloqda**                 | Dashboard kataloqunda görünür (ad, vendor, sənədlər, konfiqurasiya tipi)            | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                   |
 | **Aşkar edilə bilən**         | İkili/konfiqurasiya aşkar edilməsi, sağlamlıq yoxlamaları, konfiqurasiya yolları    | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` runtime kataloqu) |
-| **Konfiqurasiya edilə bilən** | `omniroute configure <cli>` tərəfindən dəstəklənir (quraşdırma resepti mövcuddur)   | `bin/cli/cli-manifest.mjs` (`configure: true`)                     |
-| **İşə salına bilən**          | `omniroute run <target>` tərəfindən dəstəklənir (env/args inyeksiya müəyyən edilib) | `bin/cli/cli-manifest.mjs` (`run: true`)                           |
+| **Konfiqurasiya edilə bilən** | `flawraroute configure <cli>` tərəfindən dəstəklənir (quraşdırma resepti mövcuddur)   | `bin/cli/cli-manifest.mjs` (`configure: true`)                     |
+| **İşə salına bilən**          | `flawraroute run <target>` tərəfindən dəstəklənir (env/args inyeksiya müəyyən edilib) | `bin/cli/cli-manifest.mjs` (`run: true`)                           |
 
 `bin/cli/cli-manifest.mjs` CLI əmri üçün kanonik icra manifestidir
 sahələri: `run`, `configure` və shell-completion generator-ları hamısı
@@ -167,7 +167,7 @@ digər sahələr olmadan əlavə edildikdə, sessiya sükutla drift etmək əvə
 
 ## 3. ACP Agentləri (/dashboard/acp-agents)
 
-Bu səhifə (`/dashboard/agents`-dən adlandırılmışdır) OmniRoute-un stdio/ACP protokolu vasitəsilə **yarada biləcəyi** arxa plan icra mühərriklərini göstərir. Kataloq ayrıca `src/lib/acp/registry.ts`-də saxlanılır və `CLI_TOOLS` ilə **eyni deyil**.
+Bu səhifə (`/dashboard/agents`-dən adlandırılmışdır) FlawraRoute-un stdio/ACP protokolu vasitəsilə **yarada biləcəyi** arxa plan icra mühərriklərini göstərir. Kataloq ayrıca `src/lib/acp/registry.ts`-də saxlanılır və `CLI_TOOLS` ilə **eyni deyil**.
 
 ---
 
@@ -230,7 +230,7 @@ interface ToolBatchStatus {
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, əsas + köhnə `~/.deepseek` sinxronizasiya) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                                  |
 | `POST /api/cli-tools/pi-settings`           | Pi kodlaşdırma agenti                                                  |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)                  |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)                  |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + xüsusi `.env` açarı)              |
 
 Bütün marşrutlar xəta cavabları üçün `sanitizeErrorMessage()` istifadə edir (Sərt Qayda #12).
@@ -290,7 +290,7 @@ Tam PT-BR və EN tərcümələri təqdim edilir. 39 digər dil avtomatik olaraq 
 
 ## 9. Tez Başlama
 
-### Addım 1 — OmniRoute API Açarını Alın
+### Addım 1 — FlawraRoute API Açarını Alın
 
 1. `/dashboard/api-manager`-ı açın → **API Açarı Yaradın**
 2. Bir ad verin (məsələn, `cli-tools`) və bütün icazələri seçin
@@ -323,7 +323,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (launchable via `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (launchable via `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -354,14 +354,14 @@ cargo install smelt  # Rust əsaslı
 ### Addım 4 — Qlobal Mühit Dəyişənlərini Təyin Edin
 
 ```bash
-# OmniRoute Universal Endpoint
+# FlawraRoute Universal Endpoint
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI ROOT-da GOOGLE_GEMINI_BASE_URL oxuyur (SDK özü /v1beta/... əlavə edir)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > **Uzaq server** üçün `localhost:20128`-i server IP və ya domen ilə əvəz edin,
@@ -379,7 +379,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -395,20 +395,20 @@ Claude Code üçün birləşdirilmiş Anthropic qapı kökünü istifadə edin. 
 
 Müasir Codex (v0.137+) yalnız `~/.codex/config.toml`-ı oxuyur — köhnə
 `config.yaml` köhnə npm CLI-yə aiddir və səssizcə göz ardı edilir. API
-açarı `OMNIROUTE_API_KEY` mühit dəyişənində (`env_key`) qalır, heç vaxt
+açarı `FLAWRAROUTE_API_KEY` mühit dəyişənində (`env_key`) qalır, heç vaxt
 faylda deyil:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Tam istinad (profil, `wire_api`, kontekst pəncərələri): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -424,12 +424,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -444,7 +444,7 @@ EOF
 
 **Test:** `opencode`
 
-> `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > istifadə edərək düşüncə variantlarını göndərin.
 
 ---
@@ -458,7 +458,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -466,7 +466,7 @@ EOF
 **VS Code rejimi:**
 Cline genişləndirmə parametrləri → API Provider: `OpenAI Compatible` → Base URL: `http://localhost:20128/v1`
 
-Yaxud OmniRoute dashboardunu istifadə edin → **CLI Alətləri → Cline → Konfiqurasiyanı Tətbiq Et**.
+Yaxud FlawraRoute dashboardunu istifadə edin → **CLI Alətləri → Cline → Konfiqurasiyanı Tətbiq Et**.
 
 ---
 
@@ -475,7 +475,7 @@ Yaxud OmniRoute dashboardunu istifadə edin → **CLI Alətləri → Cline → K
 **CLI rejimi:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **VS Code parametrləri:**
@@ -483,11 +483,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Yaxud OmniRoute dashboardunu istifadə edin → **CLI Alətləri → KiloCode → Konfiqurasiyanı Tətbiq Et**.
+Yaxud FlawraRoute dashboardunu istifadə edin → **CLI Alətləri → KiloCode → Konfiqurasiyanı Tətbiq Et**.
 
 ---
 
@@ -497,11 +497,11 @@ Yaxud OmniRoute dashboardunu istifadə edin → **CLI Alətləri → KiloCode �
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -511,25 +511,25 @@ Redaktə etdikdən sonra VS Code-u yenidən başladın.
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Bu, VS Code Insiders xüsusi son nöqtə modelləri üçün konfiqurasiya edildikdə və OmniRoute-un xüsusi başlıq sahəsi olmadan işləməsini istədiyiniz zaman istifadə olunur.
+Bu, VS Code Insiders xüsusi son nöqtə modelləri üçün konfiqurasiya edildikdə və FlawraRoute-un xüsusi başlıq sahəsi olmadan işləməsini istədiyiniz zaman istifadə olunur.
 
 **Tövsiyə olunan yer:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Tokenləşdirilmiş OmniRoute təxmini istifadə edərək nümunə:**
+**Tokenləşdirilmiş FlawraRoute təxmini istifadə edərək nümunə:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -542,7 +542,7 @@ Bu, VS Code Insiders xüsusi son nöqtə modelləri üçün konfiqurasiya edildi
 
 **Qeydlər:**
 
-- `sk-your-omniroute-key`-i OmniRoute-da yaradılmış API açarı ilə əvəz edin.
+- `sk-your-flawraroute-key`-i FlawraRoute-da yaradılmış API açarı ilə əvəz edin.
 - `url` sahəsi `/api/v1/vscode/{token}/chat/completions`-a işarə etməlidir.
 - `modelsUrl` sahəsi `/api/v1/vscode/{token}/models`-a işarə etməlidir.
 - Müştəri xüsusi başlıqları dəstəklədikdə normal `/v1` + Bearer başlıq axınını üstün tutun.
@@ -556,38 +556,38 @@ Bu, VS Code Insiders xüsusi son nöqtə modelləri üçün konfiqurasiya edildi
 # AWS/Kiro hesabınıza daxil olun:
 kiro-cli login
 
-# CLI öz autentifikasiyasını istifadə edir — Kiro CLI üçün OmniRoute arxa planda lazım deyil.
-# Kiro CLI-ni OmniRoute ilə yanaşı digər alətlər üçün istifadə edin.
+# CLI öz autentifikasiyasını istifadə edir — Kiro CLI üçün FlawraRoute arxa planda lazım deyil.
+# Kiro CLI-ni FlawraRoute ilə yanaşı digər alətlər üçün istifadə edin.
 kiro-cli status
 ```
 
-**Kiro IDE** masaüstü tətbiqi üçün OmniRoute tərəfindən təqdim edilən MITM son nöqtəsini istifadə edin
+**Kiro IDE** masaüstü tətbiqi üçün FlawraRoute tərəfindən təqdim edilən MITM son nöqtəsini istifadə edin
 `/dashboard/cli-tools → Kiro` altında.
 
-## 10. Daxili OmniRoute CLI
+## 10. Daxili FlawraRoute CLI
 
-`omniroute` ikili serverin həyat dövrü, qurulması, diaqnostika və təminatçı idarəetməsi üçün əmrlər təqdim edir. Giriş nöqtəsi: `bin/omniroute.mjs`.
+`flawraroute` ikili serverin həyat dövrü, qurulması, diaqnostika və təminatçı idarəetməsi üçün əmrlər təqdim edir. Giriş nöqtəsi: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Serveri başladın (default port 20128)
-omniroute setup                        # İnteraktiv qurma sehrbazı
-omniroute doctor                       # Konfiqurasiya, DB, portlar, iş vaxtını yoxlayın
-omniroute providers list               # Konfiqurasiya edilmiş təminatçı bağlantıları
-omniroute providers test-all           # Hər aktiv bağlantını test edin
-omniroute reset-password               # Admin parolunu sıfırlayın
-omniroute logs                         # İstək loglarını axın edin
-omniroute health                       # Ətraflı sağlamlıq (qırıcılar, keş, yaddaş)
-omniroute --version                    # Versiyanı çap edin
-omniroute --help                       # Bütün əmrləri göstərin
+flawraroute                              # Serveri başladın (default port 20128)
+flawraroute setup                        # İnteraktiv qurma sehrbazı
+flawraroute doctor                       # Konfiqurasiya, DB, portlar, iş vaxtını yoxlayın
+flawraroute providers list               # Konfiqurasiya edilmiş təminatçı bağlantıları
+flawraroute providers test-all           # Hər aktiv bağlantını test edin
+flawraroute reset-password               # Admin parolunu sıfırlayın
+flawraroute logs                         # İstək loglarını axın edin
+flawraroute health                       # Ətraflı sağlamlıq (qırıcılar, keş, yaddaş)
+flawraroute --version                    # Versiyanı çap edin
+flawraroute --help                       # Bütün əmrləri göstərin
 ```
 
 ### Qurma və İnkşaf
 
 ```bash
-omniroute setup                        # İnteraktiv qurma sehrbazı
-omniroute setup --non-interactive      # CI/avtomatlaşdırma rejimi (mühit dəyişənlərini + bayraqları oxuyur)
-omniroute setup --password '<value>'   # Admin parolunu birbaşa təyin edin
-omniroute setup --add-provider \
+flawraroute setup                        # İnteraktiv qurma sehrbazı
+flawraroute setup --non-interactive      # CI/avtomatlaşdırma rejimi (mühit dəyişənlərini + bayraqları oxuyur)
+flawraroute setup --password '<value>'   # Admin parolunu birbaşa təyin edin
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Bir anda təminatçı əlavə edin və test edin
@@ -597,21 +597,21 @@ omniroute setup --add-provider \
 
 | Var                 | Məqsəd                                                                       |
 | ------------------- | ---------------------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | Təminatçı API açarı (Commander `.env()` vasitəsilə `--api-key` ilə bağlanır) |
-| `DATA_DIR`          | OmniRoute məlumat qovluğunu üstələyin                                        |
+| `FLAWRAROUTE_API_KEY` | Təminatçı API açarı (Commander `.env()` vasitəsilə `--api-key` ilə bağlanır) |
+| `DATA_DIR`          | FlawraRoute məlumat qovluğunu üstələyin                                        |
 
 Bütün digər interaktiv olmayan girişlər bayraqlar kimi ötürülür, mühit dəyişənləri kimi deyil:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(baxın `omniroute setup` seçimlərinə yuxarıda).
+(baxın `flawraroute setup` seçimlərinə yuxarıda).
 
 ### Diaqnostika
 
 ```bash
-omniroute doctor                       # Konfiqurasiya, DB, portlar, iş vaxtı, yaddaş, canlılıq yoxlayın
-omniroute doctor --json                # Maşın oxunaqlı JSON
-omniroute doctor --no-liveness         # HTTP sağlamlıq probunu atlayın
-omniroute doctor --host 0.0.0.0        # Canlılıq hostunu üstələyin
-omniroute doctor --liveness-url <url>  # Tam sağlamlıq son nöqtəsi URL üstələyin
+flawraroute doctor                       # Konfiqurasiya, DB, portlar, iş vaxtı, yaddaş, canlılıq yoxlayın
+flawraroute doctor --json                # Maşın oxunaqlı JSON
+flawraroute doctor --no-liveness         # HTTP sağlamlıq probunu atlayın
+flawraroute doctor --host 0.0.0.0        # Canlılıq hostunu üstələyin
+flawraroute doctor --liveness-url <url>  # Tam sağlamlıq son nöqtəsi URL üstələyin
 ```
 
 Doktor bu yoxlamaları aparır: `Konfiqurasiya`, `Veritabanı`, `Saxlama/şifrələmə`,
@@ -621,47 +621,47 @@ Doktor bu yoxlamaları aparır: `Konfiqurasiya`, `Veritabanı`, `Saxlama/şifrə
 ### Təminatçı İdarəetməsi
 
 ```bash
-omniroute providers available                       # OmniRoute təminatçı kataloqu
-omniroute providers available --search openai       # Kataloqu id/ad/şəxsiyyət/kateqoriya ilə süzgəcdən keçirin
-omniroute providers available --category api-key    # Kateqoriya ilə süzgəcdən keçirin (api-key, oauth, pulsuz, ...)
-omniroute providers available --json                # Maşın oxunaqlı JSON
+flawraroute providers available                       # FlawraRoute təminatçı kataloqu
+flawraroute providers available --search openai       # Kataloqu id/ad/şəxsiyyət/kateqoriya ilə süzgəcdən keçirin
+flawraroute providers available --category api-key    # Kateqoriya ilə süzgəcdən keçirin (api-key, oauth, pulsuz, ...)
+flawraroute providers available --json                # Maşın oxunaqlı JSON
 
-omniroute providers list                            # Konfiqurasiya edilmiş təminatçı bağlantıları
-omniroute providers list --json
+flawraroute providers list                            # Konfiqurasiya edilmiş təminatçı bağlantıları
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Bir konfiqurasiya edilmiş bağlantını test edin
-omniroute providers test-all                        # Hər aktiv bağlantını test edin
-omniroute providers validate                        # Yalnız yerli struktural yoxlama
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Mövcud OAuth axını
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Bir konfiqurasiya edilmiş bağlantını test edin
+flawraroute providers test-all                        # Hər aktiv bağlantını test edin
+flawraroute providers validate                        # Yalnız yerli struktural yoxlama
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Mövcud OAuth axını
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` API-ilkdir və buna görə də
 aktiv yerli və ya uzaq kontekstə qarşı işləyir. Şifrə girişləri
 `--credential-stdin` və ya `--credential-env` istifadə etməlidir; `--dry-run --json` yalnız
-redaktə edilmiş mövcudluğu/formasını bildirir. `providers available` OmniRoute kataloqunu oxuyur;
+redaktə edilmiş mövcudluğu/formasını bildirir. `providers available` FlawraRoute kataloqunu oxuyur;
 `providers list/test/test-all/validate` yerli SQLite davranışını saxlayır və
 serverin işləməsini tələb etmir.
 
 ### Bərpa və Sıfırlama
 
 ```bash
-omniroute reset-password                # Admin parolunu sıfırlayın (həmçinin: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Şifrələnmiş şifrə sıfırlaması üçün xəbərdarlıq + dry-run göstərin
-omniroute reset-encrypted-columns --force  # SQLite-də şifrələnmiş şifrələri faktiki olaraq sıfırlayın
+flawraroute reset-password                # Admin parolunu sıfırlayın (həmçinin: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Şifrələnmiş şifrə sıfırlaması üçün xəbərdarlıq + dry-run göstərin
+flawraroute reset-encrypted-columns --force  # SQLite-də şifrələnmiş şifrələri faktiki olaraq sıfırlayın
 ```
 
 ### Şifrə İxracı (⚠ diqqətlə idarə edin)
 
 ```bash
-omniroute auth export                                 # Xəbərdarlıq + təsdiq qapısı göstərin — DB giriş yoxdur
-omniroute auth export --force                          # BÜTÜN bağlantıların ŞİFRƏLƏNMİŞ şifrələrini stdout-a JSON olaraq ixrac edin
-omniroute auth export --force --id <id>                 # Yalnız uyğun bağlantını ixrac edin
-omniroute auth export --force --format env               # OMNIROUTE_<PROVIDER>_<FIELD>=<value> xətləri çıxarın
-omniroute auth export --force --out creds.json           # Fayla yazın (0600 icazələri ilə yaradılır)
+flawraroute auth export                                 # Xəbərdarlıq + təsdiq qapısı göstərin — DB giriş yoxdur
+flawraroute auth export --force                          # BÜTÜN bağlantıların ŞİFRƏLƏNMİŞ şifrələrini stdout-a JSON olaraq ixrac edin
+flawraroute auth export --force --id <id>                 # Yalnız uyğun bağlantını ixrac edin
+flawraroute auth export --force --format env               # FLAWRAROUTE_<PROVIDER>_<FIELD>=<value> xətləri çıxarın
+flawraroute auth export --force --out creds.json           # Fayla yazın (0600 icazələri ilə yaradılır)
 ```
 
 `auth export` **yalnız yerli** (birbaşa SQLite oxuma, HTTP marşrutu yoxdur) və qəsdən çap edir/yazır
@@ -671,36 +671,36 @@ Veritabanından heç nə oxunmur və heç nə şifrəsi açılmır, `--force` ol
 
 ### Digər alt əmrlər
 
-Bunlar işləyən OmniRoute serverini tələb edir, əks halda qeyd edilməmişdir:
+Bunlar işləyən FlawraRoute serverini tələb edir, əks halda qeyd edilməmişdir:
 
 ```bash
-omniroute status                       # Ətraflı iş vaxtı statusu
-omniroute logs                         # İstək loglarını axın edin (--json, --search, --follow)
-omniroute config show                  # Cari konfiqurasiyanı göstərin
+flawraroute status                       # Ətraflı iş vaxtı statusu
+flawraroute logs                         # İstək loglarını axın edin (--json, --search, --follow)
+flawraroute config show                  # Cari konfiqurasiyanı göstərin
 
-omniroute provider list                # Mövcud təminatçıları siyahıya alın (providers list-in təkrarı)
-omniroute provider add                 # OmniRoute-u bir alətdə təminatçı kimi qeyd edin
-omniroute keys add | list | remove     # API açarlarını idarə edin
-omniroute models [provider]            # Modelləri siyahıya alın (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Mövcud təminatçıları siyahıya alın (providers list-in təkrarı)
+flawraroute provider add                 # FlawraRoute-u bir alətdə təminatçı kimi qeyd edin
+flawraroute keys add | list | remove     # API açarlarını idarə edin
+flawraroute models [provider]            # Modelləri siyahıya alın (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Konfiqurasiya + DB snapshot
-omniroute restore                      # Əvvəlki snapshot-dan bərpa edin
+flawraroute backup                       # Konfiqurasiya + DB snapshot
+flawraroute restore                      # Əvvəlki snapshot-dan bərpa edin
 
-omniroute health                       # Ətraflı sağlamlıq (qırıcılar, keş, yaddaş)
-omniroute quota                        # Təminatçı kvota istifadəsi
-omniroute cache                        # Keş statusu
-omniroute cache clear                  # Semantik + imza keşlərini təmizləyin
+flawraroute health                       # Ətraflı sağlamlıq (qırıcılar, keş, yaddaş)
+flawraroute quota                        # Təminatçı kvota istifadəsi
+flawraroute cache                        # Keş statusu
+flawraroute cache clear                  # Semantik + imza keşlərini təmizləyin
 
-omniroute mcp status | restart         # MCP server statusu / yenidən başladın
-omniroute a2a status | card            # A2A server statusu / agent kartı
+flawraroute mcp status | restart         # MCP server statusu / yenidən başladın
+flawraroute a2a status | card            # A2A server statusu / agent kartı
 
-omniroute tunnel list | create | stop  # Tunelləri idarə edin (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Mühit dəyişənlərini yoxlayın / təyin edin (müvəqqəti)
+flawraroute tunnel list | create | stop  # Tunelləri idarə edin (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Mühit dəyişənlərini yoxlayın / təyin edin (müvəqqəti)
 
-omniroute test                         # Təminatçı bağlantısı test
-omniroute update                       # Yeniləmələri yoxlayın
-omniroute completion                   # Shell tamamlanmasını yaradın
+flawraroute test                         # Təminatçı bağlantısı test
+flawraroute update                       # Yeniləmələri yoxlayın
+flawraroute completion                   # Shell tamamlanmasını yaradın
 ```
 
 ### Ümumi bayraqlar
@@ -729,7 +729,7 @@ omniroute completion                   # Shell tamamlanmasını yaradın
 | `/v1/audio/speech`         | Mətn-dan-səs                         | ElevenLabs, OpenAI TTS                |
 | `/v1/audio/transcriptions` | Səs-dan-mətn                         | Deepgram, AssemblyAI                  |
 
-Yerləşdirmək üçün hazır nümunələr tokenləşdirilmiş OmniRoute URL ilə:
+Yerləşdirmək üçün hazır nümunələr tokenləşdirilmiş FlawraRoute URL ilə:
 
 ```txt
 Token nümunəsi: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -748,7 +748,7 @@ Ollama söhbəti: http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a
 
 | Xəta                                                     | Səbəb                            | Həll                                                    |
 | -------------------------------------------------------- | -------------------------------- | ------------------------------------------------------- |
-| `Connection refused`                                     | OmniRoute işləmir                | `omniroute serve`                                       |
+| `Connection refused`                                     | FlawraRoute işləmir                | `flawraroute serve`                                       |
 | `401 Unauthorized`                                       | Yanlış API açarı                 | `/dashboard/api-manager`-də yoxlayın                    |
 | `No combo configured`                                    | Aktiv yönləndirmə kombosu yoxdur | `/dashboard/combos`-da qurun                            |
 | CLI "quraşdırılmayıb" göstərir                           | İcra faylı PATH-da deyil         | `which <command>`-i yoxlayın                            |

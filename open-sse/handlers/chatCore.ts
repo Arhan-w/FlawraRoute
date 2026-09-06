@@ -235,7 +235,7 @@ import {
 import {
   checkTokenLimits,
   recordTokenUsage,
-} from "@omniroute/open-sse/services/tokenLimitCounter.ts";
+} from "@flawraroute/open-sse/services/tokenLimitCounter.ts";
 import {
   COOLDOWN_MS,
   HTTP_STATUS,
@@ -261,7 +261,7 @@ import {
   isEmptyContentResponse,
 } from "../services/errorClassifier.ts";
 import { updateProviderConnection, getProviderConnectionById } from "@/lib/db/providers";
-import { wasRefreshTokenRotated } from "@omniroute/open-sse/services/refreshSerializer.ts";
+import { wasRefreshTokenRotated } from "@flawraroute/open-sse/services/refreshSerializer.ts";
 import { connectionHasExtraKeys } from "../services/apiKeyRotator.ts";
 import { recordKeyHealthStatus as recordKeyHealthStatusFor } from "./chatCore/keyHealth.ts";
 import { getSkillsModelIdForFormat } from "./chatCore/skillsFormat.ts";
@@ -457,7 +457,7 @@ import { writeTerminalStatus } from "@/shared/utils/terminalStatus";
 import { extractFacts } from "@/lib/memory/extraction";
 import { handleToolCallExecution } from "@/lib/skills/interception";
 import { MEMORY_BUILTIN_TOOL_NAMES } from "@/lib/skills/memoryBuiltins";
-import { OMNIROUTE_RESPONSE_HEADERS } from "@/shared/constants/headers";
+import { FLAWRAROUTE_RESPONSE_HEADERS } from "@/shared/constants/headers";
 import { resolveProviderId } from "@/shared/constants/providers";
 import { getClaudeCodeCompatibleRequestDefaults } from "@/lib/providers/requestDefaults";
 import {
@@ -594,7 +594,7 @@ export async function handleChatCore({
       comboName: comboName || undefined,
     });
   });
-  const traceEnabled = process.env.OMNIROUTE_TRACE === "true" || process.env.DEBUG === "true";
+  const traceEnabled = process.env.FLAWRAROUTE_TRACE === "true" || process.env.DEBUG === "true";
   // Stage trace extracted to chatCore/stageTrace.ts (#3501); bind the per-request inputs once so the
   // call sites stay byte-identical.
   const trace = (label: string, extra?: Record<string, unknown>) =>
@@ -972,7 +972,7 @@ export async function handleChatCore({
     }
     log?.info?.(
       "TOOLS",
-      `Converted ${webSearchFallbackPlan.convertedToolCount} web_search tool(s) to OmniRoute fallback for ${provider}`
+      `Converted ${webSearchFallbackPlan.convertedToolCount} web_search tool(s) to FlawraRoute fallback for ${provider}`
     );
   }
   // #7339: interceptFetch (Phase 3-4 of #3384) — same per-model rule + native-bypass
@@ -990,7 +990,7 @@ export async function handleChatCore({
     body = bodyWithWebFetchFallback as typeof body;
     log?.info?.(
       "TOOLS",
-      `Converted ${webFetchFallbackPlan.convertedToolCount} web_fetch tool(s) to OmniRoute fallback for ${provider}`
+      `Converted ${webFetchFallbackPlan.convertedToolCount} web_fetch tool(s) to FlawraRoute fallback for ${provider}`
     );
   }
   const noLogEnabled = apiKeyInfo?.noLog === true;
@@ -1052,10 +1052,10 @@ export async function handleChatCore({
   // header — never synthesized from the internal per-request skillRequestId.
   const explicitSessionIdHeader =
     (clientRawRequest?.headers && typeof clientRawRequest.headers.get === "function"
-      ? clientRawRequest.headers.get("x-omniroute-session-id")
+      ? clientRawRequest.headers.get("x-flawraroute-session-id")
       : getHeaderValueCaseInsensitive(
           clientRawRequest?.headers ?? null,
-          "x-omniroute-session-id"
+          "x-flawraroute-session-id"
         )) || null;
   const pipelineSessionId = explicitSessionIdHeader || skillRequestId;
   const reasoningReplaySessionKey = sessionAffinityKey || explicitSessionIdHeader;
@@ -1091,7 +1091,7 @@ export async function handleChatCore({
       modelPinned,
       // Resolved conversationId (open-sse/services/conversationTracker.ts) wins when
       // present — it's populated for every request now, not just ones where the
-      // client explicitly sent x-omniroute-session-id. The raw header remains a
+      // client explicitly sent x-flawraroute-session-id. The raw header remains a
       // fallback for any caller that somehow bypassed conversationId resolution.
       sessionTag: conversationId || explicitSessionIdHeader,
       // #12150 P1b surface 1: undefined for every non-video request (byte-identical
@@ -1150,7 +1150,7 @@ export async function handleChatCore({
     .join(" ");
 
   // Explicit per-request opt-in/out for the `</think>` close marker
-  // (#5312 / #5245): `x-omniroute-thinking-marker: off` suppresses it for
+  // (#5312 / #5245): `x-flawraroute-thinking-marker: off` suppresses it for
   // reasoning_content-native clients (e.g. Cursor's OpenAI path) that the UA
   // allowlist does not cover; absent the header, the UA policy applies.
   const thinkingMarkerHeader = getHeaderValueCaseInsensitive(
@@ -1161,7 +1161,7 @@ export async function handleChatCore({
   const explicitStreamAlias = resolveExplicitStreamAlias(body);
 
   // Remove non-standard non-stream aliases before provider translation/execution.
-  // They are accepted for compatibility at the OmniRoute API boundary only.
+  // They are accepted for compatibility at the FlawraRoute API boundary only.
   if (body && typeof body === "object") {
     const b = body as Record<string, unknown>;
     if (explicitStreamAlias !== undefined) {
@@ -1226,12 +1226,12 @@ export async function handleChatCore({
   logClientRawRequestRedacted(reqLogger, clientRawRequest, videoBridgeObserved);
   const reasoningRouteDecision =
     body && typeof body === "object"
-      ? (body as Record<string, unknown>)._omnirouteReasoningRouteTrace
+      ? (body as Record<string, unknown>)._flawrarouteReasoningRouteTrace
       : null;
   if (reasoningRouteDecision) {
     reqLogger.logRouteDecision(reasoningRouteDecision);
     body = { ...(body as Record<string, unknown>) };
-    delete (body as Record<string, unknown>)._omnirouteReasoningRouteTrace;
+    delete (body as Record<string, unknown>)._flawrarouteReasoningRouteTrace;
   }
 
   log?.debug?.("FORMAT", `${sourceFormat} → ${targetFormat} | stream=${stream}`);
@@ -1302,7 +1302,7 @@ export async function handleChatCore({
 
   body = sanitizeChatRequestBody(body, sourceFormat, targetFormat);
   // Per-request opt-out: clients that manage their own context send
-  // `x-omniroute-no-memory: true` to skip memory+skills injection (a null owner
+  // `x-flawraroute-no-memory: true` to skip memory+skills injection (a null owner
   // disables both branches in injectMemoryAndSkills). See PRD-2026-06-19-no-memory-header.
   const memoryOwnerId = isNoMemoryRequested(clientRawRequest?.headers ?? null)
     ? null
@@ -1370,7 +1370,7 @@ export async function handleChatCore({
     );
     // A per-key opt-out is a request-scoped hard kill for prompt compression. It
     // deliberately does not disable the independent reactive context-fit safety
-    // passes, matching the existing x-omniroute-compression: off contract.
+    // passes, matching the existing x-flawraroute-compression: off contract.
     const apiKeyCompressionEnabled = apiKeyInfo?.compressionEnabled !== false;
     let promptCompressionEnabled =
       compressionSettingsResult.enabled && !compressionExcluded && apiKeyCompressionEnabled;
@@ -1566,7 +1566,7 @@ export async function handleChatCore({
       // Phase 3: per-request override. Unknown values fall through in the resolver (never error).
       const compressionHeader = resolveCompressionHeader(clientRawRequest?.headers ?? null);
       if (compressionHeader) {
-        log?.debug?.("COMPRESSION", `x-omniroute-compression header: ${compressionHeader}`);
+        log?.debug?.("COMPRESSION", `x-flawraroute-compression header: ${compressionHeader}`);
       }
       const connectionCacheOverride = resolveConnectionCacheOverride(
         credentials?.providerSpecificData
@@ -1793,10 +1793,10 @@ export async function handleChatCore({
           const { applyLiveZoneCompression } = await import("../services/compression/liveZone.ts");
           const explicitSessionId =
             clientRawRequest?.headers && typeof clientRawRequest.headers.get === "function"
-              ? clientRawRequest.headers.get("x-omniroute-session-id")
+              ? clientRawRequest.headers.get("x-flawraroute-session-id")
               : getHeaderValueCaseInsensitive(
                   clientRawRequest?.headers ?? null,
-                  "x-omniroute-session-id"
+                  "x-flawraroute-session-id"
                 );
           const liveZoneSessionId =
             explicitSessionId ||
@@ -2731,7 +2731,7 @@ export async function handleChatCore({
   }
 
   // Xiaomi MiMo controls reasoning ONLY via `thinking:{type:"enabled"|"disabled"}` and
-  // rejects unknown/extra params with a strict "400 Param Incorrect". Map OmniRoute's
+  // rejects unknown/extra params with a strict "400 Param Incorrect". Map FlawraRoute's
   // OpenAI reasoning signals onto that native shape: reduce any thinking object to
   // `{type}` and drop `reasoning_effort`/`reasoning`. See services/mimoThinking.ts.
   if (provider === "xiaomi-mimo") {
@@ -5141,7 +5141,7 @@ export async function handleChatCore({
         }
       }
     } else if (clientResponseFormat === FORMATS.OPENAI) {
-      // Port of decolua/9router#517: opt-in `x-omniroute-strip-reasoning` header
+      // Port of decolua/9router#517: opt-in `x-flawraroute-strip-reasoning` header
       // unconditionally drops `reasoning_content` from the final non-streaming
       // JSON for clients (e.g. Firecrawl AI SDK) whose JSON parsers break on
       // that non-standard field. Reasoning replay cache is captured above this
@@ -5420,7 +5420,7 @@ export async function handleChatCore({
       compressionResponseMeta,
       comboStrategy,
     });
-    // #6426: align response body `model` with the `X-OmniRoute-Model` header
+    // #6426: align response body `model` with the `X-FlawraRoute-Model` header
     // (both must be the resolved backend model). Some upstreams (notably legacy
     // /v1/completions text-completion path) return a body `model` field that
     // differs from the resolved backend id we advertised in the header, leaving
@@ -5914,7 +5914,7 @@ export async function handleChatCore({
       handleStreamFailure,
       copilotCompatibleReasoning,
       // Suppress the `</think>` close marker for clients that render it verbatim
-      // (e.g. OpenCode by UA; any client via `x-omniroute-thinking-marker: off`);
+      // (e.g. OpenCode by UA; any client via `x-flawraroute-thinking-marker: off`);
       // preserved for Claude Code / Cursor and unknown clients by default (#5245 /
       // #5312). Responses API clients always suppress it (structured reasoning
       // items make the marker meaningless); otherwise the header wins over the

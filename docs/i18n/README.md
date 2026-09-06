@@ -1,4 +1,4 @@
-# 🌐 Multilingual Documentation — OmniRoute
+# 🌐 Multilingual Documentation — FlawraRoute
 
 Translations of documentation into 41 languages; together with the English source, the UI supports 42 locales. Code blocks remain in English.
 

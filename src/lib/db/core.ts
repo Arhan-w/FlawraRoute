@@ -87,7 +87,7 @@ type CriticalTableSpec = {
 export const isCloud = typeof globalThis.caches === "object" && globalThis.caches !== null;
 
 // Next.js build workers sometimes drop NEXT_PHASE from their env, so
-// OMNIROUTE_BUILDING=1 (set by build-next-isolated.mjs and inherited by every
+// FLAWRAROUTE_BUILDING=1 (set by build-next-isolated.mjs and inherited by every
 // spawned build worker) is the reliable build signal. During build the native
 // better-sqlite3 addon must never load: its Statement destructor aborts with
 // SIGABRT when the worker thread exits (assertion in
@@ -229,7 +229,7 @@ if (!isCloud && !fs.existsSync(DATA_DIR)) {
     console.warn(
       `[DB] Cannot create data directory '${DATA_DIR}': ${msg}\n` +
         `[DB] Set the DATA_DIR environment variable to a writable path, e.g.:\n` +
-        `[DB]   DATA_DIR=/path/to/writable/dir omniroute`
+        `[DB]   DATA_DIR=/path/to/writable/dir flawraroute`
     );
   }
 }
@@ -518,7 +518,7 @@ declare global {
   // Cycle-breaker counter for the probe-failed/restore cascade. Survives
   // Next.js HMR re-evaluations so concurrent subsystems all see the same
   // count and we abort with a clear error instead of looping forever.
-  var __omnirouteDbProbeRestoreCount: number | undefined;
+  var __flawrarouteDbProbeRestoreCount: number | undefined;
   // Cycle-breaker counter for the OOM-during-probe path (#6835). Unlike the
   // generic corruption path above, an OOM probe failure never renames the
   // file away (intentional — the DB may be perfectly fine, just too large
@@ -526,7 +526,7 @@ declare global {
   // unreachable here. Without an independent cap, every background poller
   // (BATCH, HealthCheck, ProviderLimitsSync, ModelSync) re-throws the same
   // OOM error forever with no terminal diagnostic.
-  var __omnirouteDbOomFailureCount: number | undefined;
+  var __flawrarouteDbOomFailureCount: number | undefined;
 }
 
 function checkpointDb(db: SqliteDatabase, mode: CheckpointMode = "TRUNCATE"): boolean {
@@ -837,7 +837,7 @@ function offloadLegacyCallLogDetails(db: SqliteDatabase) {
 }
 
 function shouldRunStartupDbHealthCheck(): boolean {
-  if (process.env.OMNIROUTE_FORCE_DB_HEALTHCHECK === "1") return true;
+  if (process.env.FLAWRAROUTE_FORCE_DB_HEALTHCHECK === "1") return true;
   return !isAutomatedTestProcess();
 }
 
@@ -921,7 +921,7 @@ function autoMigrateLegacyEncryptedConnections(db: SqliteDatabase): number {
 let dbHealthCheckTimer: NodeJS.Timeout | null = null;
 
 function getDbHealthCheckIntervalMs(): number {
-  const rawValue = process.env.OMNIROUTE_DB_HEALTHCHECK_INTERVAL_MS;
+  const rawValue = process.env.FLAWRAROUTE_DB_HEALTHCHECK_INTERVAL_MS;
   if (typeof rawValue === "string" && rawValue.trim().length > 0) {
     const parsed = Number(rawValue);
     if (Number.isFinite(parsed) && parsed >= 0) {
@@ -950,7 +950,7 @@ function startDbHealthCheckScheduler(db: SqliteDatabase) {
       if (!db.open) return;
       runDbHealthCheck(db, {
         autoRepair: true,
-        skipIntegrityCheck: process.env.OMNIROUTE_SKIP_DB_HEALTHCHECK === "1",
+        skipIntegrityCheck: process.env.FLAWRAROUTE_SKIP_DB_HEALTHCHECK === "1",
         expectedSchemaVersion: "1",
         createBackupBeforeRepair: () => createHealthCheckBackup(db),
       });
@@ -965,7 +965,7 @@ function startDbHealthCheckScheduler(db: SqliteDatabase) {
 let walTruncateTimer: NodeJS.Timeout | null = null;
 
 function getWalTruncateIntervalMs(): number {
-  const rawValue = process.env.OMNIROUTE_WAL_TRUNCATE_INTERVAL_MS;
+  const rawValue = process.env.FLAWRAROUTE_WAL_TRUNCATE_INTERVAL_MS;
   if (typeof rawValue === "string" && rawValue.trim().length > 0) {
     const parsed = Number(rawValue);
     if (Number.isFinite(parsed) && parsed >= 0) {
@@ -1078,8 +1078,8 @@ export function getDbInstance(): SqliteDatabase {
     // globalThis; abort with a clear recovery message after 3 attempts so
     // the user gets a real error instead of a hung "Starting server...".
     if (
-      (globalThis.__omnirouteDbProbeRestoreCount =
-        (globalThis.__omnirouteDbProbeRestoreCount || 0) + 1) > 3
+      (globalThis.__flawrarouteDbProbeRestoreCount =
+        (globalThis.__flawrarouteDbProbeRestoreCount || 0) + 1) > 3
     ) {
       throw new Error(
         `[DB] Aborting startup: probe-failed/restore loop detected after 3 attempts. ` +
@@ -1128,8 +1128,8 @@ export function getDbInstance(): SqliteDatabase {
   if (fs.existsSync(sqliteFile)) {
     try {
       const probe = openSqliteDatabase(sqliteFile, { readonly: true });
-      // #9934: init asymmetry — bin/cli/sqlite.mjs::openOmniRouteDb (used by
-      // `omniroute setup`) creates storage.sqlite with only the partial inline
+      // #9934: init asymmetry — bin/cli/sqlite.mjs::openFlawraRouteDb (used by
+      // `flawraroute setup`) creates storage.sqlite with only the partial inline
       // schema (key_value + provider_connections) and never runs migrations.
       // Purely file-existence-based freshness made that file look like an
       // existing DB, so the first `serve` auto-seeded only the 001 marker and
@@ -1220,8 +1220,8 @@ export function getDbInstance(): SqliteDatabase {
         // as the generic path) so repeated polling doesn't hang forever with
         // no actionable terminal diagnostic.
         if (
-          (globalThis.__omnirouteDbOomFailureCount =
-            (globalThis.__omnirouteDbOomFailureCount || 0) + 1) > 3
+          (globalThis.__flawrarouteDbOomFailureCount =
+            (globalThis.__flawrarouteDbOomFailureCount || 0) + 1) > 3
         ) {
           throw new Error(
             `[DB] Aborting startup: persistent out-of-memory probing ${sqliteFile} after 3 attempts. ` +
@@ -1301,12 +1301,12 @@ export function getDbInstance(): SqliteDatabase {
   // Auto-seed 001 as applied (the inline SCHEMA_SQL already created these tables)
   // then run any new migrations (002+)
   db.exec(`
-    CREATE TABLE IF NOT EXISTS _omniroute_migrations (
+    CREATE TABLE IF NOT EXISTS _flawraroute_migrations (
       version TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       applied_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
-    INSERT OR IGNORE INTO _omniroute_migrations (version, name)
+    INSERT OR IGNORE INTO _flawraroute_migrations (version, name)
     VALUES ('001', 'initial_schema');
   `);
 
@@ -1367,9 +1367,9 @@ export function getDbInstance(): SqliteDatabase {
   );
   versionStmt.run();
   if (shouldRunStartupDbHealthCheck()) {
-    const skipIntegrityCheck = process.env.OMNIROUTE_SKIP_DB_HEALTHCHECK === "1";
+    const skipIntegrityCheck = process.env.FLAWRAROUTE_SKIP_DB_HEALTHCHECK === "1";
     if (skipIntegrityCheck) {
-      console.log("[DB] Health check skipped (OMNIROUTE_SKIP_DB_HEALTHCHECK=1)");
+      console.log("[DB] Health check skipped (FLAWRAROUTE_SKIP_DB_HEALTHCHECK=1)");
     }
     runDbHealthCheck(db, {
       autoRepair: true,
@@ -1482,7 +1482,7 @@ export function getDriverInfo(): DbDriverInfo | null {
  *
  * Call this at process startup (before any call to getDbInstance()) so that
  * if the bundled better-sqlite3 binary is unavailable, the runtime installer
- * can place it in ~/.omniroute/runtime/ without blocking a synchronous caller.
+ * can place it in ~/.flawraroute/runtime/ without blocking a synchronous caller.
  *
  * Idempotent — safe to call multiple times.
  */

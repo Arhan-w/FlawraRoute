@@ -6,7 +6,7 @@ const RESULT_PREFIX = "DASHBOARD_FAILURE_PROBE_RESULT=";
 
 async function main(): Promise<void> {
   assert.ok(process.env.DATA_DIR, "probe requires an isolated DATA_DIR");
-  assert.ok(process.env.OMNIROUTE_PLUGINS_DIR, "probe requires an isolated plugins directory");
+  assert.ok(process.env.FLAWRAROUTE_PLUGINS_DIR, "probe requires an isolated plugins directory");
   assert.ok(process.env.API_KEY_SECRET, "probe requires a synthetic API_KEY_SECRET");
 
   const { persistAttemptLogs } = await import("../../open-sse/handlers/chatCore/attemptLogging.ts");
@@ -16,14 +16,14 @@ async function main(): Promise<void> {
 
   let unsubscribe: (() => void) | undefined;
   try {
-    globalThis.__omnirouteEventBus = undefined;
+    globalThis.__flawrarouteEventBus = undefined;
     const hostileError = new Error(
-      "Provider failed in /srv/omniroute/src/private/provider.ts:42:7 with " +
+      "Provider failed in /srv/flawraroute/src/private/provider.ts:42:7 with " +
         "api_key='sk-live-dashboard-secret'"
     );
     hostileError.stack =
       `${hostileError.name}: ${hostileError.message}\n` +
-      "    at dispatch (/srv/omniroute/src/private/transport.ts:91:3)";
+      "    at dispatch (/srv/flawraroute/src/private/transport.ts:91:3)";
     const rawDiagnostic = hostileError.stack;
     const traceId = "trace-dashboard-redaction";
     const callLogId = "call-log-dashboard-redaction";
@@ -84,7 +84,7 @@ async function main(): Promise<void> {
     assert.equal(delivered.provider, "private-provider");
     assert.ok(delivered.latencyMs >= 0);
     assert.equal(delivered.error, "Error: Provider failed in <path> with api_key='[REDACTED]'");
-    assert.doesNotMatch(delivered.error, /sk-live-dashboard-secret|\/srv\/omniroute|\n/);
+    assert.doesNotMatch(delivered.error, /sk-live-dashboard-secret|\/srv\/flawraroute|\n/);
 
     const replayed = eventBus
       .getEventHistory(undefined, 10)

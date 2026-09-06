@@ -4,7 +4,7 @@
   disabled with an explanatory tooltip whenever the original input can't be recovered from the
   loaded task detail (e.g. it never carried a prompt, or the detail failed to load).
   Two limitations of the A2A variant, by design: it targets the `/a2a` JSON-RPC endpoint, which
-  authenticates with an API key only (`REQUIRE_API_KEY=true` or a configured `OMNIROUTE_API_KEY`
+  authenticates with an API key only (`REQUIRE_API_KEY=true` or a configured `FLAWRAROUTE_API_KEY`
   makes a dashboard-session repeat answer `HTTP 400` — surfaced verbatim in the drawer's error
   line, never as a success), and the `message/send` call is SYNCHRONOUS: the POST blocks for the
   whole skill run, so the success confirmation only appears once the repeated task finishes.
@@ -13,7 +13,7 @@
 - **feat(a2a):** A2A task execution now records which memories were consulted for the task's
   last user message as `metadata.memoryHits` (id/key/type/content-snippet) plus a `memory_hits`
   history event, purely for observability — the retrieved memory is never injected into a
-  skill's prompt or behavior. Gated by the `OMNIROUTE_A2A_MEMORY_HITS` kill-switch (default
+  skill's prompt or behavior. Gated by the `FLAWRAROUTE_A2A_MEMORY_HITS` kill-switch (default
   enabled; set to `0` to skip the recall lookup entirely). The drawer's new "Memory used"
   section lists these hits for a2a tasks and is omitted whenever there are none. Known
   limitation: recall only resolves under the keyless posture — a keyed caller's task owner is a

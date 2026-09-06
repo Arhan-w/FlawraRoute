@@ -120,7 +120,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_OIDC_DISABLE_PASSWORD_LOGIN",
+    key: "FLAWRAROUTE_OIDC_DISABLE_PASSWORD_LOGIN",
     label: "Disable Password Login With OIDC",
     description:
       "When OIDC is enabled, disable password login so users can only authenticate via OIDC Single Sign-On. When disabled (default), both password login and OIDC are available.",
@@ -168,7 +168,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_CONTROL_PLANE_PROXY_DIRECT_FALLBACK",
+    key: "FLAWRAROUTE_CONTROL_PLANE_PROXY_DIRECT_FALLBACK",
     label: "Control-Plane Proxy Direct Fallback",
     description:
       "Allow OAuth and provider validation flows to bypass a pinned proxy and connect directly when proxy reachability pre-checks fail. Off by default because this can change account egress IP.",
@@ -203,7 +203,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "danger",
   },
   {
-    key: "OMNIROUTE_ALLOW_PRIVATE_PROVIDER_URLS",
+    key: "FLAWRAROUTE_ALLOW_PRIVATE_PROVIDER_URLS",
     label: "Allow Private Provider URLs",
     description: "Allow provider URLs pointing to private/internal networks",
     descriptionI18nKey: "featureFlagOmnirouteAllowPrivateProviderUrlsDescription",
@@ -214,10 +214,10 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_ALLOW_LOCAL_PROVIDER_URLS",
+    key: "FLAWRAROUTE_ALLOW_LOCAL_PROVIDER_URLS",
     label: "Allow Local Provider URLs",
     description:
-      "Allow adding and validating providers on local/private addresses (127.0.0.1, localhost, LAN, private IP ranges) — needed for local OpenAI-compatible models. Enabled by default (OmniRoute is local-first); turn it OFF to enforce strict public-only blocking if you only use public providers. Cloud-metadata endpoints (e.g. 169.254.169.254) stay blocked either way.",
+      "Allow adding and validating providers on local/private addresses (127.0.0.1, localhost, LAN, private IP ranges) — needed for local OpenAI-compatible models. Enabled by default (FlawraRoute is local-first); turn it OFF to enforce strict public-only blocking if you only use public providers. Cloud-metadata endpoints (e.g. 169.254.169.254) stay blocked either way.",
     descriptionI18nKey: "featureFlagOmnirouteAllowLocalProviderUrlsDescription",
     category: "network",
     defaultValue: "true",
@@ -265,7 +265,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     key: "DISABLE_CONTEXT_WINDOW_CHECKS",
     label: "Disable Context Window Checks",
     description:
-      "Skip OmniRoute's local context-window and max-input-token check for direct single-model requests. Upstream providers remain responsible for enforcing their actual limits. Off by default.",
+      "Skip FlawraRoute's local context-window and max-input-token check for direct single-model requests. Upstream providers remain responsible for enforcing their actual limits. Off by default.",
     descriptionI18nKey: "featureFlagDisableContextWindowChecksDescription",
     category: "policies",
     defaultValue: "false",
@@ -289,7 +289,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     key: "RADAR_ENABLED",
     label: "Radar",
     description:
-      "Enable the OmniRoute Radar module (catalog feed screens and sync). Off by default; enabling only unlocks the UI — data sync remains a separate opt-in.",
+      "Enable the FlawraRoute Radar module (catalog feed screens and sync). Off by default; enabling only unlocks the UI — data sync remains a separate opt-in.",
     descriptionI18nKey: "featureFlagRadarEnabledDescription",
     category: "policies",
     defaultValue: "false",
@@ -324,7 +324,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_MCP_ENFORCE_SCOPES",
+    key: "FLAWRAROUTE_MCP_ENFORCE_SCOPES",
     label: "MCP Enforce Scopes",
     description: "Enforce scope restrictions on MCP tool access",
     descriptionI18nKey: "featureFlagOmnirouteMcpEnforceScopesDescription",
@@ -335,7 +335,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_MCP_COMPRESS_DESCRIPTIONS",
+    key: "FLAWRAROUTE_MCP_COMPRESS_DESCRIPTIONS",
     label: "MCP Compress Descriptions",
     description: "Compress MCP tool descriptions to reduce token usage",
     descriptionI18nKey: "featureFlagOmnirouteMcpCompressDescriptionsDescription",
@@ -346,7 +346,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_ENABLE_RUNTIME_BACKGROUND_TASKS",
+    key: "FLAWRAROUTE_ENABLE_RUNTIME_BACKGROUND_TASKS",
     label: "Runtime Background Tasks",
     description: "Enable background task processing at runtime",
     descriptionI18nKey: "featureFlagOmnirouteEnableRuntimeBackgroundTasksDescription",
@@ -357,7 +357,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_DISABLE_BACKGROUND_SERVICES",
+    key: "FLAWRAROUTE_DISABLE_BACKGROUND_SERVICES",
     label: "Disable Background Services",
     description: "Disable all background services (quota refresh, sync, etc)",
     descriptionI18nKey: "featureFlagOmnirouteDisableBackgroundServicesDescription",
@@ -368,7 +368,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_RTK_TRUST_PROJECT_FILTERS",
+    key: "FLAWRAROUTE_RTK_TRUST_PROJECT_FILTERS",
     label: "RTK Trust Project Filters",
     description: "Trust project-level filters from RTK without validation",
     descriptionI18nKey: "featureFlagOmnirouteRtkTrustProjectFiltersDescription",
@@ -379,7 +379,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_ENABLE_LIVE_WS",
+    key: "FLAWRAROUTE_ENABLE_LIVE_WS",
     label: "Live Dashboard WebSocket",
     description:
       "Start the real-time dashboard WebSocket server on import (port 20132, loopback-bound by default). Default: enabled. Set to '0' or 'false' to disable. LAN exposure requires LIVE_WS_HOST=0.0.0.0 + LIVE_WS_ALLOWED_ORIGINS.",
@@ -391,7 +391,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_CODEX_WS_ENABLED",
+    key: "FLAWRAROUTE_CODEX_WS_ENABLED",
     label: "Codex Responses WebSocket",
     description:
       "Allow Codex to use the Responses-over-WebSocket transport (the codex CLI WS endpoint and codexTransport=websocket). When off, Codex falls back to HTTP Responses.",
@@ -403,7 +403,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_CODEX_APP_SERVER_ENABLED",
+    key: "FLAWRAROUTE_CODEX_APP_SERVER_ENABLED",
     label: "Codex App-Server Transport",
     description:
       "Allow Codex to use the local app-server WebSocket JSON-RPC transport (codexTransport=app-server). When off, connections opted into app-server fall back to Codex's other transports.",
@@ -415,7 +415,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_EMERGENCY_FALLBACK",
+    key: "FLAWRAROUTE_EMERGENCY_FALLBACK",
     label: "Emergency Fallback",
     description: "Route budget-exhausted requests to the emergency free fallback provider/model.",
     descriptionI18nKey: "featureFlagOmnirouteEmergencyFallbackDescription",
@@ -510,7 +510,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_DISABLE_THINKING_LEVEL_VARIANTS",
+    key: "FLAWRAROUTE_DISABLE_THINKING_LEVEL_VARIANTS",
     label: "Disable Thinking Level Variants",
     description:
       "Disable the generation of thinking level variants (e.g. -low, -medium, -high) in the /v1/models catalog.",
@@ -522,10 +522,10 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_CHAT_VIRTUAL_LANES",
+    key: "FLAWRAROUTE_CHAT_VIRTUAL_LANES",
     label: "Adaptive Virtual Admission Lanes",
     description:
-      "Enable per-tenant adaptive virtual admission lanes for provider dispatch (#9654): one tenant's burst no longer 503s another. The OMNIROUTE_CHAT_VIRTUAL_LANES env var wins over this dashboard override; changes take effect at server restart.",
+      "Enable per-tenant adaptive virtual admission lanes for provider dispatch (#9654): one tenant's burst no longer 503s another. The FLAWRAROUTE_CHAT_VIRTUAL_LANES env var wins over this dashboard override; changes take effect at server restart.",
     descriptionI18nKey: "featureFlagChatVirtualLanesEnabledDescription",
     category: "runtime",
     defaultValue: "false",
@@ -595,7 +595,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_AUTO_SYNC_CODEX_PROFILES",
+    key: "FLAWRAROUTE_AUTO_SYNC_CODEX_PROFILES",
     label: "Auto-Sync Codex Profiles",
     description:
       "After a provider model sync, automatically (re)write ~/.codex/*.config.toml profile files from the live catalog. Never changes the active/default Codex config. Off by default.",
@@ -607,7 +607,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "caution",
   },
   {
-    key: "OMNIROUTE_AUTO_SYNC_CLAUDE_PROFILES",
+    key: "FLAWRAROUTE_AUTO_SYNC_CLAUDE_PROFILES",
     label: "Auto-Sync Claude Code Profiles",
     description:
       "After a provider model sync, automatically (re)write ~/.claude/profiles/<name>/settings.json Claude Code profiles from the live catalog. Never changes the active/default Claude config. Off by default.",
@@ -621,7 +621,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
 
   // ──────────────── Health (3) ────────────────
   {
-    key: "OMNIROUTE_DISABLE_LOCAL_HEALTHCHECK",
+    key: "FLAWRAROUTE_DISABLE_LOCAL_HEALTHCHECK",
     label: "Disable Local Health Check",
     description: "Disable the local instance health check endpoint",
     descriptionI18nKey: "featureFlagOmnirouteDisableLocalHealthcheckDescription",
@@ -632,7 +632,7 @@ export const FEATURE_FLAG_DEFINITIONS: FeatureFlagDefinition[] = [
     warningLevel: "info",
   },
   {
-    key: "OMNIROUTE_DISABLE_TOKEN_HEALTHCHECK",
+    key: "FLAWRAROUTE_DISABLE_TOKEN_HEALTHCHECK",
     label: "Disable Token Health Check",
     description: "Disable the token validation health check",
     descriptionI18nKey: "featureFlagOmnirouteDisableTokenHealthcheckDescription",

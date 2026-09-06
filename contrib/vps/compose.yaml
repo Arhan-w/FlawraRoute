@@ -1,4 +1,4 @@
-name: omniroute-vps
+name: flawraroute-vps
 
 services:
   redis:
@@ -18,8 +18,8 @@ services:
         max-size: "10m"
         max-file: "3"
 
-  omniroute:
-    image: ${OMNIROUTE_IMAGE:?Set OMNIROUTE_IMAGE to a versioned tag or digest}
+  flawraroute:
+    image: ${FLAWRAROUTE_IMAGE:?Set FLAWRAROUTE_IMAGE to a versioned tag or digest}
     restart: unless-stopped
     stop_grace_period: 40s
     depends_on:
@@ -38,20 +38,20 @@ services:
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
       API_KEY_SECRET: ${API_KEY_SECRET:?Set API_KEY_SECRET in .env}
       INITIAL_PASSWORD: ${INITIAL_PASSWORD:?Set INITIAL_PASSWORD in .env}
-      OMNIROUTE_WS_BRIDGE_SECRET: ${OMNIROUTE_WS_BRIDGE_SECRET:?Set OMNIROUTE_WS_BRIDGE_SECRET in .env}
+      FLAWRAROUTE_WS_BRIDGE_SECRET: ${FLAWRAROUTE_WS_BRIDGE_SECRET:?Set FLAWRAROUTE_WS_BRIDGE_SECRET in .env}
     ports:
-      - "${OMNIROUTE_BIND_HOST:-127.0.0.1}:${OMNIROUTE_PORT:-20128}:20128"
+      - "${FLAWRAROUTE_BIND_HOST:-127.0.0.1}:${FLAWRAROUTE_PORT:-20128}:20128"
     volumes:
-      - omniroute-data:/app/data
+      - flawraroute-data:/app/data
     tmpfs:
       - /tmp:size=256m,mode=1777
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
-    pids_limit: ${OMNIROUTE_PIDS_LIMIT:-256}
-    mem_limit: ${OMNIROUTE_MEMORY_LIMIT:-1536m}
-    cpus: ${OMNIROUTE_CPUS:-1.0}
+    pids_limit: ${FLAWRAROUTE_PIDS_LIMIT:-256}
+    mem_limit: ${FLAWRAROUTE_MEMORY_LIMIT:-1536m}
+    cpus: ${FLAWRAROUTE_CPUS:-1.0}
     healthcheck:
       test: ["CMD", "node", "healthcheck.mjs"]
       interval: 30s
@@ -65,5 +65,5 @@ services:
         max-file: "3"
 
 volumes:
-  omniroute-data:
+  flawraroute-data:
   redis-data:

@@ -44,9 +44,9 @@ function getCurrentVersion(): string {
 
 /**
  * Shared restart step for both npm-mode update flows (source-checkout and global-install
- * below). #11885: this used to hardcode `pm2 restart omniroute` in each branch separately
+ * below). #11885: this used to hardcode `pm2 restart flawraroute` in each branch separately
  * and silently report "skipped" — reading like a completed update — whenever pm2 wasn't
- * the process manager. `restartRunningServer()` tries OmniRoute's own PID-file-managed
+ * the process manager. `restartRunningServer()` tries FlawraRoute's own PID-file-managed
  * supervisor first, then pm2, and this wrapper turns its honest "restart-required" outcome
  * into an SSE step the dashboard renders as a warning instead of a false "done".
  */
@@ -321,13 +321,13 @@ export async function POST(req: NextRequest) {
           controller.close();
           return;
         }
-        send({ step: "install", status: "running", message: `Installing omniroute@${latest}...` });
+        send({ step: "install", status: "running", message: `Installing flawraroute@${latest}...` });
           await execFileAsync(
             "npm",
-            ["install", "-g", `omniroute@${latest}`, "--ignore-scripts", "--legacy-peer-deps"],
+            ["install", "-g", `flawraroute@${latest}`, "--ignore-scripts", "--legacy-peer-deps"],
             buildNpmExecOptions(process.platform, { cwd: PROJECT_ROOT, timeoutMs: 300_000 })
           );
-        send({ step: "install", status: "done", message: `Installed omniroute@${latest}` });
+        send({ step: "install", status: "done", message: `Installed flawraroute@${latest}` });
 
         // Step 2: Rebuild native modules (critical for better-sqlite3)
         send({

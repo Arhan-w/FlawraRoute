@@ -1,6 +1,6 @@
-# OmniRoute Quota Telemetry
+# FlawraRoute Quota Telemetry
 
-OmniRoute separates provider quota telemetry from Ghostlight accounting.
+FlawraRoute separates provider quota telemetry from Ghostlight accounting.
 
 ## Truthful states
 

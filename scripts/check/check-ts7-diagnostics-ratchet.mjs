@@ -157,11 +157,11 @@ function linkDependencies(baseRoot) {
 
   fs.mkdirSync(target);
   for (const entry of fs.readdirSync(source)) {
-    if (entry === "@omniroute") continue;
+    if (entry === "@flawraroute") continue;
     fs.symlinkSync(path.join(source, entry), path.join(target, entry), "junction");
   }
 
-  const scope = path.join(target, "@omniroute");
+  const scope = path.join(target, "@flawraroute");
   fs.mkdirSync(scope);
   fs.symlinkSync(path.join(baseRoot, "open-sse"), path.join(scope, "open-sse"), "junction");
   fs.symlinkSync(
@@ -245,7 +245,7 @@ function main() {
   }
 
   const baseCommit = resolveCommit(baseRef);
-  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-ts7-ratchet-"));
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "flawraroute-ts7-ratchet-"));
   const baseRoot = path.join(temporaryRoot, "base");
   let worktreeAdded = false;
 

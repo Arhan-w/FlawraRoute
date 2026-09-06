@@ -12,21 +12,21 @@
  * ADD-only meta headers are attached, matching the direct route.
  */
 import { getComboByName, getCombos } from "@/lib/db/combos";
-import { resolveComboTargets } from "@omniroute/open-sse/services/combo.ts";
-import { parseSpeechModel, getSpeechProvider } from "@omniroute/open-sse/config/audioRegistry.ts";
+import { resolveComboTargets } from "@flawraroute/open-sse/services/combo.ts";
+import { parseSpeechModel, getSpeechProvider } from "@flawraroute/open-sse/config/audioRegistry.ts";
 import { resolveDynamicAudioProviders } from "@/app/api/v1/_shared/audioProviderNodes";
 import {
   getProviderCredentialsWithQuotaPreflight,
   clearRecoveredProviderState,
 } from "@/sse/services/auth";
 import { isAllRateLimitedCredentials } from "@/app/api/v1/_shared/rateLimit";
-import { handleAudioSpeech } from "@omniroute/open-sse/handlers/audioSpeech.ts";
-import { attachOmniRouteMetaToResponse } from "@/domain/omnirouteResponseMeta";
+import { handleAudioSpeech } from "@flawraroute/open-sse/handlers/audioSpeech.ts";
+import { attachFlawraRouteMetaToResponse } from "@/domain/flawrarouteResponseMeta";
 import { generateRequestId } from "@/shared/utils/requestId";
 import { calculateModalCost } from "@/lib/usage/costCalculator";
 import { toJsonErrorPayload } from "@/shared/utils/upstreamError";
-import { HTTP_STATUS } from "@omniroute/open-sse/config/constants.ts";
-import { errorResponse } from "@omniroute/open-sse/utils/error.ts";
+import { HTTP_STATUS } from "@flawraroute/open-sse/config/constants.ts";
+import { errorResponse } from "@flawraroute/open-sse/utils/error.ts";
 
 /**
  * Execute a full combo strategy for a text-to-speech request.
@@ -134,7 +134,7 @@ export async function executeSpeechCombo(
         resolvedModel || target.modelStr,
         { characters }
       );
-      return attachOmniRouteMetaToResponse(response, {
+      return attachFlawraRouteMetaToResponse(response, {
         provider: targetProvider,
         model: resolvedModel || target.modelStr,
         costUsd,

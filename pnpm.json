@@ -7,7 +7,7 @@
     "esbuild",
     "keytar",
     "libxmljs2",
-    "omniroute",
+    "flawraroute",
     "onnxruntime-node",
     "protobufjs",
     "sharp",

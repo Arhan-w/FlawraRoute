@@ -93,7 +93,7 @@ function maskSensitiveHeaders(headers: HeaderInput): Record<string, unknown> {
     "storage-state",
     "storagestate",
     "capability",
-    "x-omniroute-lease-owner",
+    "x-flawraroute-lease-owner",
   ];
 
   for (const key of Object.keys(masked)) {
@@ -102,7 +102,7 @@ function maskSensitiveHeaders(headers: HeaderInput): Record<string, unknown> {
     if (lowerKey.startsWith("x-ratelimit-")) {
       continue;
     }
-    if (lowerKey === "x-omniroute-lease-owner") {
+    if (lowerKey === "x-flawraroute-lease-owner") {
       masked[key] = "[REDACTED]";
       continue;
     }
@@ -129,8 +129,8 @@ function createEmptyStreamChunks() {
   };
 }
 
-const TRUNCATED_ARRAY_MARKER = "_omniroute_truncated_array";
-const TRUNCATED_KEYS_MARKER = "_omniroute_truncated_keys";
+const TRUNCATED_ARRAY_MARKER = "_flawraroute_truncated_array";
+const TRUNCATED_KEYS_MARKER = "_flawraroute_truncated_keys";
 
 function isTruncatedArrayMarker(value: unknown): boolean {
   return (
@@ -404,7 +404,7 @@ export async function createRequestLogger(
         headers: maskSensitiveHeaders(headers),
         body: cloneBoundedForLog(body),
         // The actual `input` this request dispatched with, captured AFTER
-        // OmniRoute's own previous_response_id reconstruction (see
+        // FlawraRoute's own previous_response_id reconstruction (see
         // src/sse/handlers/chat.ts) -- `body` above is deliberately the
         // pre-reconstruction raw client bytes (captureDeferredClientRawBody's
         // whole point) and is NOT what got sent for a continued turn.

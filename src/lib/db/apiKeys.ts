@@ -16,7 +16,7 @@ import {
   parseApiKeyUsageLimitFields,
 } from "./apiKeyUsageLimitFields";
 import { setNoLog } from "../compliance/noLog";
-import { resolveModelAlias } from "@omniroute/open-sse/services/modelDeprecation.ts";
+import { resolveModelAlias } from "@flawraroute/open-sse/services/modelDeprecation.ts";
 import { getProviderAlias, resolveProviderId } from "@/shared/constants/providers";
 import { getSyncedAvailableModelsByConnection, getCustomModels, getModelIsHidden } from "./models";
 import {
@@ -267,13 +267,13 @@ function toRecord(value: unknown): JsonRecord {
 }
 
 function isConfiguredEnvApiKey(key: string): boolean {
-  const envKey = process.env.OMNIROUTE_API_KEY || process.env.ROUTER_API_KEY;
+  const envKey = process.env.FLAWRAROUTE_API_KEY || process.env.ROUTER_API_KEY;
   return Boolean(envKey && key === envKey);
 }
 
 function isRedisAuthCacheEnabled(): boolean {
   return (
-    process.env.OMNIROUTE_DISABLE_REDIS_AUTH_CACHE !== "1" &&
+    process.env.FLAWRAROUTE_DISABLE_REDIS_AUTH_CACHE !== "1" &&
     process.env.NODE_ENV !== "test" &&
     process.env.DISABLE_SQLITE_AUTO_BACKUP !== "true"
   );
@@ -537,7 +537,7 @@ export async function getExclusiveLeaseConnectionIds(): Promise<Set<string>> {
 }
 
 /**
- * Select an API key for internal OmniRoute operations (combo health checks,
+ * Select an API key for internal FlawraRoute operations (combo health checks,
  * cloud-sync verify pings, etc.).
  *
  * Naive selection of `getApiKeys()[0]` is unsafe because the first row is
@@ -1332,7 +1332,7 @@ export async function getApiKeyMetadata(
   // persistent env-var key support (persistent passthrough keys) (#1350)
   if (isConfiguredEnvApiKey(key)) {
     // ─── Env-key management-scope bypass ──────────────────────────────────
-    // The deployment-time env key (`OMNIROUTE_API_KEY` / `ROUTER_API_KEY`)
+    // The deployment-time env key (`FLAWRAROUTE_API_KEY` / `ROUTER_API_KEY`)
     // is granted the "manage" scope unconditionally. This is intentional:
     //
     //   1. The env key never exists in the SQLite `api_keys` table, so the

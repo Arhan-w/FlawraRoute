@@ -1,1 +1,1 @@
-- **feat(catalog):** add `OMNIROUTE_DISABLE_THINKING_LEVEL_VARIANTS` feature flag to optionally filter out thinking level variants from model catalog ([#PR_NUMBER](https://github.com/diegosouzapw/OmniRoute/pull/PR_NUMBER))
+- **feat(catalog):** add `FLAWRAROUTE_DISABLE_THINKING_LEVEL_VARIANTS` feature flag to optionally filter out thinking level variants from model catalog ([#PR_NUMBER](https://github.com/diegosouzapw/FlawraRoute/pull/PR_NUMBER))

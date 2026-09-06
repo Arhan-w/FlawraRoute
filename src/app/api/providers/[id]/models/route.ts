@@ -5,7 +5,7 @@ import {
   isOpenAICompatibleProvider,
   NOAUTH_PROVIDERS,
 } from "@/shared/constants/providers";
-import { getRegistryEntry } from "@omniroute/open-sse/config/providerRegistry.ts";
+import { getRegistryEntry } from "@flawraroute/open-sse/config/providerRegistry.ts";
 import { getModelsByProviderId } from "@/shared/constants/models";
 import { resolveAlibabaProviderModelsUrl } from "@/shared/constants/alibabaProviderRegions";
 import { getStaticModelsForProvider } from "@/lib/providers/staticModels";
@@ -23,62 +23,62 @@ import {
   getProviderOutboundGuard,
   getProviderValidationGuard,
 } from "@/shared/network/outboundUrlGuardPolicy";
-import { errorResponse, sanitizeErrorMessage } from "@omniroute/open-sse/utils/error";
-import { getStaticQoderModels } from "@omniroute/open-sse/services/qoderCli.ts";
+import { errorResponse, sanitizeErrorMessage } from "@flawraroute/open-sse/utils/error";
+import { getStaticQoderModels } from "@flawraroute/open-sse/services/qoderCli.ts";
 import { deriveConfigFromRegistryModelsUrl } from "./discoveryConfig";
-import { resolveZedModels } from "@omniroute/open-sse/shared/zedAuth.ts";
+import { resolveZedModels } from "@flawraroute/open-sse/shared/zedAuth.ts";
 import {
   fetchGitHubCopilotModels,
   fetchGheCopilotModels,
-} from "@omniroute/open-sse/services/githubCopilotModels.ts";
-import { fetchKiroAvailableModels } from "@omniroute/open-sse/services/kiroModels.ts";
+} from "@flawraroute/open-sse/services/githubCopilotModels.ts";
+import { fetchKiroAvailableModels } from "@flawraroute/open-sse/services/kiroModels.ts";
 import {
   buildGlmCodingHeaders,
   buildGlmModelsUrl,
-} from "@omniroute/open-sse/config/glmProvider.ts";
-import { getImageProvider } from "@omniroute/open-sse/config/imageRegistry.ts";
-import { getVideoProvider } from "@omniroute/open-sse/config/videoRegistry.ts";
+} from "@flawraroute/open-sse/config/glmProvider.ts";
+import { getImageProvider } from "@flawraroute/open-sse/config/imageRegistry.ts";
+import { getVideoProvider } from "@flawraroute/open-sse/config/videoRegistry.ts";
 import {
   discoverBedrockNativeModels,
   isBedrockNativeApiError,
-} from "@omniroute/open-sse/services/bedrock.ts";
+} from "@flawraroute/open-sse/services/bedrock.ts";
 import {
   discoverPromptQlModels,
   PROMPTQL_FALLBACK_MODELS,
-} from "@omniroute/open-sse/services/promptqlModels.ts";
+} from "@flawraroute/open-sse/services/promptqlModels.ts";
 import {
   discoverNotionWebModels,
   NOTION_WEB_FALLBACK_MODELS,
-} from "@omniroute/open-sse/services/notionWebModels.ts";
+} from "@flawraroute/open-sse/services/notionWebModels.ts";
 import {
   discoverMaxaiModels,
   MAXAI_REGISTRY_MODELS,
-} from "@omniroute/open-sse/services/maxaiModels.ts";
+} from "@flawraroute/open-sse/services/maxaiModels.ts";
 import {
   AZURE_AI_DEFAULT_BASE_URL,
   buildAzureAiModelsUrl,
-} from "@omniroute/open-sse/config/azureAi.ts";
+} from "@flawraroute/open-sse/config/azureAi.ts";
 import {
   DATAROBOT_DEFAULT_BASE_URL,
   buildDataRobotCatalogUrl,
   isDataRobotDeploymentUrl,
-} from "@omniroute/open-sse/config/datarobot.ts";
-import { OCI_DEFAULT_BASE_URL, buildOciModelsUrl } from "@omniroute/open-sse/config/oci.ts";
+} from "@flawraroute/open-sse/config/datarobot.ts";
+import { OCI_DEFAULT_BASE_URL, buildOciModelsUrl } from "@flawraroute/open-sse/config/oci.ts";
 import {
   SAP_DEFAULT_BASE_URL,
   buildSapModelsUrl,
   getSapResourceGroup,
-} from "@omniroute/open-sse/config/sap.ts";
+} from "@flawraroute/open-sse/config/sap.ts";
 import {
   WATSONX_DEFAULT_BASE_URL,
   buildWatsonxModelsUrl,
-} from "@omniroute/open-sse/config/watsonx.ts";
-import { getEmbeddingProvider } from "@omniroute/open-sse/config/embeddingRegistry.ts";
-import { getRerankProvider } from "@omniroute/open-sse/config/rerankRegistry.ts";
+} from "@flawraroute/open-sse/config/watsonx.ts";
+import { getEmbeddingProvider } from "@flawraroute/open-sse/config/embeddingRegistry.ts";
+import { getRerankProvider } from "@flawraroute/open-sse/config/rerankRegistry.ts";
 import {
   getSpeechProvider,
   getTranscriptionProvider,
-} from "@omniroute/open-sse/config/audioRegistry.ts";
+} from "@flawraroute/open-sse/config/audioRegistry.ts";
 import {
   getCachedDiscoveredModels,
   isAutoFetchModelsEnabled,
@@ -146,7 +146,7 @@ export async function GET(
     const refresh = searchParams.get("refresh") === "true";
     const chatOnly =
       searchParams.get("chatOnly") === "true" ||
-      request.headers.get("x-omniroute-model-surface")?.toLowerCase() === "chat";
+      request.headers.get("x-flawraroute-model-surface")?.toLowerCase() === "chat";
 
     const connection = await getCachedProviderConnectionById(id);
     const connectionProvider =
@@ -1805,7 +1805,7 @@ export async function GET(
       let bearerToken: string | null = null;
       try {
         const { parseSAFromApiKey, getAccessToken } =
-          await import("@omniroute/open-sse/executors/vertex.ts");
+          await import("@flawraroute/open-sse/executors/vertex.ts");
         if (accessToken) {
           bearerToken = accessToken;
         } else if (credential) {
@@ -2377,11 +2377,11 @@ export async function GET(
 
     if (provider === "alibaba" || provider === "alibaba-cn") {
       const { shouldUseLiveAlibabaFreeModelDiscovery } =
-        await import("@omniroute/open-sse/services/alibabaFreeTier.ts");
+        await import("@flawraroute/open-sse/services/alibabaFreeTier.ts");
       const { scheduleAlibabaFreeTierProbeRefresh } =
-        await import("@omniroute/open-sse/services/alibabaFreeTierDiscovery.ts");
+        await import("@flawraroute/open-sse/services/alibabaFreeTierDiscovery.ts");
       const { scheduleAlibabaFreeTierQuotaRefresh, hasAlibabaConsoleFreeTierAuth } =
-        await import("@omniroute/open-sse/services/alibabaFreeTierQuotaFetcher.ts");
+        await import("@flawraroute/open-sse/services/alibabaFreeTierQuotaFetcher.ts");
       const { resolveAlibabaProviderBaseUrl } =
         await import("@/shared/constants/alibabaProviderRegions.ts");
       const providerSpecificData = connection.providerSpecificData as Record<

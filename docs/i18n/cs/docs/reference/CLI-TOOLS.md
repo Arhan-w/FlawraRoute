@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI Nástroje — OmniRoute"
+title: "CLI Nástroje — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI Nástroje — OmniRoute
+# CLI Nástroje — FlawraRoute
 
 Poslední aktualizace: 2026-08-18
 
-OmniRoute integruje tři kategorie CLI nástrojů rozložené na třech specializovaných stránkách dashboardu:
+FlawraRoute integruje tři kategorie CLI nástrojů rozložené na třech specializovaných stránkách dashboardu:
 
 | Stránka        | Trasa                   | Koncept                                                                                       | Počet       |
 | -------------- | ----------------------- | --------------------------------------------------------------------------------------------- | ----------- |
-| **CLI Kód**    | `/dashboard/cli-code`   | Nástroje pro kódování, které směřujete na OmniRoute (Klient → CLI → OmniRoute → Poskytovatel) | 26          |
-| **CLI Agenti** | `/dashboard/cli-agents` | Autonomní agenti, které směřujete na OmniRoute (stejný tok, širší rozsah)                     | 8           |
-| **ACP Agenti** | `/dashboard/acp-agents` | CLIs, které OmniRoute spouští jako backend přes stdio/ACP (obrácený tok)                      | viz registr |
+| **CLI Kód**    | `/dashboard/cli-code`   | Nástroje pro kódování, které směřujete na FlawraRoute (Klient → CLI → FlawraRoute → Poskytovatel) | 26          |
+| **CLI Agenti** | `/dashboard/cli-agents` | Autonomní agenti, které směřujete na FlawraRoute (stejný tok, širší rozsah)                     | 8           |
+| **ACP Agenti** | `/dashboard/acp-agents` | CLIs, které FlawraRoute spouští jako backend přes stdio/ACP (obrácený tok)                      | viz registr |
 
 Zastaralé trasy přesměrovávají přes 308: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ Zastaralé trasy přesměrovávají přes 308: `/dashboard/cli-tools` → `/dash
 CLI Kód / CLI Agenti (tok spotřeby):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (vše směřuje na OmniRoute)
+           ▼  (vše směřuje na FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute směruje k správnému poskytovateli)
+           ▼  (FlawraRoute směruje k správnému poskytovateli)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP Agenti (obrácený tok spuštění):
-    Klientský požadavek → OmniRoute → spouští CLI přes stdio/ACP → odpověď
+    Klientský požadavek → FlawraRoute → spouští CLI přes stdio/ACP → odpověď
 ```
 
 **Výhody:**
@@ -54,27 +54,27 @@ ACP Agenti (obrácený tok spuštění):
 
 ## Automatická konfigurace s `setup-*`
 
-Nemusíte psát konfiguraci každého nástroje ručně. OmniRoute dodává příkaz `setup-*`
+Nemusíte psát konfiguraci každého nástroje ručně. FlawraRoute dodává příkaz `setup-*`
 pro každý podporovaný CLI, který čte **živý** katalog modelů z běžícího
-OmniRoute (lokálního nebo vzdáleného) a zapisuje vlastní konfiguraci nástroje na vašem stroji:
+FlawraRoute (lokálního nebo vzdáleného) a zapisuje vlastní konfiguraci nástroje na vašem stroji:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
 Každý přijímá `--remote <url> --api-key <key>` (konfigurovat lokální nástroj proti
-vzdálenému OmniRoute), `--dry-run` (náhled bez zápisu) a `--port`. Nástroje
+vzdálenému FlawraRoute), `--dry-run` (náhled bez zápisu) a `--port`. Nástroje
 bez automatického objevování modelu (Cline, Kilo, Roo, Goose, Aider, Qwen) berou
 `--model <id>` (a `--yes` pro neinteraktivní běhy). Pro spuštění CLI s
 odpovídajícím prostředím a bez jakéhokoli zápisu konfigurace použijte generický
-`omniroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
+`flawraroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
 gemini — cíle a aliasy pocházejí z `bin/cli/cli-manifest.mjs`); zastaralé
-per-tool launchery `omniroute launch` (Claude Code) a `omniroute launch-codex`
+per-tool launchery `flawraroute launch` (Claude Code) a `flawraroute launch-codex`
 (Codex) zůstávají k dispozici. Gemini CLI je pouze pro spuštění: je to cíl
-`omniroute run`, ale nemá žádný `setup-*`/`configure` recept.
+`flawraroute run`, ale nemá žádný `setup-*`/`configure` recept.
 
 > **Úplná reference:** hlavní tabulka — co každý příkaz zapisuje, každý příznak,
 > lokální vs vzdálený, a které nástroje chtějí příponu `/v1` — se nachází v
@@ -82,23 +82,23 @@ per-tool launchery `omniroute launch` (Claude Code) a `omniroute launch-codex`
 
 ### Spuštění těchto příkazů uvnitř kontejneru
 
-Příkaz `setup-*` provedený uvnitř kontejneru OmniRoute zapisuje do
+Příkaz `setup-*` provedený uvnitř kontejneru FlawraRoute zapisuje do
 vlastního domova kontejneru, který žádný hostitelský CLI nečte a který zmizí s
-kontejnerem. OmniRoute to detekuje a ukončuje s kódem `2` s instrukcemi místo
+kontejnerem. FlawraRoute to detekuje a ukončuje s kódem `2` s instrukcemi místo
 zápisu. Dva podporované způsoby vpřed — nainstalovat CLI na hostiteli a
-`omniroute connect` do kontejneru, nebo bind-mount adresáře konfigurace a nastavit
+`flawraroute connect` do kontejneru, nebo bind-mount adresáře konfigurace a nastavit
 `CLI_CONFIG_HOME` (profil compose `host`). Každý příkaz `setup-*`, plus
-`omniroute configure` a `omniroute config set`, přijímá
+`flawraroute configure` a `flawraroute config set`, přijímá
 `--allow-container-write`, když je skutečně zamýšleno konfigurovat vlastní CLIs
-kontejneru; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` dělá to samé pro
+kontejneru; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` dělá to samé pro
 server. Viz
-[Docker Průvodce → Konfigurace hostitelských CLI nástrojů](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+[Docker Průvodce → Konfigurace hostitelských CLI nástrojů](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
 **apply endpoint** dashboardu (`POST /api/cli-tools/apply`) vynucuje
 stejnou ochranu: v kontejneru, zápis, jehož cíl není bind-mounted z hostitele,
 odpovídá **`422`** s `containerEphemeralTarget: true`, bezpečným chybovým
 textem a — pro nástroje s hostitelským receptem (claude, codex, opencode, cline,
-kilo, continue) — `hostSetupCommand` (např. `omniroute setup-opencode`), který
+kilo, continue) — `hostSetupCommand` (např. `flawraroute setup-opencode`), který
 se má spustit na hostiteli místo; nic není zapsáno. `dryRun: true` stále funguje
 v režimu kontejneru a vrací vygenerovaný obsah + cílovou cestu bez dotyku disku,
 takže si můžete prohlédnout z dashboardu a aplikovat na hostiteli. Toto chování je
@@ -134,8 +134,8 @@ deklarující zdroj a test odchylek je udržuje v souladu:
 | -------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | **Katalogizované**   | Zobrazuje se v katalogu dashboardu (název, dodavatel, dokumentace, typ konfigurace) | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                  |
 | **Detekovatelné**    | Detekce binárních/config, kontroly zdraví, cesty k konfiguraci                      | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` runtime catalog) |
-| **Konfigurovatelné** | Podporováno `omniroute configure <cli>` (existuje recept na nastavení)              | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
-| **Spustitelné**      | Podporováno `omniroute run <target>` (definována injekce env/args)                  | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
+| **Konfigurovatelné** | Podporováno `flawraroute configure <cli>` (existuje recept na nastavení)              | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
+| **Spustitelné**      | Podporováno `flawraroute run <target>` (definována injekce env/args)                  | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
 
 `bin/cli/cli-manifest.mjs` je kanonický spustitelný manifest pro příkazy CLI
 povrchů: `run`, `configure` a generátory shell-completion odvozují své
@@ -199,7 +199,7 @@ Autonomní agenti, kteří se objevují v `/dashboard/cli-agents`:
 
 ## 3. ACP agenti (/dashboard/acp-agents)
 
-Tato stránka (přejmenována z `/dashboard/agents`) zobrazuje CLI, které může OmniRoute **vytvářet** jako backendové výkonné enginy prostřednictvím protokolu stdio/ACP. Katalog je udržován odděleně v `src/lib/acp/registry.ts` a **není** stejný jako `CLI_TOOLS`.
+Tato stránka (přejmenována z `/dashboard/agents`) zobrazuje CLI, které může FlawraRoute **vytvářet** jako backendové výkonné enginy prostřednictvím protokolu stdio/ACP. Katalog je udržován odděleně v `src/lib/acp/registry.ts` a **není** stejný jako `CLI_TOOLS`.
 
 ---
 
@@ -262,7 +262,7 @@ Nové nástroje s `configType: "custom"` mají vyhrazené API trasy pro nastaven
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primární + legacy `~/.deepseek` synchronizace) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                                      |
 | `POST /api/cli-tools/pi-settings`           | Pi kódovací agent                                                          |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)                      |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)                      |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + vyhrazený `.env` klíč)                |
 
 Všechny trasy používají `sanitizeErrorMessage()` pro chybové odpovědi (Pevné pravidlo #12).
@@ -322,7 +322,7 @@ Nové namespace přidány v plánu 14 F9:
 
 ## 9. Rychlý start
 
-### Krok 1 — Získejte API klíč OmniRoute
+### Krok 1 — Získejte API klíč FlawraRoute
 
 1. Otevřete `/dashboard/api-manager` → **Vytvořit API klíč**
 2. Dejte mu název (např. `cli-tools`) a vyberte všechna oprávnění
@@ -355,7 +355,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (spustitelné přes `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (spustitelné přes `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -386,14 +386,14 @@ cargo install smelt  # Založené na Rustu
 ### Krok 4 — Nastavte globální proměnné prostředí
 
 ```bash
-# OmniRoute Univerzální koncový bod
+# FlawraRoute Univerzální koncový bod
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI čte GOOGLE_GEMINI_BASE_URL na ROOT (jeho SDK přidává /v1beta/... samo)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > Pro **vzdálený server** nahraďte `localhost:20128` IP adresou nebo doménou serveru,
@@ -411,7 +411,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -427,20 +427,20 @@ Použijte sjednocený kořen brány Anthropic pro Claude Code. Nepřidávejte zd
 
 Moderní Codex (v0.137+) čte pouze `~/.codex/config.toml` — starý
 `config.yaml` patří k legacy npm CLI a je tiše ignorován. API
-klíč zůstává v proměnné prostředí `OMNIROUTE_API_KEY` (`env_key`), nikdy
+klíč zůstává v proměnné prostředí `FLAWRAROUTE_API_KEY` (`env_key`), nikdy
 uvnitř souboru:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Úplná reference (profily, `wire_api`, kontextová okna): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -456,12 +456,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -476,7 +476,7 @@ EOF
 
 **Test:** `opencode`
 
-> Použijte `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> Použijte `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > pro odeslání variant myšlení.
 
 ---
@@ -490,7 +490,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -498,7 +498,7 @@ EOF
 **Režim VS Code:**
 Nastavení rozšíření Cline → Poskytovatel API: `OpenAI Compatible` → Základní URL: `http://localhost:20128/v1`
 
-Nebo použijte dashboard OmniRoute → **CLI Tools → Cline → Použít konfiguraci**.
+Nebo použijte dashboard FlawraRoute → **CLI Tools → Cline → Použít konfiguraci**.
 
 ---
 
@@ -507,7 +507,7 @@ Nebo použijte dashboard OmniRoute → **CLI Tools → Cline → Použít konfig
 **Režim CLI:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **Nastavení VS Code:**
@@ -515,11 +515,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Nebo použijte dashboard OmniRoute → **CLI Tools → KiloCode → Použít konfiguraci**.
+Nebo použijte dashboard FlawraRoute → **CLI Tools → KiloCode → Použít konfiguraci**.
 
 ---
 
@@ -529,11 +529,11 @@ Upravte `~/.continue/config.yaml`:
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -543,25 +543,25 @@ Po úpravě restartujte VS Code.
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Použijte toto, když je VS Code Insiders nakonfigurován pro vlastní modely koncových bodů a chcete, aby OmniRoute fungoval bez vlastního pole hlavičky.
+Použijte toto, když je VS Code Insiders nakonfigurován pro vlastní modely koncových bodů a chcete, aby FlawraRoute fungoval bez vlastního pole hlavičky.
 
 **Doporučené umístění:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Příklad použití tokenizovaného aliasu OmniRoute:**
+**Příklad použití tokenizovaného aliasu FlawraRoute:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -574,7 +574,7 @@ Použijte toto, když je VS Code Insiders nakonfigurován pro vlastní modely ko
 
 **Poznámky:**
 
-- Nahraďte `sk-your-omniroute-key` API klíčem vytvořeným v OmniRoute.
+- Nahraďte `sk-your-flawraroute-key` API klíčem vytvořeným v FlawraRoute.
 - Pole `url` by mělo směřovat na `/api/v1/vscode/{token}/chat/completions`.
 - Pole `modelsUrl` by mělo směřovat na `/api/v1/vscode/{token}/models`.
 - Preferujte normální `/v1` + Bearer hlavičkový tok, když klient podporuje vlastní hlavičky.
@@ -588,40 +588,40 @@ Použijte toto, když je VS Code Insiders nakonfigurován pro vlastní modely ko
 # Přihlaste se ke svému účtu AWS/Kiro:
 kiro-cli login
 
-# CLI používá vlastní autentizaci — OmniRoute není potřebný jako backend pro Kiro CLI samotné.
-# Používejte kiro-cli spolu s OmniRoute pro další nástroje.
+# CLI používá vlastní autentizaci — FlawraRoute není potřebný jako backend pro Kiro CLI samotné.
+# Používejte kiro-cli spolu s FlawraRoute pro další nástroje.
 kiro-cli status
 ```
 
-Pro desktopovou aplikaci **Kiro IDE** použijte MITM koncový bod vystavený OmniRoute
+Pro desktopovou aplikaci **Kiro IDE** použijte MITM koncový bod vystavený FlawraRoute
 pod `/dashboard/cli-tools → Kiro`.
 
 ---
 
-## 10. Interní OmniRoute CLI
+## 10. Interní FlawraRoute CLI
 
-Binární soubor `omniroute` poskytuje příkazy pro životní cyklus serveru, nastavení, diagnostiku a správu poskytovatelů. Vstupní bod: `bin/omniroute.mjs`.
+Binární soubor `flawraroute` poskytuje příkazy pro životní cyklus serveru, nastavení, diagnostiku a správu poskytovatelů. Vstupní bod: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Spustit server (výchozí port 20128)
-omniroute setup                        # Interaktivní nastavení
-omniroute doctor                       # Zkontrolovat konfiguraci, DB, porty, runtime
-omniroute providers list               # Seznam nakonfigurovaných připojení poskytovatelů
-omniroute providers test-all           # Otestovat každé aktivní připojení
-omniroute reset-password               # Resetovat heslo administrátora
-omniroute logs                         # Streamovat logy požadavků
-omniroute health                       # Podrobný stav (přerušovače, cache, paměť)
-omniroute --version                    # Vytisknout verzi
-omniroute --help                       # Zobrazit všechny příkazy
+flawraroute                              # Spustit server (výchozí port 20128)
+flawraroute setup                        # Interaktivní nastavení
+flawraroute doctor                       # Zkontrolovat konfiguraci, DB, porty, runtime
+flawraroute providers list               # Seznam nakonfigurovaných připojení poskytovatelů
+flawraroute providers test-all           # Otestovat každé aktivní připojení
+flawraroute reset-password               # Resetovat heslo administrátora
+flawraroute logs                         # Streamovat logy požadavků
+flawraroute health                       # Podrobný stav (přerušovače, cache, paměť)
+flawraroute --version                    # Vytisknout verzi
+flawraroute --help                       # Zobrazit všechny příkazy
 ```
 
 ### Nastavení a inicializace
 
 ```bash
-omniroute setup                        # Interaktivní nastavení
-omniroute setup --non-interactive      # CI/automatizační režim (čte proměnné prostředí + příznaky)
-omniroute setup --password '<value>'   # Nastavit heslo administrátora přímo
-omniroute setup --add-provider \
+flawraroute setup                        # Interaktivní nastavení
+flawraroute setup --non-interactive      # CI/automatizační režim (čte proměnné prostředí + příznaky)
+flawraroute setup --password '<value>'   # Nastavit heslo administrátora přímo
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Přidat a otestovat poskytovatele v jednom kroku
@@ -631,21 +631,21 @@ Rozpoznané proměnné prostředí pro neinteraktivní nastavení:
 
 | Var                 | Účel                                                                   |
 | ------------------- | ---------------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | API klíč poskytovatele (svázaný s `--api-key` přes Commander `.env()`) |
-| `DATA_DIR`          | Přepsat adresář dat OmniRoute                                          |
+| `FLAWRAROUTE_API_KEY` | API klíč poskytovatele (svázaný s `--api-key` přes Commander `.env()`) |
+| `DATA_DIR`          | Přepsat adresář dat FlawraRoute                                          |
 
 Všechny ostatní neinteraktivní vstupy jsou předávány jako příznaky, nikoli jako proměnné prostředí:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(podívejte se na možnosti `omniroute setup` výše).
+(podívejte se na možnosti `flawraroute setup` výše).
 
 ### Diagnostika
 
 ```bash
-omniroute doctor                       # Zkontrolovat konfiguraci, DB, porty, runtime, paměť, životnost
-omniroute doctor --json                # Strojově čitelný JSON
-omniroute doctor --no-liveness         # Přeskočit HTTP health probe
-omniroute doctor --host 0.0.0.0        # Přepsat hostitele životnosti
-omniroute doctor --liveness-url <url>  # Úplné přepsání URL koncového bodu zdraví
+flawraroute doctor                       # Zkontrolovat konfiguraci, DB, porty, runtime, paměť, životnost
+flawraroute doctor --json                # Strojově čitelný JSON
+flawraroute doctor --no-liveness         # Přeskočit HTTP health probe
+flawraroute doctor --host 0.0.0.0        # Přepsat hostitele životnosti
+flawraroute doctor --liveness-url <url>  # Úplné přepsání URL koncového bodu zdraví
 ```
 
 Doktor provádí tyto kontroly: `Konfigurace`, `Databáze`, `Úložiště/šifrování`,
@@ -655,47 +655,47 @@ Doktor provádí tyto kontroly: `Konfigurace`, `Databáze`, `Úložiště/šifro
 ### Správa poskytovatelů
 
 ```bash
-omniroute providers available                       # Katalog poskytovatelů OmniRoute
-omniroute providers available --search openai       # Filtrovat katalog podle id/název/alias/kategorie
-omniroute providers available --category api-key    # Filtrovat podle kategorie (api-key, oauth, free, ...)
-omniroute providers available --json                # Strojově čitelný JSON
+flawraroute providers available                       # Katalog poskytovatelů FlawraRoute
+flawraroute providers available --search openai       # Filtrovat katalog podle id/název/alias/kategorie
+flawraroute providers available --category api-key    # Filtrovat podle kategorie (api-key, oauth, free, ...)
+flawraroute providers available --json                # Strojově čitelný JSON
 
-omniroute providers list                            # Seznam nakonfigurovaných připojení poskytovatelů
-omniroute providers list --json
+flawraroute providers list                            # Seznam nakonfigurovaných připojení poskytovatelů
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Otestovat jedno nakonfigurované připojení
-omniroute providers test-all                        # Otestovat každé aktivní připojení
-omniroute providers validate                        # Lokální strukturovaná validace
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Existující OAuth tok
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Otestovat jedno nakonfigurované připojení
+flawraroute providers test-all                        # Otestovat každé aktivní připojení
+flawraroute providers validate                        # Lokální strukturovaná validace
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Existující OAuth tok
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` jsou API-first a proto fungují proti
 aktivnímu místnímu nebo vzdálenému kontextu. Vstup pro pověření by měl používat
 `--credential-stdin` nebo `--credential-env`; `--dry-run --json` hlásí pouze
-redigovanou přítomnost/tvar. `providers available` čte katalog OmniRoute;
+redigovanou přítomnost/tvar. `providers available` čte katalog FlawraRoute;
 `providers list/test/test-all/validate` si zachovávají své místní SQLite chování a
 nevyžadují, aby server běžel.
 
 ### Obnova a reset
 
 ```bash
-omniroute reset-password                # Resetovat heslo administrátora (také: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Zobrazit varování + dry-run pro reset šifrovaných pověření
-omniroute reset-encrypted-columns --force  # Opravuji šifrovaná pověření v SQLite
+flawraroute reset-password                # Resetovat heslo administrátora (také: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Zobrazit varování + dry-run pro reset šifrovaných pověření
+flawraroute reset-encrypted-columns --force  # Opravuji šifrovaná pověření v SQLite
 ```
 
 ### Export pověření (⚠ zacházejte opatrně)
 
 ```bash
-omniroute auth export                                 # Zobrazit varování + potvrzovací bránu — žádný přístup k DB
-omniroute auth export --force                          # ExportOVAT VŠECHNA DEŠIFROVANÁ pověření připojení do stdout jako JSON
-omniroute auth export --force --id <id>                 # Exportovat pouze odpovídající připojení
-omniroute auth export --force --format env               # Vydat řádky OMNIROUTE_<PROVIDER>_<FIELD>=<value>
-omniroute auth export --force --out creds.json           # Zapsat do souboru (vytvořeno s 0600 oprávněními)
+flawraroute auth export                                 # Zobrazit varování + potvrzovací bránu — žádný přístup k DB
+flawraroute auth export --force                          # ExportOVAT VŠECHNA DEŠIFROVANÁ pověření připojení do stdout jako JSON
+flawraroute auth export --force --id <id>                 # Exportovat pouze odpovídající připojení
+flawraroute auth export --force --format env               # Vydat řádky FLAWRAROUTE_<PROVIDER>_<FIELD>=<value>
+flawraroute auth export --force --out creds.json           # Zapsat do souboru (vytvořeno s 0600 oprávněními)
 ```
 
 `auth export` je **pouze lokální** (přímé čtení SQLite, žádná HTTP trasa) a záměrně tiskne/zapisuje
@@ -707,36 +707,36 @@ Pole, které se nepodaří dešifrovat (stará klíč, poškozený ciphertext), 
 
 ### Další podpříkazy
 
-Tyto předpokládají běžící server OmniRoute, pokud není uvedeno jinak:
+Tyto předpokládají běžící server FlawraRoute, pokud není uvedeno jinak:
 
 ```bash
-omniroute status                       # Komplexní stav runtime
-omniroute logs                         # Streamovat logy požadavků (--json, --search, --follow)
-omniroute config show                  # Zobrazit aktuální konfiguraci
+flawraroute status                       # Komplexní stav runtime
+flawraroute logs                         # Streamovat logy požadavků (--json, --search, --follow)
+flawraroute config show                  # Zobrazit aktuální konfiguraci
 
-omniroute provider list                # Seznam dostupných poskytovatelů (alias poskytovatelů seznam)
-omniroute provider add                 # Registrovat OmniRoute jako poskytovatele na nástroji
-omniroute keys add | list | remove     # Spravovat API klíče
-omniroute models [provider]            # Seznam modelů (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Seznam dostupných poskytovatelů (alias poskytovatelů seznam)
+flawraroute provider add                 # Registrovat FlawraRoute jako poskytovatele na nástroji
+flawraroute keys add | list | remove     # Spravovat API klíče
+flawraroute models [provider]            # Seznam modelů (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Snapshot konfigurace + DB
-omniroute restore                      # Obnovit z předchozího snapshotu
+flawraroute backup                       # Snapshot konfigurace + DB
+flawraroute restore                      # Obnovit z předchozího snapshotu
 
-omniroute health                       # Podrobný stav (přerušovače, cache, paměť)
-omniroute quota                        # Využití kvóty poskytovatele
-omniroute cache                        # Stav cache
-omniroute cache clear                  # Vymazat sémantické + podpisové cache
+flawraroute health                       # Podrobný stav (přerušovače, cache, paměť)
+flawraroute quota                        # Využití kvóty poskytovatele
+flawraroute cache                        # Stav cache
+flawraroute cache clear                  # Vymazat sémantické + podpisové cache
 
-omniroute mcp status | restart         # Stav serveru MCP / restart
-omniroute a2a status | card            # Stav serveru A2A / agent karta
+flawraroute mcp status | restart         # Stav serveru MCP / restart
+flawraroute a2a status | card            # Stav serveru A2A / agent karta
 
-omniroute tunnel list | create | stop  # Spravovat tunely (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Zkontrolovat / nastavit proměnné prostředí (dočasné)
+flawraroute tunnel list | create | stop  # Spravovat tunely (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Zkontrolovat / nastavit proměnné prostředí (dočasné)
 
-omniroute test                         # Test připojení poskytovatele
-omniroute update                       # Zkontrolovat aktualizace
-omniroute completion                   # Generovat shell completion
+flawraroute test                         # Test připojení poskytovatele
+flawraroute update                       # Zkontrolovat aktualizace
+flawraroute completion                   # Generovat shell completion
 ```
 
 ### Běžné příznaky
@@ -765,7 +765,7 @@ omniroute completion                   # Generovat shell completion
 | `/v1/audio/speech`         | Text na řeč                             | ElevenLabs, OpenAI TTS                |
 | `/v1/audio/transcriptions` | Řeč na text                             | Deepgram, AssemblyAI                  |
 
-Příklady připravené k vložení s tokenizovanou OmniRoute URL:
+Příklady připravené k vložení s tokenizovanou FlawraRoute URL:
 
 ```txt
 Token příklad: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -784,7 +784,7 @@ Ollama chat: http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a4-070
 
 | Chyba                                           | Příčina                           | Oprava                                                    |
 | ----------------------------------------------- | --------------------------------- | --------------------------------------------------------- |
-| `Connection refused`                            | OmniRoute neběží                  | `omniroute serve`                                         |
+| `Connection refused`                            | FlawraRoute neběží                  | `flawraroute serve`                                         |
 | `401 Unauthorized`                              | Špatný API klíč                   | Zkontrolujte v `/dashboard/api-manager`                   |
 | `No combo configured`                           | Žádná aktivní routovací kombinace | Nastavte v `/dashboard/combos`                            |
 | CLI zobrazuje "not installed"                   | Binární soubor není v PATH        | Zkontrolujte `which <command>`                            |

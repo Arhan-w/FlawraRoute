@@ -153,23 +153,23 @@ function logSwallowedDriverError(driver: string, err: unknown): void {
 }
 
 declare global {
-  var __omnirouteSqlJsAdapters: Map<string, SqliteAdapter> | undefined;
-  var __omnirouteSqlJsInitPromises: Map<string, Promise<SqliteAdapter>> | undefined;
-  var __omnirouteSqlJsPreInitErrors: Map<string, string> | undefined;
+  var __flawrarouteSqlJsAdapters: Map<string, SqliteAdapter> | undefined;
+  var __flawrarouteSqlJsInitPromises: Map<string, Promise<SqliteAdapter>> | undefined;
+  var __flawrarouteSqlJsPreInitErrors: Map<string, string> | undefined;
 }
 
 function getSqlJsCache(): Map<string, SqliteAdapter> {
-  if (!globalThis.__omnirouteSqlJsAdapters) {
-    globalThis.__omnirouteSqlJsAdapters = new Map();
+  if (!globalThis.__flawrarouteSqlJsAdapters) {
+    globalThis.__flawrarouteSqlJsAdapters = new Map();
   }
-  return globalThis.__omnirouteSqlJsAdapters;
+  return globalThis.__flawrarouteSqlJsAdapters;
 }
 
 function getSqlJsPreInitErrorCache(): Map<string, string> {
-  if (!globalThis.__omnirouteSqlJsPreInitErrors) {
-    globalThis.__omnirouteSqlJsPreInitErrors = new Map();
+  if (!globalThis.__flawrarouteSqlJsPreInitErrors) {
+    globalThis.__flawrarouteSqlJsPreInitErrors = new Map();
   }
-  return globalThis.__omnirouteSqlJsPreInitErrors;
+  return globalThis.__flawrarouteSqlJsPreInitErrors;
 }
 
 /**
@@ -191,10 +191,10 @@ export function getSqlJsPreInitError(filePath: string): string | undefined {
  * fs.readFileSync + WASM decode independentemente (#6628 — thundering herd).
  */
 function getSqlJsPendingCache(): Map<string, Promise<SqliteAdapter>> {
-  if (!globalThis.__omnirouteSqlJsInitPromises) {
-    globalThis.__omnirouteSqlJsInitPromises = new Map();
+  if (!globalThis.__flawrarouteSqlJsInitPromises) {
+    globalThis.__flawrarouteSqlJsInitPromises = new Map();
   }
-  return globalThis.__omnirouteSqlJsInitPromises;
+  return globalThis.__flawrarouteSqlJsInitPromises;
 }
 
 /**
@@ -237,7 +237,7 @@ export function createSyncDriverFactory(load: DriverLoader, betterSqliteProbe?: 
 
     // 2. better-sqlite3: preferred native driver on Node.js. Skipped on Bun and
     // during the Next.js production build. Build workers sometimes lose
-    // NEXT_PHASE from process.env, so OMNIROUTE_BUILDING=1 (set by
+    // NEXT_PHASE from process.env, so FLAWRAROUTE_BUILDING=1 (set by
     // build-next-isolated.mjs and inherited by the build workers) is the primary
     // build signal. Deliberately does NOT check isMainThread: at runtime many
     // worker threads (pino thread-stream, compression workers) legitimately use
@@ -295,7 +295,7 @@ const openSyncDriver = createSyncDriverFactory(requireSqliteDriver, createBetter
  * pack-boot-specific flags keeps this from becoming a general operator override.
  */
 export function isPackBootForcedSqlJsSmoke(env: NodeJS.ProcessEnv): boolean {
-  return env.OMNIROUTE_PACK_BOOT_SMOKE === "1" && env.OMNIROUTE_PACK_BOOT_FORCE_SQLJS === "1";
+  return env.FLAWRAROUTE_PACK_BOOT_SMOKE === "1" && env.FLAWRAROUTE_PACK_BOOT_FORCE_SQLJS === "1";
 }
 
 /** Tenta abrir com better-sqlite3 e node:sqlite sincronamente. Retorna null se ambos falharem. */

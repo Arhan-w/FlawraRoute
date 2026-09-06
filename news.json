@@ -7,17 +7,17 @@
       "publishedAt": "2026-08-09T00:00:00.000Z",
       "text": {
         "en": {
-          "title": "OmniRoute Radar",
-          "message": "An opt-in, GET-only free-model catalog overlay with no telemetry from the OmniRoute client.",
+          "title": "FlawraRoute Radar",
+          "message": "An opt-in, GET-only free-model catalog overlay with no telemetry from the FlawraRoute client.",
           "linkLabel": "Learn about Radar"
         },
         "pt-BR": {
-          "title": "OmniRoute Radar",
-          "message": "Um catálogo opcional de modelos gratuitos, somente GET e sem telemetria enviada pelo cliente OmniRoute.",
+          "title": "FlawraRoute Radar",
+          "message": "Um catálogo opcional de modelos gratuitos, somente GET e sem telemetria enviada pelo cliente FlawraRoute.",
           "linkLabel": "Conheça o Radar"
         }
       },
-      "link": "https://radar.omniroute.online/planos",
+      "link": "https://radar.flawraroute.online/planos",
       "icon": "radar"
     },
     {

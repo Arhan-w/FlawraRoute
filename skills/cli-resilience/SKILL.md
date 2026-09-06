@@ -11,8 +11,8 @@ Inspect and manage circuit-breaker states, connection cooldowns, quota limits, a
 ## Quick install
 
 ```bash
-npm install -g omniroute   # or: npx omniroute
-omniroute --version
+npm install -g flawraroute   # or: npx flawraroute
+flawraroute --version
 ```
 
 ## Subcommands
@@ -27,17 +27,17 @@ omniroute --version
 **Example:**
 
 ```bash
-omniroute quota
+flawraroute quota
 ```
 
 ### `quota status`
 
-Show truthful OmniRoute gateway, quota, pool, and circuit state
+Show truthful FlawraRoute gateway, quota, pool, and circuit state
 
 **Example:**
 
 ```bash
-omniroute quota status
+flawraroute quota status
 ```
 
 ### `quota preview`
@@ -51,7 +51,7 @@ Preview allocation enforcement without an upstream request
 **Example:**
 
 ```bash
-omniroute quota preview
+flawraroute quota preview
 ```
 
 ### `quota ensure <json>`
@@ -61,7 +61,7 @@ Idempotently create or update a quota pool from a JSON object
 **Example:**
 
 ```bash
-omniroute quota ensure <json>
+flawraroute quota ensure <json>
 ```
 
 ### `resilience`
@@ -69,7 +69,7 @@ omniroute quota ensure <json>
 **Example:**
 
 ```bash
-omniroute resilience
+flawraroute resilience
 ```
 
 ### `resilience status`
@@ -81,7 +81,7 @@ omniroute resilience
 **Example:**
 
 ```bash
-omniroute resilience status
+flawraroute resilience status
 ```
 
 ### `resilience breakers`
@@ -93,7 +93,7 @@ omniroute resilience status
 **Example:**
 
 ```bash
-omniroute resilience breakers
+flawraroute resilience breakers
 ```
 
 ### `resilience cooldowns`
@@ -106,7 +106,7 @@ omniroute resilience breakers
 **Example:**
 
 ```bash
-omniroute resilience cooldowns
+flawraroute resilience cooldowns
 ```
 
 ### `resilience lockouts`
@@ -119,7 +119,7 @@ omniroute resilience cooldowns
 **Example:**
 
 ```bash
-omniroute resilience lockouts
+flawraroute resilience lockouts
 ```
 
 ### `resilience reset`
@@ -134,7 +134,7 @@ omniroute resilience lockouts
 **Example:**
 
 ```bash
-omniroute resilience reset
+flawraroute resilience reset
 ```
 
 ### `resilience profile`
@@ -142,7 +142,7 @@ omniroute resilience reset
 **Example:**
 
 ```bash
-omniroute resilience profile
+flawraroute resilience profile
 ```
 
 ### `resilience show`
@@ -150,7 +150,7 @@ omniroute resilience profile
 **Example:**
 
 ```bash
-omniroute resilience show
+flawraroute resilience show
 ```
 
 ### `resilience set`
@@ -158,7 +158,7 @@ omniroute resilience show
 **Example:**
 
 ```bash
-omniroute resilience set
+flawraroute resilience set
 ```
 
 ### `resilience config`
@@ -166,7 +166,7 @@ omniroute resilience set
 **Example:**
 
 ```bash
-omniroute resilience config
+flawraroute resilience config
 ```
 
 ### `resilience show`
@@ -174,7 +174,7 @@ omniroute resilience config
 **Example:**
 
 ```bash
-omniroute resilience show
+flawraroute resilience show
 ```
 
 ### `resilience set`
@@ -188,5 +188,5 @@ omniroute resilience show
 **Example:**
 
 ```bash
-omniroute resilience set
+flawraroute resilience set
 ```

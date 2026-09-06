@@ -1,1 +1,1 @@
-- **fix(providers):** add `CLAUDE_CODE_CLIENT_VERSION` and `GITHUB_COPILOT_CLI_VERSION` env overrides so Anthropic/Copilot client-version gates can be unblocked without a rebuild ([#12417](https://github.com/diegosouzapw/OmniRoute/issues/12417))
+- **fix(providers):** add `CLAUDE_CODE_CLIENT_VERSION` and `GITHUB_COPILOT_CLI_VERSION` env overrides so Anthropic/Copilot client-version gates can be unblocked without a rebuild ([#12417](https://github.com/diegosouzapw/FlawraRoute/issues/12417))

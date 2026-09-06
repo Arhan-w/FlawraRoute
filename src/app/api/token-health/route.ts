@@ -6,7 +6,7 @@
  */
 
 import { getProviderConnections } from "@/lib/db/providers";
-import { sanitizeErrorMessage } from "@omniroute/open-sse/utils/error.ts";
+import { sanitizeErrorMessage } from "@flawraroute/open-sse/utils/error.ts";
 
 export async function GET() {
   try {

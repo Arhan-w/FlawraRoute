@@ -37,7 +37,7 @@ export async function getLatestVersion(execFn = execFileAsync) {
     // runtime value into the command line (Hard Rule #13).
     const { stdout } = await execFn(
       npmBin(),
-      ["view", "omniroute", "version", "--prefer-online"],
+      ["view", "flawraroute", "version", "--prefer-online"],
       npmExecOptions(process.platform, { timeoutMs: 15000 })
     );
     return stdout.trim();
@@ -58,14 +58,14 @@ function compareVersions(a, b) {
 
 export async function createBackup() {
   const binPath = BIN_DIR;
-  const backupDir = path.join(homedir(), ".omniroute", "backups", `omniroute-${Date.now()}`);
+  const backupDir = path.join(homedir(), ".flawraroute", "backups", `flawraroute-${Date.now()}`);
 
   try {
     const { mkdirSync, cpSync, existsSync } = await import("node:fs");
     if (!existsSync(binPath)) return null;
 
     mkdirSync(backupDir, { recursive: true });
-    const files = ["omniroute.mjs", "cli", "nodeRuntimeSupport.mjs", "mcp-server.mjs"];
+    const files = ["flawraroute.mjs", "cli", "nodeRuntimeSupport.mjs", "mcp-server.mjs"];
     for (const f of files) {
       const src = path.join(binPath, f);
       if (existsSync(src)) {
@@ -84,10 +84,10 @@ export async function createBackup() {
 // package.json from disk to confirm it, but a long-lived server process keeps
 // serving whatever it loaded at its last start — Node caches a `require()`d
 // package.json per resolved path for the life of the process. A later
-// `omniroute update` then correctly reports "already up to date" (the files
+// `flawraroute update` then correctly reports "already up to date" (the files
 // ARE current) while the running server is still stale, matching the reported
 // symptom. `--apply` never restarted anything and its success message ("Run
-// `omniroute --version` to verify.") implied the update was already live.
+// `flawraroute --version` to verify.") implied the update was already live.
 //
 // `restart.mjs`'s `runRestartCommand()` stops then re-spawns the server in the
 // foreground (via `serve.mjs::runServe`), which can block the calling terminal
@@ -105,12 +105,12 @@ export async function printPostApplyGuidance(latest, deps = { readPidFile, isPid
   const running = await isServerProcessRunning(deps);
   if (running) {
     printWarning(`Files updated to ${latest}, but the running server is still on the old version.`);
-    printInfo("  Run `omniroute restart` now to apply this update.");
+    printInfo("  Run `flawraroute restart` now to apply this update.");
   } else {
-    printInfo(`No running OmniRoute server was detected via the CLI's PID file.`);
-    printInfo(`  Start it with \`omniroute serve\` (or restart your existing process) to run ${latest}.`);
+    printInfo(`No running FlawraRoute server was detected via the CLI's PID file.`);
+    printInfo(`  Start it with \`flawraroute serve\` (or restart your existing process) to run ${latest}.`);
   }
-  printInfo("`omniroute --version` will keep reporting the old version until the process restarts.");
+  printInfo("`flawraroute --version` will keep reporting the old version until the process restarts.");
 }
 
 export function registerUpdate(program) {
@@ -155,21 +155,21 @@ export async function runUpdateCommand(opts = {}) {
     try {
       const { stdout } = await execFileAsync(
         npmBin(),
-        ["view", "omniroute", "changelog"],
+        ["view", "flawraroute", "changelog"],
         npmExecOptions(process.platform, { timeoutMs: 15000 })
       );
       if (stdout.trim()) {
         console.log(stdout.trim());
       } else {
-        console.log(`Changelog: https://github.com/your-org/omniroute/releases/tag/v${latest}`);
+        console.log(`Changelog: https://github.com/your-org/flawraroute/releases/tag/v${latest}`);
       }
     } catch {
-      console.log(`Changelog: https://github.com/your-org/omniroute/releases/tag/v${latest}`);
+      console.log(`Changelog: https://github.com/your-org/flawraroute/releases/tag/v${latest}`);
     }
     return 0;
   }
 
-  printHeading("OmniRoute Update");
+  printHeading("FlawraRoute Update");
   console.log(`  Current version: ${current}`);
   console.log(`  Latest version:  ${latest}`);
 
@@ -182,13 +182,13 @@ export async function runUpdateCommand(opts = {}) {
   console.log(`\n  Update available: ${current} → ${latest}`);
 
   if (checkOnly) {
-    console.log("\n  Run `omniroute update --apply` to install automatically.");
+    console.log("\n  Run `flawraroute update --apply` to install automatically.");
     return 1; // exit 1 = outdated (useful for scripts)
   }
 
   if (dryRun) {
-    console.log("\n  [DRY RUN] Would run: npm install -g omniroute@latest --include=optional");
-    if (!skipBackup) console.log("  [DRY RUN] Would create backup in ~/.omniroute/backups/");
+    console.log("\n  [DRY RUN] Would run: npm install -g flawraroute@latest --include=optional");
+    if (!skipBackup) console.log("  [DRY RUN] Would create backup in ~/.flawraroute/backups/");
     return 0;
   }
 
@@ -216,14 +216,14 @@ export async function runUpdateCommand(opts = {}) {
     }
   }
 
-  printInfo("Updating OmniRoute...");
+  printInfo("Updating FlawraRoute...");
   try {
     const { execSync } = await import("child_process");
     // --include=optional keeps the optionalDependencies (better-sqlite3, keytar,
     // tls-client, llmlingua SLM stack) on update so an omit=optional config can't drop them.
-    execSync("npm install -g omniroute@latest --include=optional", { stdio: "inherit" });
+    execSync("npm install -g flawraroute@latest --include=optional", { stdio: "inherit" });
     // Trust-but-verify: `npm install -g` exits 0 even when a shadowing local install
-    // (e.g. ~/node_modules/omniroute ahead of the global prefix on PATH) means the
+    // (e.g. ~/node_modules/flawraroute ahead of the global prefix on PATH) means the
     // binary the user actually runs was not touched. Re-read the running binary's
     // version and warn instead of lying about success (#9475).
     const afterVersion = await getCurrentVersion();
@@ -232,25 +232,25 @@ export async function runUpdateCommand(opts = {}) {
         `Global install updated to ${latest}, but the running binary still reports ${afterVersion}.`
       );
       console.log(
-        "  A local `node_modules/omniroute` is likely shadowing the global install on PATH."
+        "  A local `node_modules/flawraroute` is likely shadowing the global install on PATH."
       );
       console.log("  Diagnose with:");
-      console.log("    which -a omniroute");
-      console.log("    command -v omniroute");
+      console.log("    which -a flawraroute");
+      console.log("    command -v flawraroute");
       console.log("    npm prefix -g");
       console.log(
-        "  Then remove the shadowing local copy (e.g. `npm uninstall omniroute` from its directory)"
+        "  Then remove the shadowing local copy (e.g. `npm uninstall flawraroute` from its directory)"
       );
       console.log("  or reorder PATH so the global bin comes first.");
       return 1;
     }
-    printSuccess(`Installed omniroute@${latest} to disk.`);
+    printSuccess(`Installed flawraroute@${latest} to disk.`);
     await printPostApplyGuidance(latest);
     return 0;
   } catch (err) {
     printError(`Update failed: ${err.message}`);
     printInfo("Restore from backup:");
-    const backupDir = path.join(homedir(), ".omniroute", "backups");
+    const backupDir = path.join(homedir(), ".flawraroute", "backups");
     printInfo(`  ls ${backupDir}`);
     return 1;
   }

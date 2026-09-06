@@ -1,1 +1,1 @@
-- **feat(api):** Emit gateway-measured `tokens_per_second` (TTFT excluded) on streaming usage and `X-OmniRoute-Tokens-Per-Second` when first-token latency is known ([#12616](https://github.com/diegosouzapw/OmniRoute/issues/12616))
+- **feat(api):** Emit gateway-measured `tokens_per_second` (TTFT excluded) on streaming usage and `X-FlawraRoute-Tokens-Per-Second` when first-token latency is known ([#12616](https://github.com/diegosouzapw/FlawraRoute/issues/12616))

@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI Инструменты — OmniRoute"
+title: "CLI Инструменты — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI Инструменты — OmniRoute
+# CLI Инструменты — FlawraRoute
 
 Последнее обновление: 2026-08-18
 
-OmniRoute интегрируется с тремя категориями CLI инструментов, распределенными по трем специализированным страницам панели управления:
+FlawraRoute интегрируется с тремя категориями CLI инструментов, распределенными по трем специализированным страницам панели управления:
 
 | Страница       | Маршрут                 | Концепция                                                                                            | Количество |
 | -------------- | ----------------------- | ---------------------------------------------------------------------------------------------------- | ---------- |
-| **CLI Код**    | `/dashboard/cli-code`   | Инструменты кодирования, которые вы настраиваете на OmniRoute (Клиент → CLI → OmniRoute → Провайдер) | 26         |
-| **CLI Агенты** | `/dashboard/cli-agents` | Автономные агенты, которые вы настраиваете на OmniRoute (тот же поток, более широкий охват)          | 8          |
-| **ACP Агенты** | `/dashboard/acp-agents` | CLI, которые OmniRoute создает как бэкенд через stdio/ACP (обратный поток)                           | см. реестр |
+| **CLI Код**    | `/dashboard/cli-code`   | Инструменты кодирования, которые вы настраиваете на FlawraRoute (Клиент → CLI → FlawraRoute → Провайдер) | 26         |
+| **CLI Агенты** | `/dashboard/cli-agents` | Автономные агенты, которые вы настраиваете на FlawraRoute (тот же поток, более широкий охват)          | 8          |
+| **ACP Агенты** | `/dashboard/acp-agents` | CLI, которые FlawraRoute создает как бэкенд через stdio/ACP (обратный поток)                           | см. реестр |
 
 Устаревшие маршруты перенаправляют через 308: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ OmniRoute интегрируется с тремя категориями CLI и
 CLI Код / CLI Агенты (поток потребления):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (все указывают на OmniRoute)
+           ▼  (все указывают на FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute направляет к правильному провайдеру)
+           ▼  (FlawraRoute направляет к правильному провайдеру)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP Агенты (обратный поток создания):
-    Запрос клиента → OmniRoute → создает CLI через stdio/ACP → ответ
+    Запрос клиента → FlawraRoute → создает CLI через stdio/ACP → ответ
 ```
 
 **Преимущества:**
@@ -54,23 +54,23 @@ ACP Агенты (обратный поток создания):
 
 ## Автоконфигурация с `setup-*`
 
-Вам не нужно вручную писать конфигурацию для каждого инструмента. OmniRoute поставляется с командой `setup-*`
+Вам не нужно вручную писать конфигурацию для каждого инструмента. FlawraRoute поставляется с командой `setup-*`
 для каждого поддерживаемого CLI, которая считывает **живой** каталог моделей из работающего
-OmniRoute (локально или удаленно) и записывает собственную конфигурацию инструмента на вашем компьютере:
+FlawraRoute (локально или удаленно) и записывает собственную конфигурацию инструмента на вашем компьютере:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
-Каждая команда принимает `--remote <url> --api-key <key>` (настроить локальный инструмент для работы с удаленным OmniRoute), `--dry-run` (предварительный просмотр без записи) и `--port`. Инструменты без автоматического обнаружения модели (Cline, Kilo, Roo, Goose, Aider, Qwen) принимают
+Каждая команда принимает `--remote <url> --api-key <key>` (настроить локальный инструмент для работы с удаленным FlawraRoute), `--dry-run` (предварительный просмотр без записи) и `--port`. Инструменты без автоматического обнаружения модели (Cline, Kilo, Roo, Goose, Aider, Qwen) принимают
 `--model <id>` (и `--yes` для неинтерактивных запусков). Чтобы запустить CLI с правильной средой и без записи конфигурации, используйте универсальный
-`omniroute run <target>` (claude, codex, aider, goose, opencode, qwen,
+`flawraroute run <target>` (claude, codex, aider, goose, opencode, qwen,
 gemini — цели и псевдонимы берутся из `bin/cli/cli-manifest.mjs`); устаревшие
-запускатели для каждого инструмента `omniroute launch` (Claude Code) и `omniroute launch-codex`
-(Codex) остаются доступными. Gemini CLI является только для запуска: это цель `omniroute run`,
+запускатели для каждого инструмента `flawraroute launch` (Claude Code) и `flawraroute launch-codex`
+(Codex) остаются доступными. Gemini CLI является только для запуска: это цель `flawraroute run`,
 но не имеет рецепта `setup-*`/`configure`.
 
 > **Полная справка:** мастер-таблица — что каждая команда записывает, каждый флаг,
@@ -79,19 +79,19 @@ gemini — цели и псевдонимы берутся из `bin/cli/cli-man
 
 ### Запуск этих команд внутри контейнера
 
-Команда `setup-*`, выполненная внутри контейнера OmniRoute, записывает в
+Команда `setup-*`, выполненная внутри контейнера FlawraRoute, записывает в
 домашнюю директорию контейнера, которую ни один хост CLI не считывает и которая исчезает с
-контейнером. OmniRoute это обнаруживает и завершает работу с кодом `2`, предоставляя инструкции вместо записи. Два поддерживаемых способа — установить CLI на хосте и
-`omniroute connect` к контейнеру, или смонтировать директории конфигурации и установить
+контейнером. FlawraRoute это обнаруживает и завершает работу с кодом `2`, предоставляя инструкции вместо записи. Два поддерживаемых способа — установить CLI на хосте и
+`flawraroute connect` к контейнеру, или смонтировать директории конфигурации и установить
 `CLI_CONFIG_HOME` (профиль `host` в compose). Каждая команда `setup-*`, а также
-`omniroute configure` и `omniroute config set`, принимает
-`--allow-container-write`, когда вы на самом деле имели в виду настроить собственные CLI контейнера; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` делает то же самое для
+`flawraroute configure` и `flawraroute config set`, принимает
+`--allow-container-write`, когда вы на самом деле имели в виду настроить собственные CLI контейнера; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` делает то же самое для
 сервера. См.
-[Docker Guide → Конфигурирование CLI инструментов на хосте](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+[Docker Guide → Конфигурирование CLI инструментов на хосте](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
 **Точка применения** панели управления (`POST /api/cli-tools/apply`) применяет
 такую же защиту: в контейнере запись, цель которой не смонтирована с хоста, отвечает **`422`** с `containerEphemeralTarget: true`, безопасным текстом ошибки и — для инструментов с рецептом на хосте (claude, codex, opencode, cline,
-kilo, continue) — командой `hostSetupCommand` (например, `omniroute setup-opencode`), которую нужно выполнить на хосте вместо этого; ничего не записывается. `dryRun: true` продолжает работать в режиме контейнера
+kilo, continue) — командой `hostSetupCommand` (например, `flawraroute setup-opencode`), которую нужно выполнить на хосте вместо этого; ничего не записывается. `dryRun: true` продолжает работать в режиме контейнера
 и возвращает сгенерированное содержимое + целевой путь без изменения диска, так что
 вы можете предварительно просмотреть из панели управления и применить на хосте. Это поведение
 намеренное и защищено от регрессий с помощью
@@ -125,8 +125,8 @@ kilo, continue) — командой `hostSetupCommand` (например, `omni
 | ---------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | **Каталогизированный** | Появляется в каталоге панели управления (имя, поставщик, документация, тип конфигурации) | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                  |
 | **Обнаруживаемый**     | Обнаружение бинарных файлов/конфигураций, проверки состояния, пути конфигурации          | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` runtime catalog) |
-| **Настраиваемый**      | Поддерживается `omniroute configure <cli>` (существует рецепт настройки)                 | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
-| **Запускаемый**        | Поддерживается `omniroute run <target>` (определена инъекция env/args)                   | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
+| **Настраиваемый**      | Поддерживается `flawraroute configure <cli>` (существует рецепт настройки)                 | `bin/cli/cli-manifest.mjs` (`configure: true`)                    |
+| **Запускаемый**        | Поддерживается `flawraroute run <target>` (определена инъекция env/args)                   | `bin/cli/cli-manifest.mjs` (`run: true`)                          |
 
 `bin/cli/cli-manifest.mjs` является каноническим исполняемым манифестом для команд CLI
 поверхностей: `run`, `configure` и генераторы автозаполнения оболочки все получают свои
@@ -190,7 +190,7 @@ kilo, continue) — командой `hostSetupCommand` (например, `omni
 
 ## 3. ACP-агенты (/dashboard/acp-agents)
 
-Эта страница (переименованная из `/dashboard/agents`) показывает CLI, которые OmniRoute может **создавать** в качестве движков выполнения на стороне сервера через протокол stdio/ACP. Каталог поддерживается отдельно в `src/lib/acp/registry.ts` и **не** является тем же, что и `CLI_TOOLS`.
+Эта страница (переименованная из `/dashboard/agents`) показывает CLI, которые FlawraRoute может **создавать** в качестве движков выполнения на стороне сервера через протокол stdio/ACP. Каталог поддерживается отдельно в `src/lib/acp/registry.ts` и **не** является тем же, что и `CLI_TOOLS`.
 
 ---
 
@@ -253,7 +253,7 @@ interface ToolBatchStatus {
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primary + legacy `~/.deepseek` sync) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                            |
 | `POST /api/cli-tools/pi-settings`           | Pi coding agent                                                  |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)            |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)            |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + dedicated `.env` key)       |
 
 Все маршруты используют `sanitizeErrorMessage()` для ответов об ошибках (Жесткое правило #12).
@@ -313,7 +313,7 @@ interface ToolBatchStatus {
 
 ## 9. Быстрый старт
 
-### Шаг 1 — Получите ключ API OmniRoute
+### Шаг 1 — Получите ключ API FlawraRoute
 
 1. Откройте `/dashboard/api-manager` → **Создать ключ API**
 2. Дайте ему имя (например, `cli-tools`) и выберите все разрешения
@@ -346,7 +346,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (запускается через `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (запускается через `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -377,14 +377,14 @@ cargo install smelt  # на основе Rust
 ### Шаг 4 — Установите глобальные переменные окружения
 
 ```bash
-# Универсальная конечная точка OmniRoute
+# Универсальная конечная точка FlawraRoute
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI читает GOOGLE_GEMINI_BASE_URL на корне (его SDK добавляет /v1beta/... самостоятельно)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > Для **удаленного сервера** замените `localhost:20128` на IP-адрес или домен сервера,
@@ -402,7 +402,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -418,20 +418,20 @@ EOF
 
 Современный Codex (v0.137+) читает `~/.codex/config.toml` только — старый
 `config.yaml` принадлежит устаревшему npm CLI и игнорируется без предупреждений. Ключ API
-остается в переменной окружения `OMNIROUTE_API_KEY` (`env_key`), никогда
+остается в переменной окружения `FLAWRAROUTE_API_KEY` (`env_key`), никогда
 не внутри файла:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Полная справка (профили, `wire_api`, контекстные окна): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -447,12 +447,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -467,7 +467,7 @@ EOF
 
 **Тест:** `opencode`
 
-> Используйте `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> Используйте `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > для отправки вариантов мышления.
 
 ---
@@ -481,7 +481,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -489,7 +489,7 @@ EOF
 **Режим VS Code:**
 Настройки расширения Cline → Поставщик API: `OpenAI Compatible` → Базовый URL: `http://localhost:20128/v1`
 
-Или используйте панель управления OmniRoute → **CLI Tools → Cline → Применить конфигурацию**.
+Или используйте панель управления FlawraRoute → **CLI Tools → Cline → Применить конфигурацию**.
 
 ---
 
@@ -498,7 +498,7 @@ EOF
 **Режим CLI:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **Настройки VS Code:**
@@ -506,11 +506,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Или используйте панель управления OmniRoute → **CLI Tools → KiloCode → Применить конфигурацию**.
+Или используйте панель управления FlawraRoute → **CLI Tools → KiloCode → Применить конфигурацию**.
 
 ---
 
@@ -520,11 +520,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -534,25 +534,25 @@ models:
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Используйте это, когда VS Code Insiders настроен для пользовательских моделей конечных точек, и вы хотите, чтобы OmniRoute работал без пользовательского заголовка.
+Используйте это, когда VS Code Insiders настроен для пользовательских моделей конечных точек, и вы хотите, чтобы FlawraRoute работал без пользовательского заголовка.
 
 **Рекомендуемое местоположение:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Пример с использованием токенизированного псевдонима OmniRoute:**
+**Пример с использованием токенизированного псевдонима FlawraRoute:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -565,7 +565,7 @@ models:
 
 **Примечания:**
 
-- Замените `sk-your-omniroute-key` на ключ API, созданный в OmniRoute.
+- Замените `sk-your-flawraroute-key` на ключ API, созданный в FlawraRoute.
 - Поле `url` должно указывать на `/api/v1/vscode/{token}/chat/completions`.
 - Поле `modelsUrl` должно указывать на `/api/v1/vscode/{token}/models`.
 - Предпочитайте обычный поток `/v1` + заголовок Bearer, когда клиент поддерживает пользовательские заголовки.
@@ -579,40 +579,40 @@ models:
 # Войдите в свою учетную запись AWS/Kiro:
 kiro-cli login
 
-# CLI использует свою собственную аутентификацию — OmniRoute не нужен как бэкенд для самого Kiro CLI.
-# Используйте kiro-cli вместе с OmniRoute для других инструментов.
+# CLI использует свою собственную аутентификацию — FlawraRoute не нужен как бэкенд для самого Kiro CLI.
+# Используйте kiro-cli вместе с FlawraRoute для других инструментов.
 kiro-cli status
 ```
 
-Для настольного приложения **Kiro IDE** используйте конечную точку MITM, предоставленную OmniRoute
+Для настольного приложения **Kiro IDE** используйте конечную точку MITM, предоставленную FlawraRoute
 по адресу `/dashboard/cli-tools → Kiro`.
 
 ---
 
-## 10. Внутренний OmniRoute CLI
+## 10. Внутренний FlawraRoute CLI
 
-Бинарный файл `omniroute` предоставляет команды для жизненного цикла сервера, настройки, диагностики и управления провайдерами. Точка входа: `bin/omniroute.mjs`.
+Бинарный файл `flawraroute` предоставляет команды для жизненного цикла сервера, настройки, диагностики и управления провайдерами. Точка входа: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Запустить сервер (порт по умолчанию 20128)
-omniroute setup                        # Интерактивный мастер настройки
-omniroute doctor                       # Проверить конфигурацию, БД, порты, время выполнения
-omniroute providers list               # Настроенные соединения провайдеров
-omniroute providers test-all           # Протестировать каждое активное соединение
-omniroute reset-password               # Сбросить пароль администратора
-omniroute logs                         # Поток журналов запросов
-omniroute health                       # Подробное состояние (размыкатели, кэш, память)
-omniroute --version                    # Печать версии
-omniroute --help                       # Показать все команды
+flawraroute                              # Запустить сервер (порт по умолчанию 20128)
+flawraroute setup                        # Интерактивный мастер настройки
+flawraroute doctor                       # Проверить конфигурацию, БД, порты, время выполнения
+flawraroute providers list               # Настроенные соединения провайдеров
+flawraroute providers test-all           # Протестировать каждое активное соединение
+flawraroute reset-password               # Сбросить пароль администратора
+flawraroute logs                         # Поток журналов запросов
+flawraroute health                       # Подробное состояние (размыкатели, кэш, память)
+flawraroute --version                    # Печать версии
+flawraroute --help                       # Показать все команды
 ```
 
 ### Настройка и инициализация
 
 ```bash
-omniroute setup                        # Интерактивный мастер настройки
-omniroute setup --non-interactive      # CI/автоматизированный режим (читает переменные окружения + флаги)
-omniroute setup --password '<value>'   # Установить пароль администратора напрямую
-omniroute setup --add-provider \
+flawraroute setup                        # Интерактивный мастер настройки
+flawraroute setup --non-interactive      # CI/автоматизированный режим (читает переменные окружения + флаги)
+flawraroute setup --password '<value>'   # Установить пароль администратора напрямую
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Добавить и протестировать провайдера за один раз
@@ -622,21 +622,21 @@ omniroute setup --add-provider \
 
 | Var                 | Назначение                                                          |
 | ------------------- | ------------------------------------------------------------------- |
-| `OMNIROUTE_API_KEY` | API-ключ провайдера (связан с `--api-key` через Commander `.env()`) |
-| `DATA_DIR`          | Переопределить каталог данных OmniRoute                             |
+| `FLAWRAROUTE_API_KEY` | API-ключ провайдера (связан с `--api-key` через Commander `.env()`) |
+| `DATA_DIR`          | Переопределить каталог данных FlawraRoute                             |
 
 Все остальные неинтерактивные вводы передаются как флаги, а не переменные окружения:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(см. опции `omniroute setup` выше).
+(см. опции `flawraroute setup` выше).
 
 ### Диагностика
 
 ```bash
-omniroute doctor                       # Проверить конфигурацию, БД, порты, время выполнения, память, работоспособность
-omniroute doctor --json                # Читаемый машиной JSON
-omniroute doctor --no-liveness         # Пропустить HTTP-пробу работоспособности
-omniroute doctor --host 0.0.0.0        # Переопределить хост работоспособности
-omniroute doctor --liveness-url <url>  # Полное переопределение URL конечной точки здоровья
+flawraroute doctor                       # Проверить конфигурацию, БД, порты, время выполнения, память, работоспособность
+flawraroute doctor --json                # Читаемый машиной JSON
+flawraroute doctor --no-liveness         # Пропустить HTTP-пробу работоспособности
+flawraroute doctor --host 0.0.0.0        # Переопределить хост работоспособности
+flawraroute doctor --liveness-url <url>  # Полное переопределение URL конечной точки здоровья
 ```
 
 Доктор выполняет следующие проверки: `Конфигурация`, `База данных`, `Хранение/шифрование`,
@@ -646,47 +646,47 @@ omniroute doctor --liveness-url <url>  # Полное переопределен
 ### Управление провайдерами
 
 ```bash
-omniroute providers available                       # Каталог провайдеров OmniRoute
-omniroute providers available --search openai       # Фильтровать каталог по id/имени/псевдониму/категории
-omniroute providers available --category api-key    # Фильтровать по категории (api-key, oauth, free, ...)
-omniroute providers available --json                # Читаемый машиной JSON
+flawraroute providers available                       # Каталог провайдеров FlawraRoute
+flawraroute providers available --search openai       # Фильтровать каталог по id/имени/псевдониму/категории
+flawraroute providers available --category api-key    # Фильтровать по категории (api-key, oauth, free, ...)
+flawraroute providers available --json                # Читаемый машиной JSON
 
-omniroute providers list                            # Настроенные соединения провайдеров
-omniroute providers list --json
+flawraroute providers list                            # Настроенные соединения провайдеров
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Протестировать одно настроенное соединение
-omniroute providers test-all                        # Протестировать каждое активное соединение
-omniroute providers validate                        # Локальная структурная проверка
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Существующий OAuth поток
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Протестировать одно настроенное соединение
+flawraroute providers test-all                        # Протестировать каждое активное соединение
+flawraroute providers validate                        # Локальная структурная проверка
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Существующий OAuth поток
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` работают по принципу API и, следовательно, действуют в
 активном локальном или удаленном контексте. Ввод учетных данных должен использовать
 `--credential-stdin` или `--credential-env`; `--dry-run --json` сообщает только
-о редактированных присутствии/форме. `providers available` читает каталог OmniRoute;
+о редактированных присутствии/форме. `providers available` читает каталог FlawraRoute;
 `providers list/test/test-all/validate` сохраняют свое локальное поведение SQLite и
 не требуют, чтобы сервер работал.
 
 ### Восстановление и сброс
 
 ```bash
-omniroute reset-password                # Сбросить пароль администратора (также: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Показать предупреждение + пробный запуск для сброса зашифрованных учетных данных
-omniroute reset-encrypted-columns --force  # На самом деле обнулить зашифрованные учетные данные в SQLite
+flawraroute reset-password                # Сбросить пароль администратора (также: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Показать предупреждение + пробный запуск для сброса зашифрованных учетных данных
+flawraroute reset-encrypted-columns --force  # На самом деле обнулить зашифрованные учетные данные в SQLite
 ```
 
 ### Экспорт учетных данных (⚠ обращайтесь с осторожностью)
 
 ```bash
-omniroute auth export                                 # Показать предупреждение + подтверждение — доступ к БД отсутствует
-omniroute auth export --force                          # Экспортировать ВСЕ расшифрованные учетные данные соединений в stdout в формате JSON
-omniroute auth export --force --id <id>                 # Экспортировать только соответствующее соединение
-omniroute auth export --force --format env               # Вывести строки OMNIROUTE_<PROVIDER>_<FIELD>=<value>
-omniroute auth export --force --out creds.json           # Записать в файл (созданный с правами 0600)
+flawraroute auth export                                 # Показать предупреждение + подтверждение — доступ к БД отсутствует
+flawraroute auth export --force                          # Экспортировать ВСЕ расшифрованные учетные данные соединений в stdout в формате JSON
+flawraroute auth export --force --id <id>                 # Экспортировать только соответствующее соединение
+flawraroute auth export --force --format env               # Вывести строки FLAWRAROUTE_<PROVIDER>_<FIELD>=<value>
+flawraroute auth export --force --out creds.json           # Записать в файл (созданный с правами 0600)
 ```
 
 `auth export` является **локальным** (прямое чтение из SQLite, без HTTP маршрута) и намеренно печатает/записывает
@@ -697,36 +697,36 @@ omniroute auth export --force --out creds.json           # Записать в �
 
 ### Другие подкоманды
 
-Эти команды предполагают работающий сервер OmniRoute, если не указано иное:
+Эти команды предполагают работающий сервер FlawraRoute, если не указано иное:
 
 ```bash
-omniroute status                       # Комплексный статус времени выполнения
-omniroute logs                         # Поток журналов запросов (--json, --search, --follow)
-omniroute config show                  # Показать текущую конфигурацию
+flawraroute status                       # Комплексный статус времени выполнения
+flawraroute logs                         # Поток журналов запросов (--json, --search, --follow)
+flawraroute config show                  # Показать текущую конфигурацию
 
-omniroute provider list                # Список доступных провайдеров (псевдоним для providers list)
-omniroute provider add                 # Зарегистрировать OmniRoute как провайдера в инструменте
-omniroute keys add | list | remove     # Управление API-ключами
-omniroute models [provider]            # Список моделей (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Список доступных провайдеров (псевдоним для providers list)
+flawraroute provider add                 # Зарегистрировать FlawraRoute как провайдера в инструменте
+flawraroute keys add | list | remove     # Управление API-ключами
+flawraroute models [provider]            # Список моделей (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Снимок конфигурации + БД
-omniroute restore                      # Восстановление из предыдущего снимка
+flawraroute backup                       # Снимок конфигурации + БД
+flawraroute restore                      # Восстановление из предыдущего снимка
 
-omniroute health                       # Подробное состояние (размыкатели, кэш, память)
-omniroute quota                        # Использование квоты провайдера
-omniroute cache                        # Статус кэша
-omniroute cache clear                  # Очистить семантические + сигнатурные кэши
+flawraroute health                       # Подробное состояние (размыкатели, кэш, память)
+flawraroute quota                        # Использование квоты провайдера
+flawraroute cache                        # Статус кэша
+flawraroute cache clear                  # Очистить семантические + сигнатурные кэши
 
-omniroute mcp status | restart         # Статус сервера MCP / перезапуск
-omniroute a2a status | card            # Статус сервера A2A / карточка агента
+flawraroute mcp status | restart         # Статус сервера MCP / перезапуск
+flawraroute a2a status | card            # Статус сервера A2A / карточка агента
 
-omniroute tunnel list | create | stop  # Управление туннелями (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Просмотр / установка переменных окружения (временные)
+flawraroute tunnel list | create | stop  # Управление туннелями (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Просмотр / установка переменных окружения (временные)
 
-omniroute test                         # Тест подключения провайдера
-omniroute update                       # Проверка обновлений
-omniroute completion                   # Генерация завершения для оболочки
+flawraroute test                         # Тест подключения провайдера
+flawraroute update                       # Проверка обновлений
+flawraroute completion                   # Генерация завершения для оболочки
 ```
 
 ### Общие флаги
@@ -755,7 +755,7 @@ omniroute completion                   # Генерация завершения
 | `/v1/audio/speech`         | Текст в речь                     | ElevenLabs, OpenAI TTS                     |
 | `/v1/audio/transcriptions` | Речь в текст                     | Deepgram, AssemblyAI                       |
 
-Готовые к вставке примеры с токенизированным URL OmniRoute:
+Готовые к вставке примеры с токенизированным URL FlawraRoute:
 
 ```txt
 Token example: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -774,7 +774,7 @@ Token example: sk-a3ab3c080beaee3a-69f4a4-070d71af
 
 | Ошибка                                                      | Причина                    | Исправление                                           |
 | ----------------------------------------------------------- | -------------------------- | ----------------------------------------------------- |
-| `Connection refused`                                        | OmniRoute не запущен       | `omniroute serve`                                     |
+| `Connection refused`                                        | FlawraRoute не запущен       | `flawraroute serve`                                     |
 | `401 Unauthorized`                                          | Неправильный API ключ      | Проверьте в `/dashboard/api-manager`                  |
 | `No combo configured`                                       | Нет активной маршрутизации | Настройте в `/dashboard/combos`                       |
 | CLI показывает "not installed"                              | Бинарный файл не в PATH    | Проверьте `which <command>`                           |

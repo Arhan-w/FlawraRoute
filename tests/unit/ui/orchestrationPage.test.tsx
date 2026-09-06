@@ -17,7 +17,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 const DEFAULT_SNAPSHOT = {
-  nodes: [{ id: "orchestrator", kind: "orchestrator", label: "OmniRoute" }],
+  nodes: [{ id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" }],
   edges: [],
   sources: [],
   generatedAt: "x",
@@ -132,7 +132,7 @@ describe("OrchestrationPageClient", () => {
   it("?q=login filters the snapshot passed to OverviewTab down to matching work nodes", () => {
     snapshot = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         {
           id: "cloud-agent:1",
           kind: "work",
@@ -221,7 +221,7 @@ describe("OrchestrationPageClient", () => {
   it("?node=<id> opens the drawer with the matching node; removing the param closes it", () => {
     snapshot = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         {
           id: "cloud-agent:1",
           kind: "work",
@@ -263,7 +263,7 @@ describe("OrchestrationPageClient", () => {
   it("switching to the History tab while ?node= is set clears the param and does not render the page-level drawer", () => {
     snapshot = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         {
           id: "cloud-agent:1",
           kind: "work",

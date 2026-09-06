@@ -2,8 +2,8 @@
 
 import { CLI_TOKEN_HEADER, getCliToken } from "../../bin/cli/utils/cliToken.mjs";
 
-const baseUrl = (process.env.OMNIROUTE_BASE_URL || "http://127.0.0.1:20128").replace(/\/$/, "");
-const apiKey = process.env.OMNIROUTE_API_KEY || "";
+const baseUrl = (process.env.FLAWRAROUTE_BASE_URL || "http://127.0.0.1:20128").replace(/\/$/, "");
+const apiKey = process.env.FLAWRAROUTE_API_KEY || "";
 const timeoutMs = 5000;
 
 async function get(path) {
@@ -40,7 +40,7 @@ function check(label, passed, detail = "") {
   return passed;
 }
 
-console.log("OmniRoute Verification");
+console.log("FlawraRoute Verification");
 console.log(`Gateway: ${baseUrl}`);
 const results = [];
 
@@ -56,7 +56,7 @@ try {
   results.push(check("Pools", pools.ok, `${poolRows.length}`));
   results.push(check("Allocations", pools.ok && allocations >= poolRows.length, `${allocations}`));
 
-  const status = await get("/api/omniroute/status");
+  const status = await get("/api/flawraroute/status");
   results.push(check("Status API", status.ok, `HTTP ${status.status}`));
   results.push(check("No live request", status.body?.liveRequestExecuted === false));
 } catch (error) {

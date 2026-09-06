@@ -1,1 +1,1 @@
-- **feat(free):** custom models can be marked free-tier via `customModels[].isFree`; `isFreeModel()` is the first door and `hidePaidModels` respects it even for providers outside the free budget ([#11843](https://github.com/diegosouzapw/OmniRoute/pull/11843))
+- **feat(free):** custom models can be marked free-tier via `customModels[].isFree`; `isFreeModel()` is the first door and `hidePaidModels` respects it even for providers outside the free budget ([#11843](https://github.com/diegosouzapw/FlawraRoute/pull/11843))

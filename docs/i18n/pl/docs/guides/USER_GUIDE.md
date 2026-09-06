@@ -8,7 +8,7 @@ lastUpdated: 2026-06-28
 
 🌐 **Languages:** 🇺🇸 [English](../../../../guides/USER_GUIDE.md) · 🇸🇦 [ar](../../../ar/docs/guides/USER_GUIDE.md) · 🇦🇿 [az](../../../az/docs/guides/USER_GUIDE.md) · 🇧🇬 [bg](../../../bg/docs/guides/USER_GUIDE.md) · 🇧🇩 [bn](../../../bn/docs/guides/USER_GUIDE.md) · 🇨🇿 [cs](../../../cs/docs/guides/USER_GUIDE.md) · 🇩🇰 [da](../../../da/docs/guides/USER_GUIDE.md) · 🇩🇪 [de](../../../de/docs/guides/USER_GUIDE.md) · 🇪🇸 [es](../../../es/docs/guides/USER_GUIDE.md) · 🇮🇷 [fa](../../../fa/docs/guides/USER_GUIDE.md) · 🇫🇮 [fi](../../../fi/docs/guides/USER_GUIDE.md) · 🇫🇷 [fr](../../../fr/docs/guides/USER_GUIDE.md) · 🇮🇳 [gu](../../../gu/docs/guides/USER_GUIDE.md) · 🇮🇱 [he](../../../he/docs/guides/USER_GUIDE.md) · 🇮🇳 [hi](../../../hi/docs/guides/USER_GUIDE.md) · 🇭🇺 [hu](../../../hu/docs/guides/USER_GUIDE.md) · 🇮🇩 [id](../../../id/docs/guides/USER_GUIDE.md) · 🇮🇹 [it](../../../it/docs/guides/USER_GUIDE.md) · 🇯🇵 [ja](../../../ja/docs/guides/USER_GUIDE.md) · 🇰🇷 [ko](../../../ko/docs/guides/USER_GUIDE.md) · 🇮🇳 [mr](../../../mr/docs/guides/USER_GUIDE.md) · 🇲🇾 [ms](../../../ms/docs/guides/USER_GUIDE.md) · 🇳🇱 [nl](../../../nl/docs/guides/USER_GUIDE.md) · 🇳🇴 [no](../../../no/docs/guides/USER_GUIDE.md) · 🇵🇭 [phi](../../../phi/docs/guides/USER_GUIDE.md) · 🇵🇹 [pt](../../../pt/docs/guides/USER_GUIDE.md) · 🇧🇷 [pt-BR](../../../pt-BR/docs/guides/USER_GUIDE.md) · 🇷🇴 [ro](../../../ro/docs/guides/USER_GUIDE.md) · 🇷🇺 [ru](../../../ru/docs/guides/USER_GUIDE.md) · 🇸🇰 [sk](../../../sk/docs/guides/USER_GUIDE.md) · 🇸🇪 [sv](../../../sv/docs/guides/USER_GUIDE.md) · 🇰🇪 [sw](../../../sw/docs/guides/USER_GUIDE.md) · 🇮🇳 [ta](../../../ta/docs/guides/USER_GUIDE.md) · 🇮🇳 [te](../../../te/docs/guides/USER_GUIDE.md) · 🇹🇭 [th](../../../th/docs/guides/USER_GUIDE.md) · 🇹🇷 [tr](../../../tr/docs/guides/USER_GUIDE.md) · 🇺🇦 [uk-UA](../../../uk-UA/docs/guides/USER_GUIDE.md) · 🇵🇰 [ur](../../../ur/docs/guides/USER_GUIDE.md) · 🇻🇳 [vi](../../../vi/docs/guides/USER_GUIDE.md) · 🇨🇳 [zh-CN](../../../zh-CN/docs/guides/USER_GUIDE.md) · 🇹🇼 [zh-TW](../../../zh-TW/docs/guides/USER_GUIDE.md)
 
-Kompletny przewodnik po konfiguracji providerów, tworzeniu combo, integracji narzędzi CLI i wdrażaniu OmniRoute.
+Kompletny przewodnik po konfiguracji providerów, tworzeniu combo, integracji narzędzi CLI i wdrażaniu FlawraRoute.
 
 ---
 
@@ -137,10 +137,10 @@ Models:
   cc/claude-haiku-4-5-20251001
 ```
 
-**Wskazówka:** Używaj Opus do złożonych zadań, Sonnet dla szybkości. OmniRoute śledzi limit per model!
+**Wskazówka:** Używaj Opus do złożonych zadań, Sonnet dla szybkości. FlawraRoute śledzi limit per model!
 
 Trasy zgodne z Claude i Claude Code zachowują poziom myślenia `max` dla modeli Opus i Sonnet
-Modele Haiku nie akceptują poziomu wysiłku `max`, więc OmniRoute obniża to
+Modele Haiku nie akceptują poziomu wysiłku `max`, więc FlawraRoute obniża to
 żądanie do wysokiego budżetu myślenia przed wysłaniem upstream.
 
 #### OpenAI Codex (Plus/Pro)
@@ -191,7 +191,7 @@ Models:
 
 #### Kimi K2 ($9/mies. ryczałt)
 
-1. Subskrybuj: [Moonshot AI](https://platform.kimi.ai?aff=omniroute)
+1. Subskrybuj: [Moonshot AI](https://platform.kimi.ai?aff=flawraroute)
 2. Pobierz klucz API → Dashboard → Add API Key
 
 **Użyj:** `kimi/kimi-k2.5` — **Wskazówka:** Stałe $9/mies. za 10M tokenów = efektywny koszt $0.90/1M!
@@ -265,7 +265,7 @@ Cost: currently listed as $0; terms and availability may change
 ```
 Settings → Models → Advanced:
   OpenAI API Base URL: http://localhost:20128/v1
-  OpenAI API Key: [from omniroute dashboard]
+  OpenAI API Key: [from flawraroute dashboard]
   Model: cc/claude-opus-4-7
 ```
 
@@ -277,7 +277,7 @@ Edytuj `~/.claude/settings.json`:
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "your-omniroute-api-key"
+    "ANTHROPIC_AUTH_TOKEN": "your-flawraroute-api-key"
   }
 }
 ```
@@ -288,7 +288,7 @@ Użyj tutaj root endpointu zgodnego z Claude. Nie dopisuj `/v1` do `ANTHROPIC_BA
 
 ```bash
 export OPENAI_BASE_URL="http://localhost:20128"
-export OPENAI_API_KEY="your-omniroute-api-key"
+export OPENAI_API_KEY="your-flawraroute-api-key"
 codex "your prompt"
 ```
 
@@ -300,14 +300,14 @@ Edytuj `~/.openclaw/openclaw.json`:
 {
   "agents": {
     "defaults": {
-      "model": { "primary": "omniroute/if/kimi-k2.7-code" }
+      "model": { "primary": "flawraroute/if/kimi-k2.7-code" }
     }
   },
   "models": {
     "providers": {
-      "omniroute": {
+      "flawraroute": {
         "baseUrl": "http://localhost:20128/v1",
-        "apiKey": "your-omniroute-api-key",
+        "apiKey": "your-flawraroute-api-key",
         "api": "openai-completions",
         "models": [{ "id": "if/kimi-k2.7-code", "name": "Kimi K2.7 Code" }]
       }
@@ -334,42 +334,42 @@ Model: cc/claude-opus-4-7
 ### Globalna instalacja npm (zalecane)
 
 ```bash
-npm install -g omniroute
+npm install -g flawraroute
 
 # Create config directory
-mkdir -p ~/.omniroute
+mkdir -p ~/.flawraroute
 
 # Create .env file (see .env.example)
-cp .env.example ~/.omniroute/.env
+cp .env.example ~/.flawraroute/.env
 
 # Start server
-omniroute
+flawraroute
 # Or with custom port:
-omniroute --port 3000
+flawraroute --port 3000
 ```
 
-CLI automatycznie ładuje `.env` z `~/.omniroute/.env` lub `./.env`.
+CLI automatycznie ładuje `.env` z `~/.flawraroute/.env` lub `./.env`.
 
 ### Odinstalowywanie
 
-Gdy nie potrzebujesz już OmniRoute, mamy dwa szybkie skrypty do czystego usunięcia:
+Gdy nie potrzebujesz już FlawraRoute, mamy dwa szybkie skrypty do czystego usunięcia:
 
 | Polecenie                | Działanie                                                                        |
 | ------------------------ | -------------------------------------------------------------------------------- |
-| `npm run uninstall`      | Usuwa aplikację systemową, ale **zachowuje DB i konfiguracje** w `~/.omniroute`. |
+| `npm run uninstall`      | Usuwa aplikację systemową, ale **zachowuje DB i konfiguracje** w `~/.flawraroute`. |
 | `npm run uninstall:full` | Usuwa aplikację ORAZ trwale **kasuje wszystkie konfiguracje, klucze i bazy**.    |
 
-> Uwaga: Aby uruchomić te polecenia, przejdź do folderu projektu OmniRoute (jeśli klonowałeś) i je wykonaj. Alternatywnie, przy instalacji globalnej możesz po prostu uruchomić `npm uninstall -g omniroute`.
+> Uwaga: Aby uruchomić te polecenia, przejdź do folderu projektu FlawraRoute (jeśli klonowałeś) i je wykonaj. Alternatywnie, przy instalacji globalnej możesz po prostu uruchomić `npm uninstall -g flawraroute`.
 
 ### Wdrożenie na VPS
 
 ```bash
-git clone https://github.com/diegosouzapw/OmniRoute.git
-cd OmniRoute && npm install && npm run build
+git clone https://github.com/diegosouzapw/FlawraRoute.git
+cd FlawraRoute && npm install && npm run build
 
 export JWT_SECRET="your-secure-secret-change-this"
 export INITIAL_PASSWORD="your-password"
-export DATA_DIR="/var/lib/omniroute"
+export DATA_DIR="/var/lib/flawraroute"
 export PORT="20128"
 export HOSTNAME="0.0.0.0"
 export NODE_ENV="production"
@@ -377,7 +377,7 @@ export NEXT_PUBLIC_BASE_URL="http://localhost:20128"
 export API_KEY_SECRET="endpoint-proxy-api-key-secret"
 
 npm run start
-# Or: pm2 start npm --name omniroute -- start
+# Or: pm2 start npm --name flawraroute -- start
 ```
 
 ### Wdrożenie PM2 (mało pamięci)
@@ -386,10 +386,10 @@ Na serwerach z ograniczoną RAM użyj opcji limitu pamięci:
 
 ```bash
 # With 512MB limit (default)
-pm2 start npm --name omniroute -- start
+pm2 start npm --name flawraroute -- start
 
 # Or with custom memory limit
-OMNIROUTE_MEMORY_MB=512 pm2 start npm --name omniroute -- start
+FLAWRAROUTE_MEMORY_MB=512 pm2 start npm --name flawraroute -- start
 
 # Or using ecosystem.config.js
 pm2 start ecosystem.config.js
@@ -401,12 +401,12 @@ Utwórz `ecosystem.config.js`:
 module.exports = {
   apps: [
     {
-      name: "omniroute",
+      name: "flawraroute",
       script: "npm",
       args: "start",
       env: {
         NODE_ENV: "production",
-        OMNIROUTE_MEMORY_MB: "512",
+        FLAWRAROUTE_MEMORY_MB: "512",
         JWT_SECRET: "your-secret",
         INITIAL_PASSWORD: "your-password",
       },
@@ -421,24 +421,24 @@ module.exports = {
 
 ```bash
 # Build image (default = runner-cli with codex/claude/droid preinstalled)
-docker build -t omniroute:cli .
+docker build -t flawraroute:cli .
 
 # Portable mode (recommended)
-docker run -d --name omniroute -p 20128:20128 --env-file ./.env -v omniroute-data:/app/data omniroute:cli
+docker run -d --name flawraroute -p 20128:20128 --env-file ./.env -v flawraroute-data:/app/data flawraroute:cli
 ```
 
 Dla trybu zintegrowanego z hostem i binariami CLI zobacz sekcję Docker w głównej dokumentacji.
 
 ### Void Linux (xbps-src)
 
-Użytkownicy Void Linux mogą spakować i zainstalować OmniRoute natywnie przez framework cross-kompilacji `xbps-src`. Automatyzuje to build standalone Node.js wraz z wymaganymi natywnymi bindingami `better-sqlite3`.
+Użytkownicy Void Linux mogą spakować i zainstalować FlawraRoute natywnie przez framework cross-kompilacji `xbps-src`. Automatyzuje to build standalone Node.js wraz z wymaganymi natywnymi bindingami `better-sqlite3`.
 
 <details>
 <summary><b>Zobacz szablon xbps-src</b></summary>
 
 ```bash
-# Template file for 'omniroute'
-pkgname=omniroute
+# Template file for 'flawraroute'
+pkgname=flawraroute
 version=3.8.0
 revision=1
 hostmakedepends="nodejs python3 make"
@@ -446,11 +446,11 @@ depends="openssl"
 short_desc="Universal AI gateway with smart routing for multiple LLM providers"
 maintainer="zenobit <zenobit@disroot.org>"
 license="MIT"
-homepage="https://github.com/diegosouzapw/OmniRoute"
-distfiles="https://github.com/diegosouzapw/OmniRoute/archive/refs/tags/v${version}.tar.gz"
+homepage="https://github.com/diegosouzapw/FlawraRoute"
+distfiles="https://github.com/diegosouzapw/FlawraRoute/archive/refs/tags/v${version}.tar.gz"
 checksum=009400afee90a9f32599d8fe734145cfd84098140b7287990183dde45ae2245b
-system_accounts="_omniroute"
-omniroute_homedir="/var/lib/omniroute"
+system_accounts="_flawraroute"
+flawraroute_homedir="/var/lib/flawraroute"
 export NODE_ENV=production
 export npm_config_engine_strict=false
 export npm_config_loglevel=error
@@ -500,26 +500,26 @@ do_check() {
 }
 
 do_install() {
-	vmkdir usr/lib/omniroute/.next
-	vcopy .next/standalone/. usr/lib/omniroute/.next/standalone
+	vmkdir usr/lib/flawraroute/.next
+	vcopy .next/standalone/. usr/lib/flawraroute/.next/standalone
 
 	# Prevent removal of empty Next.js app router dirs by the post-install hook
 	for _d in \
 		.next/standalone/.next/server/app/dashboard \
 		.next/standalone/.next/server/app/dashboard/settings \
 		.next/standalone/.next/server/app/dashboard/providers; do
-		touch "${DESTDIR}/usr/lib/omniroute/${_d}/.keep"
+		touch "${DESTDIR}/usr/lib/flawraroute/${_d}/.keep"
 	done
 
-	cat > "${WRKDIR}/omniroute" <<'EOF'
+	cat > "${WRKDIR}/flawraroute" <<'EOF'
 #!/bin/sh
 export PORT="${PORT:-20128}"
-export DATA_DIR="${DATA_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/omniroute}"
+export DATA_DIR="${DATA_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/flawraroute}"
 export APP_LOG_TO_FILE="${APP_LOG_TO_FILE:-false}"
 mkdir -p "${DATA_DIR}"
-exec node /usr/lib/omniroute/.next/standalone/server.js "$@"
+exec node /usr/lib/flawraroute/.next/standalone/server.js "$@"
 EOF
-	vbin "${WRKDIR}/omniroute"
+	vbin "${WRKDIR}/flawraroute"
 }
 
 post_install() {
@@ -533,14 +533,14 @@ post_install() {
 
 | Zmienna                                 | Domyślnie                            | Opis                                                                                                                     |
 | --------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `JWT_SECRET`                            | `omniroute-default-secret-change-me` | Sekret podpisu JWT (**zmień w produkcji**)                                                                               |
+| `JWT_SECRET`                            | `flawraroute-default-secret-change-me` | Sekret podpisu JWT (**zmień w produkcji**)                                                                               |
 | `INITIAL_PASSWORD`                      | `CHANGEME`                           | Hasło pierwszego logowania                                                                                               |
-| `DATA_DIR`                              | `~/.omniroute`                       | Katalog danych (db, usage, logi)                                                                                         |
+| `DATA_DIR`                              | `~/.flawraroute`                       | Katalog danych (db, usage, logi)                                                                                         |
 | `PORT`                                  | domyślne frameworka                  | Port usługi (`20128` w przykładach)                                                                                      |
 | `HOSTNAME`                              | domyślne frameworka                  | Host nasłuchiwania (Docker domyślnie `0.0.0.0`)                                                                          |
 | `NODE_ENV`                              | domyślne runtime                     | Ustaw `production` przy wdrożeniu                                                                                        |
 | `NEXT_PUBLIC_BASE_URL`                  | `http://localhost:20128`             | Publiczny bazowy URL widoczny w dashboardzie i na serwerze (zastępuje legacy `BASE_URL`)                                 |
-| `NEXT_PUBLIC_CLOUD_URL`                 | `https://omniroute.dev`              | Bazowy URL endpointu cloud sync (zastępuje legacy `CLOUD_URL`)                                                           |
+| `NEXT_PUBLIC_CLOUD_URL`                 | `https://flawraroute.dev`              | Bazowy URL endpointu cloud sync (zastępuje legacy `CLOUD_URL`)                                                           |
 | `API_KEY_SECRET`                        | `endpoint-proxy-api-key-secret`      | Sekret HMAC dla generowanych kluczy API                                                                                  |
 | `REQUIRE_API_KEY`                       | `false`                              | Wymuszaj klucz API Bearer na `/v1/*`                                                                                     |
 | `ALLOW_API_KEY_REVEAL`                  | `false`                              | Pozwól zalogowanym użytkownikom dashboardu na żądanie odsłaniać pełne zapisane wartości kluczy API                       |
@@ -550,7 +550,7 @@ post_install() {
 | `AUTH_COOKIE_SECURE`                    | `false`                              | Wymuś cookie auth `Secure` (za reverse proxy HTTPS)                                                                      |
 | `CLOUDFLARED_BIN`                       | unset                                | Użyj istniejącego binarium `cloudflared` zamiast zarządzanego pobierania                                                 |
 | `CLOUDFLARED_PROTOCOL`                  | `http2`                              | Transport dla zarządzanych Quick Tunnels (`http2`, `quic` lub `auto`)                                                    |
-| `OMNIROUTE_MEMORY_MB`                   | `512`                                | Limit sterty Node.js w MB                                                                                                |
+| `FLAWRAROUTE_MEMORY_MB`                   | `512`                                | Limit sterty Node.js w MB                                                                                                |
 | `PROMPT_CACHE_MAX_SIZE`                 | `50`                                 | Maks. wpisów cache promptów                                                                                              |
 | `SEMANTIC_CACHE_MAX_SIZE`               | `100`                                | Maks. wpisów semantic cache                                                                                              |
 
@@ -609,7 +609,7 @@ Pełną listę zmiennych środowiskowych znajdziesz w [README](../README.md).
 
 **Inni zgodni providerzy** (wybrane): `cohere`, `databricks`, `snowflake`, `together`, `vertex`, `alibaba`, `alibaba-cn`, `bedrock` (via `aws-bedrock`), `azure-ai`, `openrouter` (passthrough catalog), `siliconflow`, `hyperbolic`, `huggingface`, `featherless-ai`, `cloudflare-ai`, `scaleway`, `deepinfra`, `vercel-ai-gateway`, `bazaarlink`, `friendliai`, `nous-research`, `reka`, `volcengine`, `ai21`, `gigachat`. Each maintains its own model list in `providerRegistry.ts` and can be auto-synced when the provider exposes a `/models` endpoint.
 
-**Uwaga o ID modeli:** OmniRoute używa natywnych ID providerów (`claude-opus-4-8`, `gpt-5.5`, `glm-5.1`, `MiniMax-M2.7`, `kimi-k2.5`, `grok-4.20-0309-reasoning`). Some IDs include dotted versions because that is how the upstream API expects them. If a model is not listed above, run `omniroute models --search <term>` or hit `GET /api/models/catalog` to confirm availability.
+**Uwaga o ID modeli:** FlawraRoute używa natywnych ID providerów (`claude-opus-4-8`, `gpt-5.5`, `glm-5.1`, `MiniMax-M2.7`, `kimi-k2.5`, `grok-4.20-0309-reasoning`). Some IDs include dotted versions because that is how the upstream API expects them. If a model is not listed above, run `flawraroute models --search <term>` or hit `GET /api/models/catalog` to confirm availability.
 
 </details>
 
@@ -638,35 +638,35 @@ Uwagi:
 - Providerzy OpenRouter oraz zgodni z OpenAI/Anthropic są zarządzani wyłącznie z **Available Models**. Ręczne dodawanie, import i auto-sync trafiają do tej samej listy dostępnych modeli, więc nie ma osobnej sekcji Custom Models dla tych providerów.
 - Sekcja **Custom Models** jest przeznaczona dla providerów, które nie udostępniają zarządzanego importu dostępnych modeli.
 
-### Łączenie peerów OmniRoute
+### Łączenie peerów FlawraRoute
 
-Inną bramę OmniRoute możesz dodać jako provider **Custom OpenAI-compatible**. Użyj
+Inną bramę FlawraRoute możesz dodać jako provider **Custom OpenAI-compatible**. Użyj
 bazowego URL peeru `/v1` oraz dedykowanego klucza API o minimalnych uprawnieniach wydanego przez ten peer.
 
 Dla łańcuchów wzajemnych lub multi-hop włącz opcjonalną ochronę przed pętlami na każdej bramie:
 
 ```bash
 # gateway-a
-OMNIROUTE_INSTANCE_ID=gateway-a
-OMNIROUTE_PEER_URLS=http://gateway-b:20128/v1
-OMNIROUTE_PEER_MAX_HOPS=4
+FLAWRAROUTE_INSTANCE_ID=gateway-a
+FLAWRAROUTE_PEER_URLS=http://gateway-b:20128/v1
+FLAWRAROUTE_PEER_MAX_HOPS=4
 ```
 
 ```bash
 # gateway-b
-OMNIROUTE_INSTANCE_ID=gateway-b
-OMNIROUTE_PEER_URLS=http://gateway-a:20128/v1
-OMNIROUTE_PEER_MAX_HOPS=4
+FLAWRAROUTE_INSTANCE_ID=gateway-b
+FLAWRAROUTE_PEER_URLS=http://gateway-a:20128/v1
+FLAWRAROUTE_PEER_MAX_HOPS=4
 ```
 
 Tylko żądania wysyłane na jawnie dozwolony URL peeru otrzymują nagłówek
-`X-OmniRoute-Peer-Trace`. Brama odrzuca powtórzone ID instancji lub wyczerpany budżet hopów
+`X-FlawraRoute-Peer-Trace`. Brama odrzuca powtórzone ID instancji lub wyczerpany budżet hopów
 kodem HTTP `508 Loop Detected`; zwykli providerzy upstream nie otrzymują metadanych peer.
 
 Łączenie peerów to nie replikacja bazy ani failover hosta. Każda brama utrzymuje niezależny
 stan SQLite, cache, liczniki limitów i sesje. Użyj reverse proxy ze health-checkiem lub failoveru
 klienta dla dostępności active/passive lub active/active i nigdy nie montuj jednej bazy SQLite
-do wielu uruchomionych instancji OmniRoute.
+do wielu uruchomionych instancji FlawraRoute.
 
 ### Dedykowane trasy providerów
 
@@ -717,7 +717,7 @@ Zwraca modele pogrupowane według providera z typami (`chat`, `embedding`, `imag
 - Dostępne w **Dashboard → Endpoints** dla Dockera i innych wdrożeń self-hosted
 - Tworzy tymczasowy URL `https://*.trycloudflare.com` przekierowujący na Twój endpoint OpenAI-compatible `/v1`
 - Pierwsze włączenie instaluje `cloudflared` tylko gdy potrzeba; kolejne restarty używają tego samego zarządzanego binarium
-- Quick Tunnels nie są automatycznie przywracane po restarcie OmniRoute lub kontenera; włącz je ponownie z dashboardu w razie potrzeby
+- Quick Tunnels nie są automatycznie przywracane po restarcie FlawraRoute lub kontenera; włącz je ponownie z dashboardu w razie potrzeby
 - URL-e tuneli są efemeryczne i zmieniają się przy każdym stop/start tunelu
 - Zarządzane Quick Tunnels domyślnie używają transportu HTTP/2, by uniknąć głośnych ostrzeżeń QUIC UDP w ograniczonych kontenerach
 - Ustaw `CLOUDFLARED_PROTOCOL=quic` lub `auto`, jeśli chcesz nadpisać wybór transportu
@@ -726,15 +726,15 @@ Zwraca modele pogrupowane według providera z typami (`chat`, `embedding`, `imag
 
 ### Inteligencja bramy LLM (faza 9)
 
-- **Semantic Cache** — automatycznie cache'uje odpowiedzi non-streaming z temperature=0 (pomiń przez `X-OmniRoute-No-Cache: true`)
+- **Semantic Cache** — automatycznie cache'uje odpowiedzi non-streaming z temperature=0 (pomiń przez `X-FlawraRoute-No-Cache: true`)
 - **Idempotencja żądań** — deduplikuje żądania w ciągu 5s przez nagłówek `Idempotency-Key` lub `X-Request-Id`
-- **Śledzenie postępu** — opcjonalne zdarzenia SSE `event: progress` przez nagłówek `X-OmniRoute-Progress: true`
+- **Śledzenie postępu** — opcjonalne zdarzenia SSE `event: progress` przez nagłówek `X-FlawraRoute-Progress: true`
 
 ---
 
 ### Translator Playground
 
-Dostęp: **Dashboard → Translator**. Debuguj i wizualizuj, jak OmniRoute tłumaczy żądania API między providerami.
+Dostęp: **Dashboard → Translator**. Debuguj i wizualizuj, jak FlawraRoute tłumaczy żądania API między providerami.
 
 || Tryb | Cel ||
 | ---------------- | -------------------------------------------------------------------------------------- |
@@ -787,7 +787,7 @@ Dla zewnętrznej afinity sesji (np. agenci Claude Code/Codex za reverse proxy) w
 X-Session-Id: your-session-key
 ```
 
-OmniRoute akceptuje też `x_session_id` i zwraca efektywny klucz sesji w `X-OmniRoute-Session-Id`.
+FlawraRoute akceptuje też `x_session_id` i zwraca efektywny klucz sesji w `X-FlawraRoute-Session-Id`.
 
 Jeśli używasz Nginxa i wysyłasz nagłówki w formie z podkreśleniem, włącz:
 
@@ -823,7 +823,7 @@ Chain: production-fallback
 
 Konfiguruj w **Dashboard → Settings → Resilience**.
 
-OmniRoute implementuje odporność na poziomie providera w pięciu komponentach:
+FlawraRoute implementuje odporność na poziomie providera w pięciu komponentach:
 
 1. **Kolejka żądań i pacing** — kształtowanie żądań na poziomie systemu:
    - **Requests Per Minute (RPM)** — maks. żądań na minutę per konto
@@ -848,7 +848,7 @@ OmniRoute implementuje odporność na poziomie providera w pięciu komponentach:
 
    Stan runtime breakera providera jest pokazywany wyłącznie na **Dashboard → Health**.
 
-4. **Wait For Cooldown** — jeśli każde połączenie-kandydat jest już w cooldown, OmniRoute może poczekać na najwcześniejszy cooldown i automatycznie ponowić to samo żądanie klienta.
+4. **Wait For Cooldown** — jeśli każde połączenie-kandydat jest już w cooldown, FlawraRoute może poczekać na najwcześniejszy cooldown i automatycznie ponowić to samo żądanie klienta.
 
 5. **Rate Limit Auto-Detection** — gdy providerzy upstream zwracają jawne okna oczekiwania, te wskazówki nadpisują lokalny connection cooldown (gdy ustawienie włączone).
 
@@ -882,7 +882,7 @@ curl -X POST http://localhost:20128/api/db-backups/import \
 
 **Przypadki użycia:**
 
-- Migruj OmniRoute między maszynami
+- Migruj FlawraRoute między maszynami
 - Twórz zewnętrzne kopie na disaster recovery
 - Udostępniaj konfiguracje członkom zespołu (export all → udostępnij archiwum)
 
@@ -934,7 +934,7 @@ curl http://localhost:20128/api/usage/budget
 
 ### Transkrypcja audio
 
-OmniRoute obsługuje transkrypcję audio przez endpoint zgodny z OpenAI:
+FlawraRoute obsługuje transkrypcję audio przez endpoint zgodny z OpenAI:
 
 ```bash
 POST /v1/audio/transcriptions
@@ -1007,7 +1007,7 @@ Wyłącz **Reasoning token buffer**, gdy providerzy upstream wymagają ścisłyc
 limitów `max_tokens` / `maxOutputTokens`. Po włączeniu routing combo dodaje zapas reasoning-model
 tylko dla modeli ze znanym limitem wyjścia i zostawia limit tokenów klienta bez zmian, gdy
 bezpieczna wartość z buforem przekroczyłaby ten limit. Jeśli limit klienta jest już powyżej znanego limitu,
-OmniRoute obcina go do tego limitu przed wysłaniem żądania upstream.
+FlawraRoute obcina go do tego limitu przed wysłaniem żądania upstream.
 
 ---
 
@@ -1030,7 +1030,7 @@ Dostęp: **Dashboard → Health**. Przegląd zdrowia systemu w czasie rzeczywist
 
 ## 🤖 Auto-routing (bez konfiguracji)
 
-OmniRoute ma wbudowany **auto-router oparty na score**, który wybiera najlepszy model dla każdego żądania spośród podłączonych providerów — bez utrzymywania combo. Wystarczy wysłać żądanie z jednym z prefiksów `auto/*`, a OmniRoute złoży wirtualne combo w locie, oceniając kandydatów pod kątem opóźnienia, kosztu, success rate, dopasowania kontekstu, przydatności modelu do zadania, ostatnich błędów, quoty i stanu circuit breakera.
+FlawraRoute ma wbudowany **auto-router oparty na score**, który wybiera najlepszy model dla każdego żądania spośród podłączonych providerów — bez utrzymywania combo. Wystarczy wysłać żądanie z jednym z prefiksów `auto/*`, a FlawraRoute złoży wirtualne combo w locie, oceniając kandydatów pod kątem opóźnienia, kosztu, success rate, dopasowania kontekstu, przydatności modelu do zadania, ostatnich błędów, quoty i stanu circuit breakera.
 
 | Prefiks        | Optymalizuje pod                                                                   |
 | -------------- | ---------------------------------------------------------------------------------- |
@@ -1046,7 +1046,7 @@ Przykład:
 
 ```bash
 curl -X POST http://localhost:20128/v1/chat/completions \
-  -H "Authorization: Bearer $OMNIROUTE_KEY" \
+  -H "Authorization: Bearer $FLAWRAROUTE_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "auto/coding",
@@ -1061,13 +1061,13 @@ Auto-router jest w pełni opisany w [AUTO-COMBO.md](../routing/AUTO-COMBO.md) �
 
 ## 🔌 Integracja MCP i A2A
 
-OmniRoute jest jednocześnie **serwerem MCP** (Model Context Protocol) i **serwerem A2A** (Agent-to-Agent JSON-RPC 2.0). Każde IDE lub host agentów zgodny z MCP może wywoływać narzędzia OmniRoute bezpośrednio — bez dodatkowego wrappera.
+FlawraRoute jest jednocześnie **serwerem MCP** (Model Context Protocol) i **serwerem A2A** (Agent-to-Agent JSON-RPC 2.0). Każde IDE lub host agentów zgodny z MCP może wywoływać narzędzia FlawraRoute bezpośrednio — bez dodatkowego wrappera.
 
 ### Transporty MCP
 
 - **SSE**: `http://localhost:20128/api/mcp/sse`
 - **Streamable HTTP**: `http://localhost:20128/api/mcp/stream`
-- **stdio**: `omniroute --mcp` (dla wtyczek IDE preferujących stdio)
+- **stdio**: `flawraroute --mcp` (dla wtyczek IDE preferujących stdio)
 
 ### Połącz Claude Desktop
 
@@ -1076,8 +1076,8 @@ Edytuj `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 ```json
 {
   "mcpServers": {
-    "omniroute": {
-      "command": "omniroute",
+    "flawraroute": {
+      "command": "flawraroute",
       "args": ["--mcp"]
     }
   }
@@ -1096,7 +1096,7 @@ MCP definiuje obecnie 32 nazwane scope'y. Każdy klucz Bearer można ograniczyć
 
 ## 🧠 System Skills
 
-OmniRoute udostępnia rozszerzalny **framework skills** (`src/lib/skills/`), dzięki czemu agenci i endpoint A2A mogą uruchamiać rutyny domenowe (np. `code-review`, `summarize`, `extract-facts`, `web-research`).
+FlawraRoute udostępnia rozszerzalny **framework skills** (`src/lib/skills/`), dzięki czemu agenci i endpoint A2A mogą uruchamiać rutyny domenowe (np. `code-review`, `summarize`, `extract-facts`, `web-research`).
 
 - **Marketplace UI** — przeglądaj i instaluj skills w **Dashboard → Skills**
 - **Per-key scopes** — ogranicz, które klucze API mogą wywoływać które skills
@@ -1108,7 +1108,7 @@ Pełna referencja: [SKILLS.md](../frameworks/SKILLS.md).
 
 ## 💾 System Memory
 
-OmniRoute przechowuje **długoterminową pamięć konwersacyjną** z hybrydowym retrieval:
+FlawraRoute przechowuje **długoterminową pamięć konwersacyjną** z hybrydowym retrieval:
 
 - **SQLite FTS5** do wyszukiwania keyword po poprzednich turach
 - **Qdrant vector store** (opcjonalnie) do semantic recall
@@ -1121,11 +1121,11 @@ Zarządzaj pamięcią w **Dashboard → Memory** (szukaj, edytuj, eksportuj, czy
 
 ## 🔔 Webhooki
 
-Subskrybuj zdarzenia OmniRoute do monitoringu i automatyzacji w czasie rzeczywistym.
+Subskrybuj zdarzenia FlawraRoute do monitoringu i automatyzacji w czasie rzeczywistym.
 
 - Utwórz webhook w **Dashboard → Webhooks** z docelowym URL i sekretem podpisu HMAC
 - Dostępne zdarzenia: `request.completed`, `request.failed`, `provider.unavailable`, `budget.exceeded`, `combo.switched`, `circuit_breaker.opened`, `circuit_breaker.closed`
-- Każdy payload zawiera `X-OmniRoute-Signature` (HMAC-SHA256) do weryfikacji
+- Każdy payload zawiera `X-FlawraRoute-Signature` (HMAC-SHA256) do weryfikacji
 - Ponowienia: 3 próby z exponential backoff, potem dead-letter queue
 
 Pełny schemat w [WEBHOOKS.md](../frameworks/WEBHOOKS.md).
@@ -1134,11 +1134,11 @@ Pełny schemat w [WEBHOOKS.md](../frameworks/WEBHOOKS.md).
 
 ## ☁️ Cloud Agents
 
-OmniRoute integruje się z cloud coding agents (**OpenAI Codex Cloud**, **Devin**, **Jules**, **Antigravity**), dzięki czemu możesz wysyłać długotrwałe zadania z tego samego dashboardu, który obsługuje lokalny routing.
+FlawraRoute integruje się z cloud coding agents (**OpenAI Codex Cloud**, **Devin**, **Jules**, **Antigravity**), dzięki czemu możesz wysyłać długotrwałe zadania z tego samego dashboardu, który obsługuje lokalny routing.
 
 - Twórz zadania w **Dashboard → Cloud Agents** lub przez `POST /api/v1/agents/tasks`
 - Śledź status, logi i artefakty per zadanie
-- Własny klucz API per provider — credentials nigdy nie opuszczają instancji OmniRoute
+- Własny klucz API per provider — credentials nigdy nie opuszczają instancji FlawraRoute
 
 Pełna referencja: [CLOUD_AGENT.md](../frameworks/CLOUD_AGENT.md).
 
@@ -1146,30 +1146,30 @@ Pełna referencja: [CLOUD_AGENT.md](../frameworks/CLOUD_AGENT.md).
 
 ## 🛠️ Zarządzanie programistyczne
 
-Możesz zarządzać każdym zasobem OmniRoute (providerzy, combo, klucze, ustawienia) przez HTTP, używając klucza zarządzania.
+Możesz zarządzać każdym zasobem FlawraRoute (providerzy, combo, klucze, ustawienia) przez HTTP, używając klucza zarządzania.
 
 Wygeneruj klucz w **Dashboard → API Keys → New Key → Scope: manage**, następnie:
 
 ```bash
 # List providers
 curl http://localhost:20128/api/providers \
-  -H "Authorization: Bearer $OMNIROUTE_MANAGE_KEY"
+  -H "Authorization: Bearer $FLAWRAROUTE_MANAGE_KEY"
 
 # Add a provider connection
 curl -X POST http://localhost:20128/api/providers \
-  -H "Authorization: Bearer $OMNIROUTE_MANAGE_KEY" \
+  -H "Authorization: Bearer $FLAWRAROUTE_MANAGE_KEY" \
   -H "Content-Type: application/json" \
   -d '{ "provider": "openai", "apiKey": "sk-...", "name": "main" }'
 
 # Create a combo
 curl -X POST http://localhost:20128/api/combos \
-  -H "Authorization: Bearer $OMNIROUTE_MANAGE_KEY" \
+  -H "Authorization: Bearer $FLAWRAROUTE_MANAGE_KEY" \
   -H "Content-Type: application/json" \
   -d '{ "name": "premium", "strategy": "priority", "models": [{ "model": "cc/claude-opus-4-7" }, { "model": "glm/glm-5.1" }] }'
 
 # List/create API keys
-curl http://localhost:20128/api/keys -H "Authorization: Bearer $OMNIROUTE_MANAGE_KEY"
-curl -X POST http://localhost:20128/api/keys -H "Authorization: Bearer $OMNIROUTE_MANAGE_KEY" \
+curl http://localhost:20128/api/keys -H "Authorization: Bearer $FLAWRAROUTE_MANAGE_KEY"
+curl -X POST http://localhost:20128/api/keys -H "Authorization: Bearer $FLAWRAROUTE_MANAGE_KEY" \
   -d '{ "name": "ci-bot", "scopes": ["chat"] }'
 ```
 
@@ -1179,38 +1179,38 @@ Zobacz [API_REFERENCE.md](../reference/API_REFERENCE.md) po pełny katalog endpo
 
 ## 💻 Wewnętrzne CLI
 
-OmniRoute dostarcza wewnętrzne CLI (`omniroute …`) do setupu, diagnostyki i kontroli runtime.
+FlawraRoute dostarcza wewnętrzne CLI (`flawraroute …`) do setupu, diagnostyki i kontroli runtime.
 
 ```bash
-omniroute setup                    # Interactive wizard (password, providers, combos)
-omniroute setup --non-interactive  # CI-friendly
-omniroute doctor                   # Health diagnostics (data dir, DB, providers, ports)
-omniroute providers available      # List supported providers
-omniroute providers list           # List configured connections
-omniroute providers test <id>      # Live test a provider connection
-omniroute combos list              # List combos
-omniroute combos switch <name>     # Set default combo
-omniroute models                   # List available models (--json, --search)
-omniroute keys add | list | remove # Manage API keys from the terminal
-omniroute backup                   # Snapshot config + DB
-omniroute restore [<timestamp>]    # Restore from a snapshot
-omniroute health                   # Detailed health (breakers, cache, memory)
-omniroute quota                    # Provider quota usage
-omniroute mcp status               # MCP server status
-omniroute a2a status               # A2A server status
-omniroute tunnel list|create|stop  # Cloudflare/Tailscale/ngrok tunnels
-omniroute reset-password           # Reset the admin password
-omniroute --mcp                    # Start MCP server over stdio
-omniroute --port 3000              # Start the server on a custom port
+flawraroute setup                    # Interactive wizard (password, providers, combos)
+flawraroute setup --non-interactive  # CI-friendly
+flawraroute doctor                   # Health diagnostics (data dir, DB, providers, ports)
+flawraroute providers available      # List supported providers
+flawraroute providers list           # List configured connections
+flawraroute providers test <id>      # Live test a provider connection
+flawraroute combos list              # List combos
+flawraroute combos switch <name>     # Set default combo
+flawraroute models                   # List available models (--json, --search)
+flawraroute keys add | list | remove # Manage API keys from the terminal
+flawraroute backup                   # Snapshot config + DB
+flawraroute restore [<timestamp>]    # Restore from a snapshot
+flawraroute health                   # Detailed health (breakers, cache, memory)
+flawraroute quota                    # Provider quota usage
+flawraroute mcp status               # MCP server status
+flawraroute a2a status               # A2A server status
+flawraroute tunnel list|create|stop  # Cloudflare/Tailscale/ngrok tunnels
+flawraroute reset-password           # Reset the admin password
+flawraroute --mcp                    # Start MCP server over stdio
+flawraroute --port 3000              # Start the server on a custom port
 ```
 
-Wskazówka: połącz `omniroute doctor --json` z narzędziem monitoringu, by alertować o niezdrowych providerach.
+Wskazówka: połącz `flawraroute doctor --json` z narzędziem monitoringu, by alertować o niezdrowych providerach.
 
 ---
 
 ## 🖥️ Aplikacja desktopowa (Electron)
 
-OmniRoute jest dostępny jako natywna aplikacja desktopowa na Windows, macOS i Linux.
+FlawraRoute jest dostępny jako natywna aplikacja desktopowa na Windows, macOS i Linux.
 
 ### Instalacja
 
@@ -1253,7 +1253,7 @@ Wyjście → `electron/dist-electron/`
 
 | Zmienna               | Domyślnie | Opis                               |
 | --------------------- | --------- | ---------------------------------- |
-| `OMNIROUTE_PORT`      | `20128`   | Port serwera                       |
-| `OMNIROUTE_MEMORY_MB` | `512`     | Limit sterty Node.js (64–16384 MB) |
+| `FLAWRAROUTE_PORT`      | `20128`   | Port serwera                       |
+| `FLAWRAROUTE_MEMORY_MB` | `512`     | Limit sterty Node.js (64–16384 MB) |
 
 📖 Pełna dokumentacja: [`electron/README.md`](../../electron/README.md)

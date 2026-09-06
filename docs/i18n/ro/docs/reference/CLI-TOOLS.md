@@ -6,22 +6,22 @@
 
 ---
 
-title: "CLI Tools — OmniRoute"
+title: "CLI Tools — FlawraRoute"
 version: 3.8.50
 lastUpdated: 2026-08-18
 ---
 
-# CLI Tools — OmniRoute
+# CLI Tools — FlawraRoute
 
 Ultima actualizare: 2026-08-18
 
-OmniRoute se integrează cu trei categorii de instrumente CLI distribuite pe trei pagini dedicate în tablou:
+FlawraRoute se integrează cu trei categorii de instrumente CLI distribuite pe trei pagini dedicate în tablou:
 
 | Pagină         | Rută                    | Concept                                                                                           | Număr          |
 | -------------- | ----------------------- | ------------------------------------------------------------------------------------------------- | -------------- |
-| **CLI Code's** | `/dashboard/cli-code`   | Instrumente de codare pe care le îndreptați către OmniRoute (Client → CLI → OmniRoute → Provider) | 26             |
-| **CLI Agents** | `/dashboard/cli-agents` | Agenți autonomi pe care le îndreptați către OmniRoute (aceeași flux, domeniu mai larg)            | 8              |
-| **ACP Agents** | `/dashboard/acp-agents` | CLI-uri pe care OmniRoute le generează ca backend prin stdio/ACP (flux invers)                    | vezi registrul |
+| **CLI Code's** | `/dashboard/cli-code`   | Instrumente de codare pe care le îndreptați către FlawraRoute (Client → CLI → FlawraRoute → Provider) | 26             |
+| **CLI Agents** | `/dashboard/cli-agents` | Agenți autonomi pe care le îndreptați către FlawraRoute (aceeași flux, domeniu mai larg)            | 8              |
+| **ACP Agents** | `/dashboard/acp-agents` | CLI-uri pe care FlawraRoute le generează ca backend prin stdio/ACP (flux invers)                    | vezi registrul |
 
 Rutele vechi redirecționează prin 308: `/dashboard/cli-tools` → `/dashboard/cli-code`, `/dashboard/agents` → `/dashboard/acp-agents`.
 
@@ -33,14 +33,14 @@ Rutele vechi redirecționează prin 308: `/dashboard/cli-tools` → `/dashboard/
 CLI Code's / CLI Agents (flux de consum):
 Claude / Codex / OpenCode / Cline / KiloCode / Continue / Hermes Agent / Goose / ...
            │
-           ▼  (toate indică către OmniRoute)
+           ▼  (toate indică către FlawraRoute)
     http://YOUR_SERVER:20128/v1
            │
-           ▼  (OmniRoute direcționează către providerul corect)
+           ▼  (FlawraRoute direcționează către providerul corect)
     Anthropic / OpenAI / Gemini / DeepSeek / Groq / Mistral / ...
 
 ACP Agents (flux de generare invers):
-    Cerere client → OmniRoute → generează CLI prin stdio/ACP → răspuns
+    Cerere client → FlawraRoute → generează CLI prin stdio/ACP → răspuns
 ```
 
 **Beneficii:**
@@ -54,26 +54,26 @@ ACP Agents (flux de generare invers):
 
 ## Configurare automată cu `setup-*`
 
-Nu trebuie să scrieți manual configurația fiecărui instrument. OmniRoute oferă un `setup-*`
+Nu trebuie să scrieți manual configurația fiecărui instrument. FlawraRoute oferă un `setup-*`
 comandă pentru fiecare CLI suportat care citește catalogul de modele **live** de la un
-OmniRoute în funcțiune (local sau remote) și scrie configurația proprie a instrumentului pe mașina dumneavoastră:
+FlawraRoute în funcțiune (local sau remote) și scrie configurația proprie a instrumentului pe mașina dumneavoastră:
 
 ```bash
-omniroute setup-codex        omniroute setup-claude       omniroute setup-opencode
-omniroute setup-cline        omniroute setup-kilo         omniroute setup-continue
-omniroute setup-cursor       omniroute setup-roo          omniroute setup-crush
-omniroute setup-goose        omniroute setup-qwen         omniroute setup-aider
+flawraroute setup-codex        flawraroute setup-claude       flawraroute setup-opencode
+flawraroute setup-cline        flawraroute setup-kilo         flawraroute setup-continue
+flawraroute setup-cursor       flawraroute setup-roo          flawraroute setup-crush
+flawraroute setup-goose        flawraroute setup-qwen         flawraroute setup-aider
 ```
 
 Fiecare acceptă `--remote <url> --api-key <key>` (configurează un instrument local împotriva unui
-OmniRoute remote), `--dry-run` (previzualizare fără a scrie), și `--port`. Instrumentele
+FlawraRoute remote), `--dry-run` (previzualizare fără a scrie), și `--port`. Instrumentele
 fără descoperire automată a modelului (Cline, Kilo, Roo, Goose, Aider, Qwen) necesită
 `--model <id>` (și `--yes` pentru execuții non-interactive). Pentru a lansa un CLI cu
 variabila de mediu corect injectată și fără a scrie deloc configurația, folosiți generic
-`omniroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
+`flawraroute run <target>` launcher (claude, codex, aider, goose, opencode, qwen,
 gemini — țintele și aliasurile provin din `bin/cli/cli-manifest.mjs`); launcher-urile vechi
-per-instrument `omniroute launch` (Claude Code) și `omniroute launch-codex`
-(Codex) rămân disponibile. CLI-ul Gemini este doar pentru lansare: este un `omniroute run`
+per-instrument `flawraroute launch` (Claude Code) și `flawraroute launch-codex`
+(Codex) rămân disponibile. CLI-ul Gemini este doar pentru lansare: este un `flawraroute run`
 țintă dar nu are rețetă `setup-*`/`configure`.
 
 > **Referință completă:** tabelul principal — ce scrie fiecare comandă, fiecare flag,
@@ -82,21 +82,21 @@ per-instrument `omniroute launch` (Claude Code) și `omniroute launch-codex`
 
 ### Rularea acestora într-un container
 
-O comandă `setup-*` executată în interiorul containerului OmniRoute scrie în
+O comandă `setup-*` executată în interiorul containerului FlawraRoute scrie în
 home-ul propriu al containerului, pe care niciun CLI gazdă nu îl citește și care dispare odată cu
-containerul. OmniRoute detectează acest lucru și iese cu `2` cu instrucțiuni în loc să scrie. Două moduri suportate de a continua — instalați CLI-ul pe gazdă și
-`omniroute connect` la container, sau montați direct directoarele de configurare și setați
+containerul. FlawraRoute detectează acest lucru și iese cu `2` cu instrucțiuni în loc să scrie. Două moduri suportate de a continua — instalați CLI-ul pe gazdă și
+`flawraroute connect` la container, sau montați direct directoarele de configurare și setați
 `CLI_CONFIG_HOME` (profilul gazdă al compose-ului). Fiecare comandă `setup-*`, plus
-`omniroute configure` și `omniroute config set`, acceptă
+`flawraroute configure` și `flawraroute config set`, acceptă
 `--allow-container-write` atunci când configurați CLI-urile proprii ale containerului, ceea ce ați
-vrut de fapt; `OMNIROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` face același lucru pentru
+vrut de fapt; `FLAWRAROUTE_ALLOW_CONTAINER_CONFIG_WRITE=true` face același lucru pentru
 server. Consultați
-[Docker Guide → Configurarea instrumentelor CLI gazdă](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-omniroute-runs-in-docker).
+[Docker Guide → Configurarea instrumentelor CLI gazdă](../guides/DOCKER_GUIDE.md#configuring-host-cli-tools-when-flawraroute-runs-in-docker).
 
 Endpoint-ul de **aplicare** al tabloului (`POST /api/cli-tools/apply`) impune
 aceleași restricții: într-un container, o scriere a cărei țintă nu este montată direct de la
 gazdă răspunde **`422`** cu `containerEphemeralTarget: true`, textul de eroare sigur și — pentru instrumentele cu o rețetă gazdă (claude, codex, opencode, cline,
-kilo, continue) — un `hostSetupCommand` (de exemplu, `omniroute setup-opencode`) care să fie rulat
+kilo, continue) — un `hostSetupCommand` (de exemplu, `flawraroute setup-opencode`) care să fie rulat
 pe gazdă în schimb; nimic nu este scris. `dryRun: true` continuă să funcționeze în modul
 container și returnează conținutul generat + calea țintă fără a atinge discul, astfel
 încât să puteți previzualiza din tablou și aplica pe gazdă. Acest comportament este
@@ -131,8 +131,8 @@ Nu fiecare instrument catalogat este detectabil, configurabil sau lansabil. Fiec
 | ---------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | **Catalogat**    | Apare în catalogul tabloului de bord (nume, furnizor, documentație, tip de configurare) | `src/shared/constants/cliTools.ts` (`CLI_TOOLS`)                    |
 | **Detectabil**   | Detectarea binarului/configurației, verificări de sănătate, căi de configurare          | `src/shared/services/cliRuntime.ts` (`CLI_TOOLS` catalog de rulare) |
-| **Configurabil** | Suportat de `omniroute configure <cli>` (rețetă de configurare existentă)               | `bin/cli/cli-manifest.mjs` (`configure: true`)                      |
-| **Lansabil**     | Suportat de `omniroute run <target>` (injectare env/args definită)                      | `bin/cli/cli-manifest.mjs` (`run: true`)                            |
+| **Configurabil** | Suportat de `flawraroute configure <cli>` (rețetă de configurare existentă)               | `bin/cli/cli-manifest.mjs` (`configure: true`)                      |
+| **Lansabil**     | Suportat de `flawraroute run <target>` (injectare env/args definită)                      | `bin/cli/cli-manifest.mjs` (`run: true`)                            |
 
 `bin/cli/cli-manifest.mjs` este manifestul executabil canonic pentru comenzile CLI: `run`, `configure` și generatoarele de completare a shell-ului își derivă toate listele de ținte, rezolvarea aliasurilor (de exemplu `kilocode`/`kilo-code`/`kilo_cli` → `kilo`) și conectarea flag-ului `--model` din acesta. Gardianul de derapaj `tests/unit/cli/cli-manifest-drift.test.ts` afirmă că manifestul, catalogul de rulare, catalogul UI și fiecare suprafață de consumator rămân sincronizate — o țintă adăugată pe o suprafață fără celelalte va face ca suitei să eșueze în loc să derapeze în tăcere.
 
@@ -191,7 +191,7 @@ Agenți autonomi care apar în `/dashboard/cli-agents`:
 
 ## 3. Agenți ACP (/dashboard/acp-agents)
 
-Această pagină (renumită din `/dashboard/agents`) arată CLI-urile pe care OmniRoute le poate **spawn** ca motoare de execuție backend prin protocolul stdio/ACP. Catalogul este întreținut separat în `src/lib/acp/registry.ts` și **nu** este același cu `CLI_TOOLS`.
+Această pagină (renumită din `/dashboard/agents`) arată CLI-urile pe care FlawraRoute le poate **spawn** ca motoare de execuție backend prin protocolul stdio/ACP. Catalogul este întreținut separat în `src/lib/acp/registry.ts` și **nu** este același cu `CLI_TOOLS`.
 
 ---
 
@@ -254,7 +254,7 @@ Instrumentele noi cu `configType: "custom"` au rute dedicate API pentru setări:
 | `POST /api/cli-tools/codewhale-settings`    | CodeWhale (OPENAI_BASE_URL, primary + legacy `~/.deepseek` sync) |
 | `POST /api/cli-tools/smelt-settings`        | Smelt                                                            |
 | `POST /api/cli-tools/pi-settings`           | Agent de codare Pi                                               |
-| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.omniroute]`)            |
+| `POST /api/cli-tools/grok-build-settings`   | Grok Build (~/.grok/config.toml, `[model.flawraroute]`)            |
 | `POST /api/cli-tools/qwen-settings`         | Qwen Code (`~/.qwen/settings.json` + cheie dedicată `.env`)      |
 
 Toate rutele folosesc `sanitizeErrorMessage()` pentru răspunsurile de eroare (Regulă Strictă #12).
@@ -314,7 +314,7 @@ Traduceri complete în PT-BR și EN sunt furnizate. 39 de alte locale revin auto
 
 ## 9. Începere rapidă
 
-### Pasul 1 — Obțineți o cheie API OmniRoute
+### Pasul 1 — Obțineți o cheie API FlawraRoute
 
 1. Deschideți `/dashboard/api-manager` → **Creează cheie API**
 2. Oferiți-i un nume (de exemplu, `cli-tools`) și selectați toate permisiunile
@@ -347,7 +347,7 @@ npm install -g kilocode
 # Qwen Code
 npm install -g @qwen-code/qwen-code
 
-# Google Gemini CLI (lansabil prin `omniroute run gemini` → /v1beta surface)
+# Google Gemini CLI (lansabil prin `flawraroute run gemini` → /v1beta surface)
 npm install -g @google/gemini-cli
 
 # Aider
@@ -378,14 +378,14 @@ cargo install smelt  # bazat pe Rust
 ### Pasul 4 — Setați variabilele de mediu globale
 
 ```bash
-# Punct de acces universal OmniRoute
+# Punct de acces universal FlawraRoute
 export OPENAI_BASE_URL="http://localhost:20128/v1"
-export OPENAI_API_KEY="sk-your-omniroute-key"
+export OPENAI_API_KEY="sk-your-flawraroute-key"
 export ANTHROPIC_BASE_URL="http://localhost:20128"
-export ANTHROPIC_AUTH_TOKEN="sk-your-omniroute-key"
+export ANTHROPIC_AUTH_TOKEN="sk-your-flawraroute-key"
 # Gemini CLI citește GOOGLE_GEMINI_BASE_URL la RĂDĂCINĂ (SDK-ul său adaugă /v1beta/... singur)
 export GOOGLE_GEMINI_BASE_URL="http://localhost:20128"
-export GEMINI_API_KEY="sk-your-omniroute-key"
+export GEMINI_API_KEY="sk-your-flawraroute-key"
 ```
 
 > Pentru un **server remote** înlocuiți `localhost:20128` cu IP-ul sau domeniul serverului,
@@ -403,7 +403,7 @@ mkdir -p ~/.claude && cat > ~/.claude/settings.json << EOF
 {
   "env": {
     "ANTHROPIC_BASE_URL": "http://localhost:20128",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-omniroute-key"
+    "ANTHROPIC_AUTH_TOKEN": "sk-your-flawraroute-key"
   }
 }
 EOF
@@ -419,20 +419,20 @@ Utilizați rădăcina unificată a gateway-ului Anthropic pentru Claude Code. Nu
 
 Codex modern (v0.137+) citește doar `~/.codex/config.toml` — vechiul
 `config.yaml` aparține CLI-ului npm legacy și este ignorat în tăcere. Cheia API
-rămâne în variabila de mediu `OMNIROUTE_API_KEY` (`env_key`), niciodată
+rămâne în variabila de mediu `FLAWRAROUTE_API_KEY` (`env_key`), niciodată
 în interiorul fișierului:
 
 ```bash
 mkdir -p ~/.codex && cat > ~/.codex/config.toml << EOF
-model_provider = "omniroute"
+model_provider = "flawraroute"
 
-[model_providers.omniroute]
-name                 = "OmniRoute"
+[model_providers.flawraroute]
+name                 = "FlawraRoute"
 base_url             = "http://localhost:20128/v1"
-env_key              = "OMNIROUTE_API_KEY"
+env_key              = "FLAWRAROUTE_API_KEY"
 requires_openai_auth = false
 EOF
-export OMNIROUTE_API_KEY="sk-your-omniroute-key"
+export FLAWRAROUTE_API_KEY="sk-your-flawraroute-key"
 ```
 
 Referință completă (profiluri, `wire_api`, feronete de context): [CODEX-CLI-CONFIGURATION.md](../guides/CODEX-CLI-CONFIGURATION.md).
@@ -448,12 +448,12 @@ mkdir -p ~/.config/opencode && cat > ~/.config/opencode/opencode.json << EOF
 {
   "\$schema": "https://opencode.ai/config.json",
   "provider": {
-    "omniroute": {
+    "flawraroute": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "OmniRoute",
+      "name": "FlawraRoute",
       "options": {
         "baseURL": "http://localhost:20128/v1",
-        "apiKey": "sk-your-omniroute-key"
+        "apiKey": "sk-your-flawraroute-key"
       },
       "models": {
         "claude-sonnet-4-5": { "name": "claude-sonnet-4-5" },
@@ -468,7 +468,7 @@ EOF
 
 **Test:** `opencode`
 
-> Utilizați `opencode run "your prompt" --model omniroute/claude-sonnet-4-5-thinking --variant high`
+> Utilizați `opencode run "your prompt" --model flawraroute/claude-sonnet-4-5-thinking --variant high`
 > pentru a trimite variante de gândire.
 
 ---
@@ -482,7 +482,7 @@ mkdir -p ~/.cline/data && cat > ~/.cline/data/globalState.json << EOF
 {
   "apiProvider": "openai",
   "openAiBaseUrl": "http://localhost:20128/v1",
-  "openAiApiKey": "sk-your-omniroute-key"
+  "openAiApiKey": "sk-your-flawraroute-key"
 }
 EOF
 ```
@@ -490,7 +490,7 @@ EOF
 **Mod VS Code:**
 Setările extensiei Cline → Furnizor API: `OpenAI Compatible` → URL de bază: `http://localhost:20128/v1`
 
-Sau utilizați dashboard-ul OmniRoute → **CLI Tools → Cline → Aplică Configurația**.
+Sau utilizați dashboard-ul FlawraRoute → **CLI Tools → Cline → Aplică Configurația**.
 
 ---
 
@@ -499,7 +499,7 @@ Sau utilizați dashboard-ul OmniRoute → **CLI Tools → Cline → Aplică Conf
 **Mod CLI:**
 
 ```bash
-kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
+kilocode --api-base http://localhost:20128/v1 --api-key sk-your-flawraroute-key
 ```
 
 **Setări VS Code:**
@@ -507,11 +507,11 @@ kilocode --api-base http://localhost:20128/v1 --api-key sk-your-omniroute-key
 ```json
 {
   "kilo-code.openAiBaseUrl": "http://localhost:20128/v1",
-  "kilo-code.apiKey": "sk-your-omniroute-key"
+  "kilo-code.apiKey": "sk-your-flawraroute-key"
 }
 ```
 
-Sau utilizați dashboard-ul OmniRoute → **CLI Tools → KiloCode → Aplică Configurația**.
+Sau utilizați dashboard-ul FlawraRoute → **CLI Tools → KiloCode → Aplică Configurația**.
 
 ---
 
@@ -521,11 +521,11 @@ Editați `~/.continue/config.yaml`:
 
 ```yaml
 models:
-  - name: OmniRoute
+  - name: FlawraRoute
     provider: openai
     model: auto
     apiBase: http://localhost:20128/v1
-    apiKey: sk-your-omniroute-key
+    apiKey: sk-your-flawraroute-key
     default: true
 ```
 
@@ -535,25 +535,25 @@ Reporniti VS Code după editare.
 
 #### VS Code Insiders (`chatLanguageModels.json`)
 
-Utilizați acest lucru când VS Code Insiders este configurat pentru modele de puncte finale personalizate și doriți ca OmniRoute să funcționeze fără un câmp de antet personalizat.
+Utilizați acest lucru când VS Code Insiders este configurat pentru modele de puncte finale personalizate și doriți ca FlawraRoute să funcționeze fără un câmp de antet personalizat.
 
 **Locație recomandată:**
 
 - Linux: `~/.config/Code - Insiders/User/chatLanguageModels.json`
 - Windows: `%APPDATA%/Code - Insiders/User/chatLanguageModels.json`
 
-**Exemplu folosind aliasul tokenizat OmniRoute:**
+**Exemplu folosind aliasul tokenizat FlawraRoute:**
 
 ```json
 [
   {
     "vendor": "customendpoint",
     "id": "auto",
-    "name": "OmniRoute Auto",
+    "name": "FlawraRoute Auto",
     "family": "gpt-4",
     "version": "1.0.0",
-    "url": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/chat/completions",
-    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-omniroute-key/models",
+    "url": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/chat/completions",
+    "modelsUrl": "http://localhost:20128/api/v1/vscode/sk-your-flawraroute-key/models",
     "requestFormat": "openai-chat-completions",
     "contextWindow": 256000,
     "maxOutputTokens": 32768,
@@ -566,7 +566,7 @@ Utilizați acest lucru când VS Code Insiders este configurat pentru modele de p
 
 **Note:**
 
-- Înlocuiți `sk-your-omniroute-key` cu o cheie API creată în OmniRoute.
+- Înlocuiți `sk-your-flawraroute-key` cu o cheie API creată în FlawraRoute.
 - Câmpul `url` ar trebui să indice către `/api/v1/vscode/{token}/chat/completions`.
 - Câmpul `modelsUrl` ar trebui să indice către `/api/v1/vscode/{token}/models`.
 - Preferiți fluxul normal `/v1` + antet Bearer atunci când clientul suportă antete personalizate.
@@ -580,40 +580,40 @@ Utilizați acest lucru când VS Code Insiders este configurat pentru modele de p
 # Autentificare în contul dvs. AWS/Kiro:
 kiro-cli login
 
-# CLI-ul folosește propria sa autentificare — OmniRoute nu este necesar ca backend pentru Kiro CLI în sine.
-# Utilizați kiro-cli împreună cu OmniRoute pentru alte unelte.
+# CLI-ul folosește propria sa autentificare — FlawraRoute nu este necesar ca backend pentru Kiro CLI în sine.
+# Utilizați kiro-cli împreună cu FlawraRoute pentru alte unelte.
 kiro-cli status
 ```
 
-Pentru aplicația desktop **Kiro IDE**, utilizați punctul de acces MITM expus de OmniRoute
+Pentru aplicația desktop **Kiro IDE**, utilizați punctul de acces MITM expus de FlawraRoute
 sub `/dashboard/cli-tools → Kiro`.
 
 ---
 
-## 10. CLI Intern OmniRoute
+## 10. CLI Intern FlawraRoute
 
-Binary-ul `omniroute` oferă comenzi pentru ciclul de viață al serverului, configurare, diagnosticare și gestionarea furnizorilor. Punct de intrare: `bin/omniroute.mjs`.
+Binary-ul `flawraroute` oferă comenzi pentru ciclul de viață al serverului, configurare, diagnosticare și gestionarea furnizorilor. Punct de intrare: `bin/flawraroute.mjs`.
 
 ```bash
-omniroute                              # Pornește serverul (port implicit 20128)
-omniroute setup                        # Asistent interactiv de configurare
-omniroute doctor                       # Verifică configurația, DB, porturi, rulare
-omniroute providers list               # Conexiuni de furnizor configurate
-omniroute providers test-all           # Testează fiecare conexiune activă
-omniroute reset-password               # Resetează parola admin
-omniroute logs                         # Flux de jurnale de cereri
-omniroute health                       # Sănătate detaliată (disjunctoare, cache, memorie)
-omniroute --version                    # Afișează versiunea
-omniroute --help                       # Afișează toate comenzile
+flawraroute                              # Pornește serverul (port implicit 20128)
+flawraroute setup                        # Asistent interactiv de configurare
+flawraroute doctor                       # Verifică configurația, DB, porturi, rulare
+flawraroute providers list               # Conexiuni de furnizor configurate
+flawraroute providers test-all           # Testează fiecare conexiune activă
+flawraroute reset-password               # Resetează parola admin
+flawraroute logs                         # Flux de jurnale de cereri
+flawraroute health                       # Sănătate detaliată (disjunctoare, cache, memorie)
+flawraroute --version                    # Afișează versiunea
+flawraroute --help                       # Afișează toate comenzile
 ```
 
 ### Configurare & Inițializare
 
 ```bash
-omniroute setup                        # Asistent interactiv de configurare
-omniroute setup --non-interactive      # Mod CI/automatizare (citește variabile de mediu + flag-uri)
-omniroute setup --password '<value>'   # Setează parola admin direct
-omniroute setup --add-provider \
+flawraroute setup                        # Asistent interactiv de configurare
+flawraroute setup --non-interactive      # Mod CI/automatizare (citește variabile de mediu + flag-uri)
+flawraroute setup --password '<value>'   # Setează parola admin direct
+flawraroute setup --add-provider \
   --provider openai \
   --api-key '<value>' \
   --test-provider                      # Adaugă și testează un furnizor dintr-o dată
@@ -623,21 +623,21 @@ Variabilele de mediu recunoscute pentru configurarea non-interactivă:
 
 | Var                 | Scop                                                                     |
 | ------------------- | ------------------------------------------------------------------------ |
-| `OMNIROUTE_API_KEY` | Cheia API a furnizorului (legată de `--api-key` prin `.env()` Commander) |
-| `DATA_DIR`          | Suprascrie directorul de date OmniRoute                                  |
+| `FLAWRAROUTE_API_KEY` | Cheia API a furnizorului (legată de `--api-key` prin `.env()` Commander) |
+| `DATA_DIR`          | Suprascrie directorul de date FlawraRoute                                  |
 
 Toate celelalte intrări non-interactive sunt transmise ca flag-uri, nu variabile de mediu:
 `--password`, `--provider`, `--provider-name`, `--provider-base-url`, `--default-model`
-(vezi opțiunile `omniroute setup` de mai sus).
+(vezi opțiunile `flawraroute setup` de mai sus).
 
 ### Diagnosticare
 
 ```bash
-omniroute doctor                       # Verifică configurația, DB, porturi, rulare, memorie, vitalitate
-omniroute doctor --json                # JSON citibil de mașină
-omniroute doctor --no-liveness         # Sare peste proba de sănătate HTTP
-omniroute doctor --host 0.0.0.0        # Suprascrie gazda de vitalitate
-omniroute doctor --liveness-url <url>  # Suprascriere completă a URL-ului endpoint-ului de sănătate
+flawraroute doctor                       # Verifică configurația, DB, porturi, rulare, memorie, vitalitate
+flawraroute doctor --json                # JSON citibil de mașină
+flawraroute doctor --no-liveness         # Sare peste proba de sănătate HTTP
+flawraroute doctor --host 0.0.0.0        # Suprascrie gazda de vitalitate
+flawraroute doctor --liveness-url <url>  # Suprascriere completă a URL-ului endpoint-ului de sănătate
 ```
 
 Doctorul rulează aceste verificări: `Config`, `Database`, `Storage/encryption`,
@@ -647,47 +647,47 @@ Doctorul rulează aceste verificări: `Config`, `Database`, `Storage/encryption`
 ### Gestionarea Furnizorilor
 
 ```bash
-omniroute providers available                       # Catalogul furnizorilor OmniRoute
-omniroute providers available --search openai       # Filtrează catalogul după id/nume/alias/categorie
-omniroute providers available --category api-key    # Filtrează după categorie (api-key, oauth, gratuit, ...)
-omniroute providers available --json                # JSON citibil de mașină
+flawraroute providers available                       # Catalogul furnizorilor FlawraRoute
+flawraroute providers available --search openai       # Filtrează catalogul după id/nume/alias/categorie
+flawraroute providers available --category api-key    # Filtrează după categorie (api-key, oauth, gratuit, ...)
+flawraroute providers available --json                # JSON citibil de mașină
 
-omniroute providers list                            # Conexiuni de furnizor configurate
-omniroute providers list --json
+flawraroute providers list                            # Conexiuni de furnizor configurate
+flawraroute providers list --json
 
-omniroute providers test <id|name>                  # Testează o conexiune configurată
-omniroute providers test-all                        # Testează fiecare conexiune activă
-omniroute providers validate                        # Validare structurală locală
-omniroute providers add <provider> --credential-env PROVIDER_KEY
-omniroute providers import ./providers.json --dry-run --json
-omniroute providers auth <provider>                 # Flux OAuth existent
-omniroute providers edit <id|name> --default-model <model>
-omniroute providers remove <id|name> --yes
+flawraroute providers test <id|name>                  # Testează o conexiune configurată
+flawraroute providers test-all                        # Testează fiecare conexiune activă
+flawraroute providers validate                        # Validare structurală locală
+flawraroute providers add <provider> --credential-env PROVIDER_KEY
+flawraroute providers import ./providers.json --dry-run --json
+flawraroute providers auth <provider>                 # Flux OAuth existent
+flawraroute providers edit <id|name> --default-model <model>
+flawraroute providers remove <id|name> --yes
 ```
 
 `providers add/import/auth/edit/remove` sunt API-first și, prin urmare, funcționează împotriva
 contextului local sau la distanță activ. Introducerea acreditivelor ar trebui să folosească
 `--credential-stdin` sau `--credential-env`; `--dry-run --json` raportează doar
-prezența/forma redactată. `providers available` citește catalogul OmniRoute;
+prezența/forma redactată. `providers available` citește catalogul FlawraRoute;
 `providers list/test/test-all/validate` își păstrează comportamentul local SQLite și
 nu necesită ca serverul să fie pornit.
 
 ### Recuperare & Resetare
 
 ```bash
-omniroute reset-password                # Resetează parola admin (de asemenea: omniroute-reset-password)
-omniroute reset-encrypted-columns       # Afișează avertisment + dry-run pentru resetarea acreditivelor criptate
-omniroute reset-encrypted-columns --force  # De fapt, anulează acreditivele criptate în SQLite
+flawraroute reset-password                # Resetează parola admin (de asemenea: flawraroute-reset-password)
+flawraroute reset-encrypted-columns       # Afișează avertisment + dry-run pentru resetarea acreditivelor criptate
+flawraroute reset-encrypted-columns --force  # De fapt, anulează acreditivele criptate în SQLite
 ```
 
 ### Export de Acreditive (⚠ manipulați cu grijă)
 
 ```bash
-omniroute auth export                                 # Afișează avertisment + poartă de confirmare — fără acces la DB
-omniroute auth export --force                          # Exportă TOATE acreditivele DECRIPTATE ale conexiunilor în stdout ca JSON
-omniroute auth export --force --id <id>                 # Exportă doar conexiunea corespunzătoare
-omniroute auth export --force --format env               # Emite linii OMNIROUTE_<PROVIDER>_<FIELD>=<value>
-omniroute auth export --force --out creds.json           # Scrie într-un fișier (creat cu permisiuni 0600)
+flawraroute auth export                                 # Afișează avertisment + poartă de confirmare — fără acces la DB
+flawraroute auth export --force                          # Exportă TOATE acreditivele DECRIPTATE ale conexiunilor în stdout ca JSON
+flawraroute auth export --force --id <id>                 # Exportă doar conexiunea corespunzătoare
+flawraroute auth export --force --format env               # Emite linii FLAWRAROUTE_<PROVIDER>_<FIELD>=<value>
+flawraroute auth export --force --out creds.json           # Scrie într-un fișier (creat cu permisiuni 0600)
 ```
 
 `auth export` este **local-only** (citire directă SQLite, fără rută HTTP) și intenționat imprimă/scrie
@@ -699,36 +699,36 @@ fie setat. Un câmp care nu reușește să decripteze (cheie învechită, text c
 
 ### Alte subcomenzi
 
-Acestea presupun un server OmniRoute în funcțiune, cu excepția cazului în care se menționează altfel:
+Acestea presupun un server FlawraRoute în funcțiune, cu excepția cazului în care se menționează altfel:
 
 ```bash
-omniroute status                       # Stare cuprinzătoare a rulării
-omniroute logs                         # Flux de jurnale de cereri (--json, --search, --follow)
-omniroute config show                  # Afișează configurația curentă
+flawraroute status                       # Stare cuprinzătoare a rulării
+flawraroute logs                         # Flux de jurnale de cereri (--json, --search, --follow)
+flawraroute config show                  # Afișează configurația curentă
 
-omniroute provider list                # Listează furnizorii disponibili (alias pentru providers list)
-omniroute provider add                 # Înregistrează OmniRoute ca furnizor pe un instrument
-omniroute keys add | list | remove     # Gestionează cheile API
-omniroute models [provider]            # Listează modelele (--json, --search)
-omniroute combo list | switch | create | delete
+flawraroute provider list                # Listează furnizorii disponibili (alias pentru providers list)
+flawraroute provider add                 # Înregistrează FlawraRoute ca furnizor pe un instrument
+flawraroute keys add | list | remove     # Gestionează cheile API
+flawraroute models [provider]            # Listează modelele (--json, --search)
+flawraroute combo list | switch | create | delete
 
-omniroute backup                       # Instantanee configurație + DB
-omniroute restore                      # Restaurează dintr-o instantanee anterioară
+flawraroute backup                       # Instantanee configurație + DB
+flawraroute restore                      # Restaurează dintr-o instantanee anterioară
 
-omniroute health                       # Sănătate detaliată (disjunctoare, cache, memorie)
-omniroute quota                        # Utilizarea cotei furnizorului
-omniroute cache                        # Starea cache-ului
-omniroute cache clear                  # Șterge cache-urile semantice + semnături
+flawraroute health                       # Sănătate detaliată (disjunctoare, cache, memorie)
+flawraroute quota                        # Utilizarea cotei furnizorului
+flawraroute cache                        # Starea cache-ului
+flawraroute cache clear                  # Șterge cache-urile semantice + semnături
 
-omniroute mcp status | restart         # Starea serverului MCP / repornire
-omniroute a2a status | card            # Starea serverului A2A / card agent
+flawraroute mcp status | restart         # Starea serverului MCP / repornire
+flawraroute a2a status | card            # Starea serverului A2A / card agent
 
-omniroute tunnel list | create | stop  # Gestionează tunelurile (cloudflare/tailscale/ngrok)
-omniroute env show | get <k> | set <k> <v>  # Inspectează / setează variabilele de mediu (temporar)
+flawraroute tunnel list | create | stop  # Gestionează tunelurile (cloudflare/tailscale/ngrok)
+flawraroute env show | get <k> | set <k> <v>  # Inspectează / setează variabilele de mediu (temporar)
 
-omniroute test                         # Test de conectivitate a furnizorului
-omniroute update                       # Verifică actualizările
-omniroute completion                   # Generează completarea shell-ului
+flawraroute test                         # Test de conectivitate a furnizorului
+flawraroute update                       # Verifică actualizările
+flawraroute completion                   # Generează completarea shell-ului
 ```
 
 ### Flag-uri comune
@@ -757,7 +757,7 @@ omniroute completion                   # Generează completarea shell-ului
 | `/v1/audio/speech`         | Text-to-speech                        | ElevenLabs, OpenAI TTS                        |
 | `/v1/audio/transcriptions` | Speech-to-text                        | Deepgram, AssemblyAI                          |
 
-Exemple gata de lipit cu un URL tokenizat OmniRoute:
+Exemple gata de lipit cu un URL tokenizat FlawraRoute:
 
 ```txt
 Exemplu token: sk-a3ab3c080beaee3a-69f4a4-070d71af
@@ -776,7 +776,7 @@ Chat Ollama: http://localhost:20128/api/v1/vscode/sk-a3ab3c080beaee3a-69f4a4-070
 
 | Eroare                                        | Cauză                        | Soluție                                                   |
 | --------------------------------------------- | ---------------------------- | --------------------------------------------------------- |
-| `Connection refused`                          | OmniRoute nu rulează         | `omniroute serve`                                         |
+| `Connection refused`                          | FlawraRoute nu rulează         | `flawraroute serve`                                         |
 | `401 Unauthorized`                            | Cheie API greșită            | Verifică în `/dashboard/api-manager`                      |
 | `No combo configured`                         | Niciun combo de rutare activ | Configurează în `/dashboard/combos`                       |
 | CLI arată "not installed"                     | Binariul nu este în PATH     | Verifică `which <command>`                                |

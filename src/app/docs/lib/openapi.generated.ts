@@ -26,7 +26,7 @@ export interface OpenApiEndpoint {
 }
 
 export const OPENAPI_VERSION = "3.8.51";
-export const OPENAPI_TITLE = "OmniRoute API";
+export const OPENAPI_TITLE = "FlawraRoute API";
 
 export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
   {
@@ -40,9 +40,9 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     hasRequestBody: false,
   },
   {
-    path: "/api/v1/{omnirouteCatchAll}",
+    path: "/api/v1/{flawrarouteCatchAll}",
     method: "DELETE",
-    summary: "DELETE <omnirouteCatchAll>",
+    summary: "DELETE <flawrarouteCatchAll>",
     description: "",
     tag: "V1 OmnirouteCatchAll",
     tags: ["V1 OmnirouteCatchAll"],
@@ -50,9 +50,9 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     hasRequestBody: false,
   },
   {
-    path: "/api/v1/{omnirouteCatchAll}",
+    path: "/api/v1/{flawrarouteCatchAll}",
     method: "GET",
-    summary: "GET <omnirouteCatchAll>",
+    summary: "GET <flawrarouteCatchAll>",
     description: "",
     tag: "V1 OmnirouteCatchAll",
     tags: ["V1 OmnirouteCatchAll"],
@@ -60,9 +60,9 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     hasRequestBody: false,
   },
   {
-    path: "/api/v1/{omnirouteCatchAll}",
+    path: "/api/v1/{flawrarouteCatchAll}",
     method: "PATCH",
-    summary: "PATCH <omnirouteCatchAll>",
+    summary: "PATCH <flawrarouteCatchAll>",
     description: "",
     tag: "V1 OmnirouteCatchAll",
     tags: ["V1 OmnirouteCatchAll"],
@@ -70,9 +70,9 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     hasRequestBody: false,
   },
   {
-    path: "/api/v1/{omnirouteCatchAll}",
+    path: "/api/v1/{flawrarouteCatchAll}",
     method: "POST",
-    summary: "POST <omnirouteCatchAll>",
+    summary: "POST <flawrarouteCatchAll>",
     description: "",
     tag: "V1 OmnirouteCatchAll",
     tags: ["V1 OmnirouteCatchAll"],
@@ -80,9 +80,9 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     hasRequestBody: false,
   },
   {
-    path: "/api/v1/{omnirouteCatchAll}",
+    path: "/api/v1/{flawrarouteCatchAll}",
     method: "PUT",
-    summary: "PUT <omnirouteCatchAll>",
+    summary: "PUT <flawrarouteCatchAll>",
     description: "",
     tag: "V1 OmnirouteCatchAll",
     tags: ["V1 OmnirouteCatchAll"],
@@ -243,7 +243,7 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     path: "/api/v1/audio/translations",
     method: "POST",
     summary: "Translate audio to English",
-    description: "OpenAI Whisper–compatible audio translation (multipart/form-data). Unlike `/api/v1/audio/transcriptions`, output is always English regardless of the source language. Success responses carry the `X-OmniRoute-*` cost-telemetry headers.",
+    description: "OpenAI Whisper–compatible audio translation (multipart/form-data). Unlike `/api/v1/audio/transcriptions`, output is always English regardless of the source language. Success responses carry the `X-FlawraRoute-*` cost-telemetry headers.",
     tag: "Audio",
     tags: ["Audio"],
     requiresAuth: true,
@@ -743,7 +743,7 @@ export const OPENAPI_ENDPOINTS: OpenApiEndpoint[] = [
     path: "/api/v1/ocr",
     method: "POST",
     summary: "Document OCR",
-    description: "Multi-provider document OCR endpoint (Mistral OCR–compatible request and response shape). Accepts a JSON body referencing a document/image and returns extracted text. `model` selects the provider via a `provider/model` prefix (e.g. `mistral/mistral-ocr-latest`, `azure-document-intelligence/prebuilt-read`, `vertex-deepseek-ocr/deepseek-ocr-maas`); a bare model id (e.g. `mistral-ocr-latest`) resolves to its registered provider, and an omitted `model` defaults to Mistral. Azure Document Intelligence is asynchronous upstream — the handler polls the returned operation until it succeeds or fails before responding, so this endpoint can take longer to return for that provider. Success responses carry the `X-OmniRoute-*` cost-telemetry headers.",
+    description: "Multi-provider document OCR endpoint (Mistral OCR–compatible request and response shape). Accepts a JSON body referencing a document/image and returns extracted text. `model` selects the provider via a `provider/model` prefix (e.g. `mistral/mistral-ocr-latest`, `azure-document-intelligence/prebuilt-read`, `vertex-deepseek-ocr/deepseek-ocr-maas`); a bare model id (e.g. `mistral-ocr-latest`) resolves to its registered provider, and an omitted `model` defaults to Mistral. Azure Document Intelligence is asynchronous upstream — the handler polls the returned operation until it succeeds or fails before responding, so this endpoint can take longer to return for that provider. Success responses carry the `X-FlawraRoute-*` cost-telemetry headers.",
     tag: "Images",
     tags: ["Images"],
     requiresAuth: true,

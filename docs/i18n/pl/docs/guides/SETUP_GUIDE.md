@@ -1,12 +1,12 @@
 ---
-title: "📖 Przewodnik instalacji — OmniRoute"
+title: "📖 Przewodnik instalacji — FlawraRoute"
 version: 3.8.40
 lastUpdated: 2026-06-28
 ---
 
-# 📖 Przewodnik instalacji — OmniRoute
+# 📖 Przewodnik instalacji — FlawraRoute
 
-> Kompletne odniesienie do instalacji OmniRoute. Szybka wersja: [Szybki start w README](../README.md#-quick-start).
+> Kompletne odniesienie do instalacji FlawraRoute. Szybka wersja: [Szybki start w README](../README.md#-quick-start).
 
 ## Spis treści
 
@@ -25,8 +25,8 @@ lastUpdated: 2026-06-28
 ### npm (zalecane)
 
 ```bash
-npm install -g omniroute
-omniroute
+npm install -g flawraroute
+flawraroute
 ```
 
 Dashboard otwiera się pod adresem `http://localhost:20128`, a bazowy URL API to `http://localhost:20128/v1`.
@@ -34,8 +34,8 @@ Dashboard otwiera się pod adresem `http://localhost:20128`, a bazowy URL API to
 ### pnpm
 
 ```bash
-pnpm add -g omniroute@latest --allow-build=better-sqlite3 --allow-build=@swc/core
-omniroute
+pnpm add -g flawraroute@latest --allow-build=better-sqlite3 --allow-build=@swc/core
+flawraroute
 ```
 
 > **Użytkownicy pnpm:** flaga `--allow-build` jest wymagana, aby włączyć natywne skrypty budowania dla `better-sqlite3` i `@swc/core`. Polecenie `pnpm approve-builds -g` nie jest obsługiwane przy globalnych instalacjach w pnpm v11.
@@ -43,11 +43,11 @@ omniroute
 ### Arch Linux (AUR)
 
 ```bash
-yay -S omniroute-bin
-systemctl --user enable --now omniroute.service
+yay -S flawraroute-bin
+systemctl --user enable --now flawraroute.service
 ```
 
-[Pakiet AUR](https://aur.archlinux.org/packages/omniroute-bin) instaluje OmniRoute i udostępnia usługę użytkownika systemd.
+[Pakiet AUR](https://aur.archlinux.org/packages/flawraroute-bin) instaluje FlawraRoute i udostępnia usługę użytkownika systemd.
 
 ### Ze źródeł
 
@@ -64,7 +64,7 @@ Zobacz [Przewodnik Docker](./DOCKER_GUIDE.md) — pełna konfiguracja Docker, pr
 
 ### Aplikacja desktopowa (Electron)
 
-OmniRoute dostarcza opakowanie desktopowe oparte na Electron 41 + electron-builder 26.10. Dostępne skrypty (katalog główny workspace):
+FlawraRoute dostarcza opakowanie desktopowe oparte na Electron 41 + electron-builder 26.10. Dostępne skrypty (katalog główny workspace):
 
 ```bash
 npm run electron:dev          # Run desktop with hot-reload
@@ -82,56 +82,56 @@ Instalatory desktopowe są dołączane do GitHub Releases. Pełny opis Electron 
 Do nienadzorowanych instalacji (Docker, Kubernetes, CI) użyj:
 
 ```bash
-omniroute setup --non-interactive
-omniroute providers test-batch
+flawraroute setup --non-interactive
+flawraroute providers test-batch
 ```
 
-W połączeniu ze zmiennymi środowiskowymi (`INITIAL_PASSWORD`, `OMNIROUTE_WS_BRIDGE_SECRET` itd.) pozwala to w pełni skryptowalnie uruchomić instancję OmniRoute.
+W połączeniu ze zmiennymi środowiskowymi (`INITIAL_PASSWORD`, `FLAWRAROUTE_WS_BRIDGE_SECRET` itd.) pozwala to w pełni skryptowalnie uruchomić instancję FlawraRoute.
 
 ### Opcje CLI
 
 | Polecenie               | Opis                                                                 |
 | ----------------------- | -------------------------------------------------------------------- |
-| `omniroute`             | Uruchom serwer (`PORT=20128`, API i dashboard na tym samym porcie)   |
-| `omniroute setup`       | Prowadzony onboarding CLI: hasło i pierwszy provider                 |
-| `omniroute doctor`      | Lokalne testy zdrowia bez uruchamiania serwera                       |
-| `omniroute providers`   | Odkrywaj, listuj, waliduj i testuj providerów z CLI                  |
-| `omniroute config`      | Konfiguracja narzędzi CLI — list, get, set, validate                 |
-| `omniroute status`      | Offline status dashboard — wersja, DB, narzędzia, config             |
-| `omniroute logs`        | Strumień logów użycia z API (obsługuje `--follow`)                   |
-| `omniroute update`      | Sprawdź lub zastosuj aktualizacje OmniRoute                          |
-| `omniroute provider`    | Zarządzaj połączeniami providerów — add, list, remove, test, default |
-| `omniroute --port 3000` | Ustaw kanoniczny/API port na 3000                                    |
-| `omniroute --mcp`       | Uruchom serwer MCP (transport stdio)                                 |
-| `omniroute --no-open`   | Nie otwieraj przeglądarki automatycznie                              |
-| `omniroute --help`      | Pokaż pomoc                                                          |
+| `flawraroute`             | Uruchom serwer (`PORT=20128`, API i dashboard na tym samym porcie)   |
+| `flawraroute setup`       | Prowadzony onboarding CLI: hasło i pierwszy provider                 |
+| `flawraroute doctor`      | Lokalne testy zdrowia bez uruchamiania serwera                       |
+| `flawraroute providers`   | Odkrywaj, listuj, waliduj i testuj providerów z CLI                  |
+| `flawraroute config`      | Konfiguracja narzędzi CLI — list, get, set, validate                 |
+| `flawraroute status`      | Offline status dashboard — wersja, DB, narzędzia, config             |
+| `flawraroute logs`        | Strumień logów użycia z API (obsługuje `--follow`)                   |
+| `flawraroute update`      | Sprawdź lub zastosuj aktualizacje FlawraRoute                          |
+| `flawraroute provider`    | Zarządzaj połączeniami providerów — add, list, remove, test, default |
+| `flawraroute --port 3000` | Ustaw kanoniczny/API port na 3000                                    |
+| `flawraroute --mcp`       | Uruchom serwer MCP (transport stdio)                                 |
+| `flawraroute --no-open`   | Nie otwieraj przeglądarki automatycznie                              |
+| `flawraroute --help`      | Pokaż pomoc                                                          |
 
 Konfigurację headless można zautomatyzować flagami lub zmiennymi środowiskowymi:
 
 ```bash
-omniroute setup --non-interactive --password "$OMNIROUTE_PASSWORD"
-omniroute setup --non-interactive --add-provider --provider openai --api-key "$OPENAI_API_KEY"
-omniroute setup --non-interactive --add-provider --provider openai --api-key "$OPENAI_API_KEY" --test-provider
+flawraroute setup --non-interactive --password "$FLAWRAROUTE_PASSWORD"
+flawraroute setup --non-interactive --add-provider --provider openai --api-key "$OPENAI_API_KEY"
+flawraroute setup --non-interactive --add-provider --provider openai --api-key "$OPENAI_API_KEY" --test-provider
 ```
 
 Uruchom lokalną diagnostykę bez otwierania dashboardu:
 
 ```bash
-omniroute doctor
-omniroute doctor --json
-omniroute doctor --no-liveness
+flawraroute doctor
+flawraroute doctor --json
+flawraroute doctor --no-liveness
 ```
 
 Zarządzaj providerami z SSH lub skryptów bez otwierania dashboardu:
 
 ```bash
-omniroute providers available
-omniroute providers available --search openai
-omniroute providers available --category api-key
-omniroute providers list
-omniroute providers test <id-or-name>
-omniroute providers test-all
-omniroute providers validate
+flawraroute providers available
+flawraroute providers available --search openai
+flawraroute providers available --category api-key
+flawraroute providers list
+flawraroute providers test <id-or-name>
+flawraroute providers test-all
+flawraroute providers validate
 ```
 
 ---
@@ -165,27 +165,27 @@ Działa z Claude Code, Codex CLI, Cursor, Cline, OpenClaw, OpenCode oraz SDK zgo
 
 #### Autokonfiguracja przez `setup-*`
 
-Zamiast ręcznie wklejać base URL i klucz, pozwól OmniRoute zapisać konfigurację
+Zamiast ręcznie wklejać base URL i klucz, pozwól FlawraRoute zapisać konfigurację
 każdego narzędzia na podstawie żywego katalogu modeli. Jedno polecenie na narzędzie:
 
 ```bash
-omniroute setup-codex        # ~/.codex/<name>.config.toml profiles
-omniroute setup-claude       # ~/.claude/profiles/<name>/settings.json
-omniroute setup-opencode     # ~/.config/opencode/opencode.json (openai-compatible)
-omniroute setup-cline        # Cline CLI + VS Code extension settings
-omniroute setup-kilo         # Kilo Code
-omniroute setup-continue     # ~/.continue/config.yaml (Continue / cn)
-omniroute setup-cursor       # prints Cursor's in-app steps
-omniroute setup-roo          # Roo Code import + autoImport pointer
-omniroute setup-crush        # ~/.config/crush/crush.json
-omniroute setup-goose        # ~/.config/goose/config.yaml
-omniroute setup-aider        # ~/.aider.conf.yml
-omniroute setup-qwen         # ~/.qwen/settings.json + ~/.qwen/.env
+flawraroute setup-codex        # ~/.codex/<name>.config.toml profiles
+flawraroute setup-claude       # ~/.claude/profiles/<name>/settings.json
+flawraroute setup-opencode     # ~/.config/opencode/opencode.json (openai-compatible)
+flawraroute setup-cline        # Cline CLI + VS Code extension settings
+flawraroute setup-kilo         # Kilo Code
+flawraroute setup-continue     # ~/.continue/config.yaml (Continue / cn)
+flawraroute setup-cursor       # prints Cursor's in-app steps
+flawraroute setup-roo          # Roo Code import + autoImport pointer
+flawraroute setup-crush        # ~/.config/crush/crush.json
+flawraroute setup-goose        # ~/.config/goose/config.yaml
+flawraroute setup-aider        # ~/.aider.conf.yml
+flawraroute setup-qwen         # ~/.qwen/settings.json + ~/.qwen/.env
 ```
 
 Każde przyjmuje `--remote <url> --api-key <key>`, aby skonfigurować lokalne narzędzie względem
-**zdalnego** OmniRoute, oraz `--dry-run` do podglądu. Launchery
-`omniroute launch` (Claude Code) i `omniroute launch-codex` (Codex) uruchamiają CLI
+**zdalnego** FlawraRoute, oraz `--dry-run` do podglądu. Launchery
+`flawraroute launch` (Claude Code) i `flawraroute launch-codex` (Codex) uruchamiają CLI
 z wstrzykniętym właściwym env, bez zapisu jakiejkolwiek konfiguracji.
 
 Pełna tabela (co każde polecenie zapisuje, wszystkie flagi, local vs remote, konwencje
@@ -202,18 +202,18 @@ Szczegółowa konfiguracja per narzędzie (Claude Code, Codex CLI, Cursor, Cline
 Uruchom transport MCP w trybie stdio:
 
 ```bash
-omniroute --mcp
+flawraroute --mcp
 ```
 
 Zalecany przebieg walidacji:
 
 ```bash
 # 1. Start MCP server
-omniroute --mcp
+flawraroute --mcp
 
 # 2. From your MCP client, call:
-omniroute_get_health        # Should return system health
-omniroute_list_combos       # Should return active combos
+flawraroute_get_health        # Should return system health
+flawraroute_list_combos       # Should return active combos
 
 # 3. Or run the full E2E suite:
 npm run test:protocols:e2e
@@ -224,7 +224,7 @@ npm run test:protocols:e2e
 **Claude Code:**
 
 ```bash
-claude mcp add-server omniroute --type http --url http://localhost:20128/api/mcp/stream
+claude mcp add-server flawraroute --type http --url http://localhost:20128/api/mcp/stream
 ```
 
 **Cursor / Cline:**
@@ -234,8 +234,8 @@ Dodaj do ustawień MCP:
 ```json
 {
   "mcpServers": {
-    "omniroute": {
-      "command": "omniroute",
+    "flawraroute": {
+      "command": "flawraroute",
       "args": ["--mcp"],
       "env": {}
     }
@@ -274,15 +274,15 @@ W większości wdrożeń wystarczą te dwie zmienne:
 | Zmienna                  | Domyślnie                       | Cel                                                                                                                                            |
 | ------------------------ | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `REQUEST_TIMEOUT_MS`     | `600000`                        | Wspólna baza dla timeoutu startu odpowiedzi upstream, ukrytych timeoutów Undici, żądań TLS fingerprint oraz timeoutów request/proxy mostka API |
-| `STREAM_IDLE_TIMEOUT_MS` | dziedziczy `REQUEST_TIMEOUT_MS` | Maksymalna przerwa między chunkami streamu, po której OmniRoute przerywa strumień SSE                                                          |
+| `STREAM_IDLE_TIMEOUT_MS` | dziedziczy `REQUEST_TIMEOUT_MS` | Maksymalna przerwa między chunkami streamu, po której FlawraRoute przerywa strumień SSE                                                          |
 
 Zachowana jest kompatybilność wsteczna: istniejące `FETCH_TIMEOUT_MS`, `API_BRIDGE_PROXY_TIMEOUT_MS` i inne zmienne timeoutów per warstwa nadal działają i nadpisują wspólną bazę.
 
 ### Uwagi specyficzne dla providerów
 
-Dla upstreamów zgodnych z Claude Code (`anthropic-compatible-cc-*`) OmniRoute wyprowadza nagłówek wychodzący `X-Stainless-Timeout` z rozstrzygniętego timeoutu fetch, aby timeouty odczytu po stronie providera pozostały zsynchronizowane z konfiguracją env.
+Dla upstreamów zgodnych z Claude Code (`anthropic-compatible-cc-*`) FlawraRoute wyprowadza nagłówek wychodzący `X-Stainless-Timeout` z rozstrzygniętego timeoutu fetch, aby timeouty odczytu po stronie providera pozostały zsynchronizowane z konfiguracją env.
 
-Dla zewnętrznych reverse proxy zgodnych z Claude Code OmniRoute utrzymuje domyślny zestaw `anthropic-beta` konserwatywny i, gdy `Client Cache Control` jest na `Auto`, przekazuje tylko markery `cache_control` dostarczone przez klienta. Włącz przełącznik per połączenie „Enable redact-thinking beta” tylko wtedy, gdy upstream wymaga zredagowanych strumieni myślenia Claude.
+Dla zewnętrznych reverse proxy zgodnych z Claude Code FlawraRoute utrzymuje domyślny zestaw `anthropic-beta` konserwatywny i, gdy `Client Cache Control` jest na `Auto`, przekazuje tylko markery `cache_control` dostarczone przez klienta. Włącz przełącznik per połączenie „Enable redact-thinking beta” tylko wtedy, gdy upstream wymaga zredagowanych strumieni myślenia Claude.
 
 ### Zaawansowane nadpisania timeoutów
 
@@ -300,11 +300,11 @@ Dla zewnętrznych reverse proxy zgodnych z Claude Code OmniRoute utrzymuje domy�
 | `API_BRIDGE_SERVER_KEEPALIVE_TIMEOUT_MS` | `5000`                                       | Timeout keep-alive na serwerze mostka API                         |
 | `API_BRIDGE_SERVER_SOCKET_TIMEOUT_MS`    | `0`                                          | Timeout bezczynności gniazda na serwerze mostka API (`0` wyłącza) |
 
-> **Uwaga:** Przy żądaniach streamingowych `FETCH_TIMEOUT_MS` obejmuje tylko nawiązanie połączenia / oczekiwanie na pierwszą odpowiedź upstream. Gdy stream jest aktywny, OmniRoute przerywa tylko przy rzeczywistym zastoju (`STREAM_IDLE_TIMEOUT_MS`) lub bezczynności body Undici (`FETCH_BODY_TIMEOUT_MS`).
+> **Uwaga:** Przy żądaniach streamingowych `FETCH_TIMEOUT_MS` obejmuje tylko nawiązanie połączenia / oczekiwanie na pierwszą odpowiedź upstream. Gdy stream jest aktywny, FlawraRoute przerywa tylko przy rzeczywistym zastoju (`STREAM_IDLE_TIMEOUT_MS`) lub bezczynności body Undici (`FETCH_BODY_TIMEOUT_MS`).
 
 ### Zgodność z reverse proxy
 
-Jeśli uruchamiasz OmniRoute za Nginx, Caddy, Cloudflare lub innym reverse proxy, upewnij się, że timeouty proxy są też wyższe niż timeouty stream/fetch OmniRoute.
+Jeśli uruchamiasz FlawraRoute za Nginx, Caddy, Cloudflare lub innym reverse proxy, upewnij się, że timeouty proxy są też wyższe niż timeouty stream/fetch FlawraRoute.
 
 ---
 
@@ -313,7 +313,7 @@ Jeśli uruchamiasz OmniRoute za Nginx, Caddy, Cloudflare lub innym reverse proxy
 Uruchom API i Dashboard na osobnych portach w zaawansowanych scenariuszach (reverse proxy, sieć kontenerów):
 
 ```bash
-PORT=20128 DASHBOARD_PORT=20129 omniroute
+PORT=20128 DASHBOARD_PORT=20129 flawraroute
 # API:       http://localhost:20128/v1
 # Dashboard: http://localhost:20129
 ```
@@ -322,11 +322,11 @@ PORT=20128 DASHBOARD_PORT=20129 omniroute
 
 ## Void Linux (xbps-src) Template
 
-Dla użytkowników Void Linux możesz zbudować natywny pakiet przez `xbps-src`. Zapisz ten blok jako `srcpkgs/omniroute/template`:
+Dla użytkowników Void Linux możesz zbudować natywny pakiet przez `xbps-src`. Zapisz ten blok jako `srcpkgs/flawraroute/template`:
 
 ```bash
-# Template file for 'omniroute'
-pkgname=omniroute
+# Template file for 'flawraroute'
+pkgname=flawraroute
 version=3.8.0
 revision=1
 hostmakedepends="nodejs python3 make"
@@ -334,13 +334,13 @@ depends="openssl"
 short_desc="Universal AI gateway with smart routing for multiple LLM providers"
 maintainer="zenobit <zenobit@disroot.org>"
 license="MIT"
-homepage="https://github.com/diegosouzapw/OmniRoute"
-distfiles="https://github.com/diegosouzapw/OmniRoute/archive/refs/tags/v${version}.tar.gz"
+homepage="https://github.com/diegosouzapw/FlawraRoute"
+distfiles="https://github.com/diegosouzapw/FlawraRoute/archive/refs/tags/v${version}.tar.gz"
 # Regenerate the checksum for each release with:
-#   curl -L -o /tmp/omniroute.tar.gz "https://github.com/diegosouzapw/OmniRoute/archive/refs/tags/v${version}.tar.gz" && sha256sum /tmp/omniroute.tar.gz
+#   curl -L -o /tmp/flawraroute.tar.gz "https://github.com/diegosouzapw/FlawraRoute/archive/refs/tags/v${version}.tar.gz" && sha256sum /tmp/flawraroute.tar.gz
 checksum=PLACEHOLDER_REGENERATE_PER_RELEASE
-system_accounts="_omniroute"
-omniroute_homedir="/var/lib/omniroute"
+system_accounts="_flawraroute"
+flawraroute_homedir="/var/lib/flawraroute"
 export NODE_ENV=production
 export npm_config_engine_strict=false
 export npm_config_loglevel=error
@@ -380,25 +380,25 @@ do_check() {
 }
 
 do_install() {
-	vmkdir usr/lib/omniroute/.next
-	vcopy .next/standalone/. usr/lib/omniroute/.next/standalone
+	vmkdir usr/lib/flawraroute/.next
+	vcopy .next/standalone/. usr/lib/flawraroute/.next/standalone
 
 	for _d in \
 		.next/standalone/.next/server/app/dashboard \
 		.next/standalone/.next/server/app/dashboard/settings \
 		.next/standalone/.next/server/app/dashboard/providers; do
-		touch "${DESTDIR}/usr/lib/omniroute/${_d}/.keep"
+		touch "${DESTDIR}/usr/lib/flawraroute/${_d}/.keep"
 	done
 
-	cat > "${WRKDIR}/omniroute" <<'EOF'
+	cat > "${WRKDIR}/flawraroute" <<'EOF'
 #!/bin/sh
 export PORT="${PORT:-20128}"
-export DATA_DIR="${DATA_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/omniroute}"
+export DATA_DIR="${DATA_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/flawraroute}"
 export APP_LOG_TO_FILE="${APP_LOG_TO_FILE:-false}"
 mkdir -p "${DATA_DIR}"
-exec node /usr/lib/omniroute/.next/standalone/server.js "$@"
+exec node /usr/lib/flawraroute/.next/standalone/server.js "$@"
 EOF
-	vbin "${WRKDIR}/omniroute"
+	vbin "${WRKDIR}/flawraroute"
 }
 
 post_install() {
@@ -412,7 +412,7 @@ post_install() {
 
 | Polecenie                | Działanie                                                                            |
 | ------------------------ | ------------------------------------------------------------------------------------ |
-| `npm run uninstall`      | Usuwa aplikację systemową, ale **zachowuje DB i konfiguracje** w `~/.omniroute`.     |
+| `npm run uninstall`      | Usuwa aplikację systemową, ale **zachowuje DB i konfiguracje** w `~/.flawraroute`.     |
 | `npm run uninstall:full` | Usuwa aplikację ORAZ trwale **kasuje wszystkie konfiguracje, klucze i bazy danych**. |
 
 > Szczegółowe instrukcje deinstalacji dla wszystkich metod: [UNINSTALL.md](./UNINSTALL.md).

@@ -1,9 +1,9 @@
 /**
- * omniroute setup-cline — configure the Cline AI coding agent to use OmniRoute.
+ * flawraroute setup-cline — configure the Cline AI coding agent to use FlawraRoute.
  *
  * Cline's VS Code extension keeps its config in VS Code's opaque globalStorage
  * (not file-writable). Its CLI/standalone mode reads ~/.cline/data/. This command
- * writes the CLI-mode files (matching the OmniRoute dashboard) AND prints the
+ * writes the CLI-mode files (matching the FlawraRoute dashboard) AND prints the
  * Base URL / model to paste into the VS Code extension UI.
  *
  * Cline uses the OpenAI-compatible provider: openAiBaseUrl is the ROOT URL
@@ -30,7 +30,7 @@ export function resolveClineTarget(opts = {}) {
   else {
     try {
       baseUrl = stripToRoot(
-        resolveActiveContext(opts.context ?? process.env.OMNIROUTE_CONTEXT)?.baseUrl
+        resolveActiveContext(opts.context ?? process.env.FLAWRAROUTE_CONTEXT)?.baseUrl
       );
     } catch {
       /* none */
@@ -41,17 +41,17 @@ export function resolveClineTarget(opts = {}) {
   let apiKey = opts.apiKey ?? opts["api-key"];
   if (!apiKey) {
     try {
-      const c = resolveActiveContext(opts.context ?? process.env.OMNIROUTE_CONTEXT);
+      const c = resolveActiveContext(opts.context ?? process.env.FLAWRAROUTE_CONTEXT);
       apiKey = c?.accessToken || c?.apiKey;
     } catch {
       /* none */
     }
   }
-  if (!apiKey) apiKey = process.env.OMNIROUTE_API_KEY || "";
+  if (!apiKey) apiKey = process.env.FLAWRAROUTE_API_KEY || "";
   return { baseUrl, apiKey };
 }
 
-/** Merge OmniRoute openai-compatible settings into Cline's globalState (Plan + Act). */
+/** Merge FlawraRoute openai-compatible settings into Cline's globalState (Plan + Act). */
 export function buildClineGlobalState(existing, { baseUrl, model }) {
   const gs = { ...(existing || {}) };
   gs.actModeApiProvider = "openai";
@@ -66,7 +66,7 @@ export function buildClineGlobalState(existing, { baseUrl, model }) {
 
 /** Merge the API key into Cline's secrets (Cline has no env-var reference). */
 export function buildClineSecrets(existing, { apiKey }) {
-  return { ...(existing || {}), openAiApiKey: apiKey || "sk_omniroute" };
+  return { ...(existing || {}), openAiApiKey: apiKey || "sk_flawraroute" };
 }
 
 function readJson(path) {
@@ -99,13 +99,13 @@ export async function runSetupClineCommand(opts = {}) {
 
   const guard = await guardHostConfigTarget(clineDir, {
     toolLabel: "Cline",
-    hostCommand: "omniroute setup-cline",
+    hostCommand: "flawraroute setup-cline",
     allowContainerWrite: Boolean(opts.allowContainerWrite ?? opts["allow-container-write"]),
     dryRun,
   });
   if (guard !== 0) return guard;
 
-  printHeading("OmniRoute → Cline (OpenAI-compatible)");
+  printHeading("FlawraRoute → Cline (OpenAI-compatible)");
   printInfo(`Server: ${baseUrl}`);
 
   // Resolve the model (Cline needs one explicit id — no auto-discovery).
@@ -146,7 +146,7 @@ export async function runSetupClineCommand(opts = {}) {
         2
       )
     );
-    console.log(`\n── [dry-run] ${secPath} ── (openAiApiKey: ${apiKey ? "set" : "sk_omniroute"})`);
+    console.log(`\n── [dry-run] ${secPath} ── (openAiApiKey: ${apiKey ? "set" : "sk_flawraroute"})`);
   } else {
     if (!existsSync(clineDir)) mkdirSync(clineDir, { recursive: true });
     writeFileSync(gsPath, JSON.stringify(globalState, null, 2) + "\n", "utf8");
@@ -160,7 +160,7 @@ export async function runSetupClineCommand(opts = {}) {
     "\nFor the Cline VS Code extension, set these in its Settings → API (OpenAI Compatible):"
   );
   printInfo(`  Base URL:  ${baseUrl}        (NOT /v1 — Cline appends it)`);
-  printInfo(`  API Key:   <your OMNIROUTE_API_KEY>`);
+  printInfo(`  API Key:   <your FLAWRAROUTE_API_KEY>`);
   printInfo(`  Model:     ${model}`);
   return 0;
 }
@@ -169,11 +169,11 @@ export function registerSetupCline(program) {
   program
     .command("setup-cline")
     .description(
-      "Configure Cline for OmniRoute: write ~/.cline/data (CLI mode) + print VS Code extension settings"
+      "Configure Cline for FlawraRoute: write ~/.cline/data (CLI mode) + print VS Code extension settings"
     )
-    .option("--port <port>", "Local OmniRoute port (ignored when --remote is set)", "20128")
-    .option("--remote <url>", "Remote OmniRoute URL, e.g. http://192.168.0.15:20128")
-    .option("--api-key <key>", "OmniRoute API key (defaults to OMNIROUTE_API_KEY env var)")
+    .option("--port <port>", "Local FlawraRoute port (ignored when --remote is set)", "20128")
+    .option("--remote <url>", "Remote FlawraRoute URL, e.g. http://192.168.0.15:20128")
+    .option("--api-key <key>", "FlawraRoute API key (defaults to FLAWRAROUTE_API_KEY env var)")
     .option("--model <id>", "Model id for Cline (required unless picked interactively)")
     .option("--cline-dir <dir>", "Cline data dir (default: ~/.cline/data)")
     .option("--yes", "Non-interactive: do not prompt (requires --model)")

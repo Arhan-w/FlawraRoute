@@ -4,13 +4,13 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-// OmniRoute-native `previous_response_id` virtualization: resolvePreviousResponseState
+// FlawraRoute-native `previous_response_id` virtualization: resolvePreviousResponseState
 // resolves a response id back to the full input/output a prior call produced by
 // reading the already-persisted call-log artifact, so a later request can be
 // reconstructed to full history server-side without duplicating conversation
 // content into a second store.
 
-const TEST_DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "omniroute-responses-continuation-"));
+const TEST_DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "flawraroute-responses-continuation-"));
 process.env.DATA_DIR = TEST_DATA_DIR;
 
 const core = await import("../../src/lib/db/core.ts");
@@ -138,7 +138,7 @@ test("resolvePreviousResponseState chains off effectiveInput, not the pre-recons
   // Live incident (2026-09-03): clientRawRequest.body is deliberately captured
   // BEFORE chat.ts's own previous_response_id reconstruction runs
   // (captureDeferredClientRawBody's whole point -- it must reflect the raw
-  // client bytes for audit/guardrail purposes, not what OmniRoute rewrote the
+  // client bytes for audit/guardrail purposes, not what FlawraRoute rewrote the
   // request into). For a turn that was ITSELF a continuation, body.input is
   // just the client's own trimmed delta -- a handful of tool-call items with
   // no leading system/user message. Chaining a LATER continuation off that
@@ -157,7 +157,7 @@ test("resolvePreviousResponseState chains off effectiveInput, not the pre-recons
   writeArtifact("2026-01-01/log-continued-turn.json", {
     clientRawRequest: {
       // What the client actually sent this turn: just the new delta, relying
-      // on OmniRoute to have reconstructed full history server-side.
+      // on FlawraRoute to have reconstructed full history server-side.
       body: {
         input: [{ type: "function_call_output", call_id: "call_1", output: "42" }],
       },
@@ -269,7 +269,7 @@ test("resolvePreviousResponseState fails closed when the pipeline payload was si
 });
 
 test("resolvePreviousResponseState resolves input from clientRawRequest when providerRequest was translated to a different upstream wire shape", () => {
-  // Real shape from a live auto-routed free-tier connection: OmniRoute
+  // Real shape from a live auto-routed free-tier connection: FlawraRoute
   // translates the client's Responses-API request into Chat Completions
   // (`messages`, no `input` at all) before forwarding upstream. Reading
   // `input` from providerRequest.body made this permanently unresolvable --
@@ -308,7 +308,7 @@ test("resolvePreviousResponseState resolves input from clientRawRequest when pro
 test("resolvePreviousResponseState fails closed when the stored input array was log-truncated", () => {
   // Real production shape: cloneBoundedChatLogPayload (chatCore/logTruncation.ts)
   // and cloneBoundedForLog (utils/requestLogger.ts) both prepend an
-  // `_omniroute_truncated_array` sentinel in place of the items they dropped
+  // `_flawraroute_truncated_array` sentinel in place of the items they dropped
   // once a logged array exceeds their tail-item cap (~24 items) -- routine
   // for any conversation that's been going a while, not an edge case. Reading
   // that sentinel back as a real Responses-API item and forwarding it upstream
@@ -326,7 +326,7 @@ test("resolvePreviousResponseState fails closed when the stored input array was 
     clientRawRequest: {
       body: {
         input: [
-          { _omniroute_truncated_array: true, originalLength: 26, retainedTailItems: 24 },
+          { _flawraroute_truncated_array: true, originalLength: 26, retainedTailItems: 24 },
           { type: "function_call_output", call_id: "call_1", output: "ok" },
         ],
       },
@@ -349,7 +349,7 @@ test("resolvePreviousResponseState fails closed when the streaming collector tru
   // stored clientResponse then carries `_truncated: true` and
   // `summary.status: "in_progress"` (never reached "completed") with a
   // genuinely empty `summary.output` -- not a bounded array with an
-  // `_omniroute_truncated_array` sentinel (that only covers an array capped
+  // `_flawraroute_truncated_array` sentinel (that only covers an array capped
   // mid-array, not a collector that stopped before populating output at
   // all). The empty array previously passed every check here and got
   // merged into the next turn's request as this response's entire

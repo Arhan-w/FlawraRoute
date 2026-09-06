@@ -15,8 +15,8 @@ export function registerQuota(program) {
 
   quota
     .command("status")
-    .description("Show truthful OmniRoute gateway, quota, pool, and circuit state")
-    .action(async (opts, cmd) => runBoundedJson("/api/omniroute/status", cmd.optsWithGlobals()));
+    .description("Show truthful FlawraRoute gateway, quota, pool, and circuit state")
+    .action(async (opts, cmd) => runBoundedJson("/api/flawraroute/status", cmd.optsWithGlobals()));
 
   quota
     .command("preview")
@@ -57,8 +57,8 @@ async function runBoundedJson(path, opts, request = {}) {
     acceptNotOk: true,
   });
   const elapsed = Math.round(performance.now() - started);
-  if (process.env.OMNIROUTE_DEBUG === "1") {
-    console.error(`[omniroute] ${request.method ?? "GET"} ${path} completed in ${elapsed}ms`);
+  if (process.env.FLAWRAROUTE_DEBUG === "1") {
+    console.error(`[flawraroute] ${request.method ?? "GET"} ${path} completed in ${elapsed}ms`);
   }
   const payload = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
   if (!res.ok) {

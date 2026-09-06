@@ -64,7 +64,7 @@ beforeEach(() => {
   manualConfig = "";
   localStorage.clear();
   localStorage.setItem(
-    "omniroute.grokBuildEndpointPresets",
+    "flawraroute.grokBuildEndpointPresets",
     JSON.stringify([{ name: "Saved office", baseUrl: "https://office.example" }])
   );
   fetchMock.mockImplementation((input: RequestInfo | URL, init?: RequestInit) => {
@@ -80,7 +80,7 @@ beforeEach(() => {
         response({
           installed: true,
           runnable: true,
-          hasOmniRoute: true,
+          hasFlawraRoute: true,
           config: {
             model: {
               model: "openai/gpt-5.5",
@@ -197,7 +197,7 @@ describe("GrokBuildToolCard", () => {
           response({
             installed: true,
             runnable: true,
-            hasOmniRoute: false,
+            hasFlawraRoute: false,
             config: { model: { model: "openai/gpt-5.5" } },
           })
         );
@@ -229,7 +229,7 @@ describe("GrokBuildToolCard", () => {
           response({
             installed: true,
             runnable: true,
-            hasOmniRoute: true,
+            hasFlawraRoute: true,
             config: {
               model: {
                 model: "openai/gpt-5.5",

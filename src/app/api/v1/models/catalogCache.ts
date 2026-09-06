@@ -26,7 +26,7 @@ export function fingerprintCatalogAuthKey(apiKey: string): string {
   if (!apiKey) return "";
   // Memo-map cache key fingerprint, not a password/credential hash — keyed with a fixed
   // context label so it reads as a domain-separated digest rather than a bare password hash.
-  return createHmac("sha256", "omniroute-catalog-cache-fingerprint-v1")
+  return createHmac("sha256", "flawraroute-catalog-cache-fingerprint-v1")
     .update(apiKey)
     .digest("hex")
     .slice(0, 16);
@@ -330,7 +330,7 @@ async function awaitCatalogInFlight(
       return new Response(lastGood.body, {
         status: lastGood.status,
         headers: mergeCatalogHeaders(corsHeaders, lastGood.headers, diagnosticHeaders, {
-          "x-omniroute-catalog": "last-good",
+          "x-flawraroute-catalog": "last-good",
         }),
       });
     }

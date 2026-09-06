@@ -52,12 +52,12 @@ test("the WAL truncate scheduler is cleared on close, like the health-check sche
   );
 });
 
-test("the truncate interval is overridable via OMNIROUTE_WAL_TRUNCATE_INTERVAL_MS", () => {
+test("the truncate interval is overridable via FLAWRAROUTE_WAL_TRUNCATE_INTERVAL_MS", () => {
   const source = readSource(CORE_PATH);
   assert.match(
     source,
-    /OMNIROUTE_WAL_TRUNCATE_INTERVAL_MS/,
-    "the interval must be operator-configurable, matching OMNIROUTE_DB_HEALTHCHECK_INTERVAL_MS"
+    /FLAWRAROUTE_WAL_TRUNCATE_INTERVAL_MS/,
+    "the interval must be operator-configurable, matching FLAWRAROUTE_DB_HEALTHCHECK_INTERVAL_MS"
   );
 });
 
@@ -76,7 +76,7 @@ test("the new env var is documented", () => {
   const docs = readSource("docs/reference/ENVIRONMENT.md");
   assert.match(
     docs,
-    /OMNIROUTE_WAL_TRUNCATE_INTERVAL_MS/,
+    /FLAWRAROUTE_WAL_TRUNCATE_INTERVAL_MS/,
     "docs/reference/ENVIRONMENT.md must document the new env var (check:env-doc-sync)"
   );
 });

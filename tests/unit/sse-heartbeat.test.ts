@@ -40,13 +40,13 @@ function decodeChunk(value) {
 }
 
 async function withSseCommentsOn(fn) {
-  const prev = process.env.OMNIROUTE_SSE_COMMENTS;
-  process.env.OMNIROUTE_SSE_COMMENTS = "on";
+  const prev = process.env.FLAWRAROUTE_SSE_COMMENTS;
+  process.env.FLAWRAROUTE_SSE_COMMENTS = "on";
   try {
     return await fn();
   } finally {
-    if (prev === undefined) delete process.env.OMNIROUTE_SSE_COMMENTS;
-    else process.env.OMNIROUTE_SSE_COMMENTS = prev;
+    if (prev === undefined) delete process.env.FLAWRAROUTE_SSE_COMMENTS;
+    else process.env.FLAWRAROUTE_SSE_COMMENTS = prev;
   }
 }
 

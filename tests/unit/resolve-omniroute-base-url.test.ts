@@ -2,14 +2,14 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  DEFAULT_OMNIROUTE_BASE_URL,
-  resolveOmniRouteBaseUrl,
-} from "../../src/shared/utils/resolveOmniRouteBaseUrl.ts";
+  DEFAULT_FLAWRAROUTE_BASE_URL,
+  resolveFlawraRouteBaseUrl,
+} from "../../src/shared/utils/resolveFlawraRouteBaseUrl.ts";
 
-test("resolveOmniRouteBaseUrl prefers OMNIROUTE_BASE_URL", () => {
+test("resolveFlawraRouteBaseUrl prefers FLAWRAROUTE_BASE_URL", () => {
   assert.equal(
-    resolveOmniRouteBaseUrl({
-      OMNIROUTE_BASE_URL: "https://internal.example.com/",
+    resolveFlawraRouteBaseUrl({
+      FLAWRAROUTE_BASE_URL: "https://internal.example.com/",
       BASE_URL: "https://base.example.com",
       NEXT_PUBLIC_BASE_URL: "https://public.example.com",
     }),
@@ -17,9 +17,9 @@ test("resolveOmniRouteBaseUrl prefers OMNIROUTE_BASE_URL", () => {
   );
 });
 
-test("resolveOmniRouteBaseUrl falls back to BASE_URL", () => {
+test("resolveFlawraRouteBaseUrl falls back to BASE_URL", () => {
   assert.equal(
-    resolveOmniRouteBaseUrl({
+    resolveFlawraRouteBaseUrl({
       BASE_URL: "https://base.example.com/",
       NEXT_PUBLIC_BASE_URL: "https://public.example.com",
     }),
@@ -27,19 +27,19 @@ test("resolveOmniRouteBaseUrl falls back to BASE_URL", () => {
   );
 });
 
-test("resolveOmniRouteBaseUrl falls back to NEXT_PUBLIC_BASE_URL", () => {
+test("resolveFlawraRouteBaseUrl falls back to NEXT_PUBLIC_BASE_URL", () => {
   assert.equal(
-    resolveOmniRouteBaseUrl({
+    resolveFlawraRouteBaseUrl({
       NEXT_PUBLIC_BASE_URL: "https://public.example.com/",
     }),
     "https://public.example.com"
   );
 });
 
-test("resolveOmniRouteBaseUrl ignores blank values", () => {
+test("resolveFlawraRouteBaseUrl ignores blank values", () => {
   assert.equal(
-    resolveOmniRouteBaseUrl({
-      OMNIROUTE_BASE_URL: "   ",
+    resolveFlawraRouteBaseUrl({
+      FLAWRAROUTE_BASE_URL: "   ",
       BASE_URL: "",
       NEXT_PUBLIC_BASE_URL: " https://public.example.com/ ",
     }),
@@ -47,6 +47,6 @@ test("resolveOmniRouteBaseUrl ignores blank values", () => {
   );
 });
 
-test("resolveOmniRouteBaseUrl uses the default localhost fallback", () => {
-  assert.equal(resolveOmniRouteBaseUrl({}), DEFAULT_OMNIROUTE_BASE_URL);
+test("resolveFlawraRouteBaseUrl uses the default localhost fallback", () => {
+  assert.equal(resolveFlawraRouteBaseUrl({}), DEFAULT_FLAWRAROUTE_BASE_URL);
 });

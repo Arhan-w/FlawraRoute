@@ -76,12 +76,12 @@ export async function onResponse(ctx) {
 
   try {
     const trace = client.trace({
-      name: `omniroute:${body.model || "unknown"}`,
+      name: `flawraroute:${body.model || "unknown"}`,
       userId: ctx?.userId,
       metadata: {
         provider: ctx?.provider,
         requestId: ctx?.requestId,
-        omnirouteVersion: ctx?.omnirouteVersion,
+        flawrarouteVersion: ctx?.flawrarouteVersion,
       },
     });
     trace.generation({
@@ -124,7 +124,7 @@ export async function onError(ctx) {
 
   try {
     const trace = client.trace({
-      name: `omniroute:${body.model || "unknown"}`,
+      name: `flawraroute:${body.model || "unknown"}`,
       userId: ctx?.userId,
       metadata: {
         provider: ctx?.provider,
@@ -146,7 +146,7 @@ export async function onError(ctx) {
 }
 
 /**
- * onShutdown — flush pending events before OmniRoute exits.
+ * onShutdown — flush pending events before FlawraRoute exits.
  */
 export async function onShutdown() {
   if (!langfuseClient) return;

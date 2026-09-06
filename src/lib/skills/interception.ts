@@ -3,9 +3,9 @@ import { skillRegistry } from "./registry";
 import { builtinSkills } from "./builtins";
 import { memoryBuiltinHandlers, MEMORY_BUILTIN_TOOL_NAMES } from "./memoryBuiltins";
 import { detectProvider, decodeSkillToolName } from "./injection";
-import { OMNIROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME } from "@omniroute/open-sse/services/webSearchFallback.ts";
-import { OMNIROUTE_WEB_FETCH_FALLBACK_TOOL_NAME } from "@omniroute/open-sse/services/webFetchInterception.ts";
-import { sanitizeErrorMessage } from "@omniroute/open-sse/utils/errorSanitization.ts";
+import { FLAWRAROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME } from "@flawraroute/open-sse/services/webSearchFallback.ts";
+import { FLAWRAROUTE_WEB_FETCH_FALLBACK_TOOL_NAME } from "@flawraroute/open-sse/services/webFetchInterception.ts";
+import { sanitizeErrorMessage } from "@flawraroute/open-sse/utils/errorSanitization.ts";
 import { logger } from "../../../open-sse/utils/logger.ts";
 
 const log = logger("SKILLS_INTERCEPTION");
@@ -44,8 +44,8 @@ interface ExecutionContext {
 }
 
 const BUILTIN_TOOL_ALIASES: Record<string, string> = {
-  [OMNIROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME]: "web_search",
-  [OMNIROUTE_WEB_FETCH_FALLBACK_TOOL_NAME]: "web_fetch",
+  [FLAWRAROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME]: "web_search",
+  [FLAWRAROUTE_WEB_FETCH_FALLBACK_TOOL_NAME]: "web_fetch",
 };
 
 const MEMORY_TOOL_NAMES = new Set<string>(MEMORY_BUILTIN_TOOL_NAMES);
@@ -286,7 +286,7 @@ export function buildWebSearchCallItem(
   call: ToolCall,
   result: unknown
 ): Record<string, unknown> | null {
-  if (call.name !== OMNIROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME) return null;
+  if (call.name !== FLAWRAROUTE_WEB_SEARCH_FALLBACK_TOOL_NAME) return null;
   const record = result && typeof result === "object" ? (result as Record<string, unknown>) : null;
   if (!record || record.success !== true) return null;
 
@@ -401,7 +401,7 @@ export async function handleToolCallExecution(
       // Anthropic only permits tool_result blocks in user messages. This helper
       // returns a single assistant response, so there is no valid place to put a
       // server-side skill result as tool_result here. Keep client-native tool_use
-      // blocks untouched, remove the OmniRoute-handled tool_use blocks, and expose
+      // blocks untouched, remove the FlawraRoute-handled tool_use blocks, and expose
       // their results as plain assistant text instead of corrupting history with
       // assistant-side tool_result blocks. See #2815.
       //

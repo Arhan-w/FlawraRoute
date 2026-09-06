@@ -1,10 +1,10 @@
-# OmniRoute — Panduan Deployment di VM dengan Cloudflare (Bahasa Indonesia)
+# FlawraRoute — Panduan Deployment di VM dengan Cloudflare (Bahasa Indonesia)
 
 🌐 **Languages:** 🇺🇸 [English](../../../../ops/VM_DEPLOYMENT_GUIDE.md) · 🇸🇦 [ar](../../../ar/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇦🇿 [az](../../../az/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇧🇬 [bg](../../../bg/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇧🇩 [bn](../../../bn/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇨🇿 [cs](../../../cs/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇩🇰 [da](../../../da/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇩🇪 [de](../../../de/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇪🇸 [es](../../../es/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇷 [fa](../../../fa/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇫🇮 [fi](../../../fi/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇫🇷 [fr](../../../fr/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇳 [gu](../../../gu/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇱 [he](../../../he/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇳 [hi](../../../hi/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇭🇺 [hu](../../../hu/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇹 [it](../../../it/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇯🇵 [ja](../../../ja/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇰🇷 [ko](../../../ko/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇳 [mr](../../../mr/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇲🇾 [ms](../../../ms/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇳🇱 [nl](../../../nl/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇳🇴 [no](../../../no/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇵🇭 [phi](../../../phi/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇵🇱 [pl](../../../pl/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇵🇹 [pt](../../../pt/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇧🇷 [pt-BR](../../../pt-BR/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇷🇴 [ro](../../../ro/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇷🇺 [ru](../../../ru/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇸🇰 [sk](../../../sk/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇸🇪 [sv](../../../sv/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇰🇪 [sw](../../../sw/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇳 [ta](../../../ta/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇮🇳 [te](../../../te/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇹🇭 [th](../../../th/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇹🇷 [tr](../../../tr/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇺🇦 [uk-UA](../../../uk-UA/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇵🇰 [ur](../../../ur/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇻🇳 [vi](../../../vi/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇨🇳 [zh-CN](../../../zh-CN/docs/ops/VM_DEPLOYMENT_GUIDE.md) · 🇹🇼 [zh-TW](../../../zh-TW/docs/ops/VM_DEPLOYMENT_GUIDE.md)
 
 ---
 
-Panduan lengkap untuk menginstal dan mengkonfigurasi OmniRoute pada sebuah VM (VPS) dengan domain yang dikelola melalui Cloudflare.
+Panduan lengkap untuk menginstal dan mengkonfigurasi FlawraRoute pada sebuah VM (VPS) dengan domain yang dikelola melalui Cloudflare.
 
 ---
 
@@ -82,18 +82,18 @@ ufw enable
 
 ---
 
-## 2. Instal OmniRoute
+## 2. Instal FlawraRoute
 
 ### 2.1 Buat direktori konfigurasi
 
 ```bash
-mkdir -p /opt/omniroute
+mkdir -p /opt/flawraroute
 ```
 
 ### 2.2 Buat file variabel lingkungan
 
 ```bash
-cat > /opt/omniroute/.env << 'EOF'
+cat > /opt/flawraroute/.env << 'EOF'
 # === Security ===
 JWT_SECRET=CHANGE-TO-A-UNIQUE-64-CHAR-SECRET-KEY
 INITIAL_PASSWORD=YourSecurePassword123!
@@ -117,8 +117,8 @@ BASE_URL=https://llms.seudominio.com
 NEXT_PUBLIC_BASE_URL=https://llms.seudominio.com
 
 # === Cloud Sync (optional) ===
-# CLOUD_URL=https://cloud.omniroute.online
-# NEXT_PUBLIC_CLOUD_URL=https://cloud.omniroute.online
+# CLOUD_URL=https://cloud.flawraroute.online
+# NEXT_PUBLIC_CLOUD_URL=https://cloud.flawraroute.online
 EOF
 ```
 
@@ -127,22 +127,22 @@ EOF
 ### 2.3 Jalankan container
 
 ```bash
-docker pull diegosouzapw/omniroute:latest
+docker pull diegosouzapw/flawraroute:latest
 
 docker run -d \
-  --name omniroute \
+  --name flawraroute \
   --restart unless-stopped \
-  --env-file /opt/omniroute/.env \
+  --env-file /opt/flawraroute/.env \
   -p 20128:20128 \
-  -v omniroute-data:/app/data \
-  diegosouzapw/omniroute:latest
+  -v flawraroute-data:/app/data \
+  diegosouzapw/flawraroute:latest
 ```
 
 ### 2.4 Verifikasi bahwa container berjalan
 
 ```bash
-docker ps | grep omniroute
-docker logs omniroute --tail 20
+docker ps | grep flawraroute
+docker logs flawraroute --tail 20
 ```
 
 Seharusnya menampilkan: `[DB] SQLite database ready` dan `listening on port 20128`.
@@ -175,7 +175,7 @@ chmod 600 /etc/nginx/ssl/origin.key
 ### 3.2 Konfigurasi Nginx
 
 ```bash
-cat > /etc/nginx/sites-available/omniroute << 'NGINX'
+cat > /etc/nginx/sites-available/flawraroute << 'NGINX'
 # Default server — blocks direct access via IP
 server {
     listen 80 default_server;
@@ -188,7 +188,7 @@ server {
     return 444;
 }
 
-# OmniRoute — HTTPS
+# FlawraRoute — HTTPS
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
@@ -230,7 +230,7 @@ server {
 NGINX
 ```
 
-Jaga agar timeout stream reverse-proxy tetap selaras dengan variabel lingkungan timeout OmniRoute Anda. Jika Anda menaikkan
+Jaga agar timeout stream reverse-proxy tetap selaras dengan variabel lingkungan timeout FlawraRoute Anda. Jika Anda menaikkan
 `FETCH_TIMEOUT_MS` / `STREAM_IDLE_TIMEOUT_MS`, naikkan juga `proxy_read_timeout` / `proxy_send_timeout`
 di atas nilai yang sama.
 
@@ -240,8 +240,8 @@ di atas nilai yang sama.
 # Remove default configuration
 rm -f /etc/nginx/sites-enabled/default
 
-# Enable OmniRoute
-ln -sf /etc/nginx/sites-available/omniroute /etc/nginx/sites-enabled/omniroute
+# Enable FlawraRoute
+ln -sf /etc/nginx/sites-available/flawraroute /etc/nginx/sites-enabled/flawraroute
 
 # Test and reload
 nginx -t && systemctl reload nginx
@@ -285,40 +285,40 @@ curl -sI https://llms.seudominio.com/health
 ### Upgrade ke versi baru
 
 ```bash
-docker pull diegosouzapw/omniroute:latest
-docker stop omniroute && docker rm omniroute
-docker run -d --name omniroute --restart unless-stopped \
-  --env-file /opt/omniroute/.env \
+docker pull diegosouzapw/flawraroute:latest
+docker stop flawraroute && docker rm flawraroute
+docker run -d --name flawraroute --restart unless-stopped \
+  --env-file /opt/flawraroute/.env \
   -p 20128:20128 \
-  -v omniroute-data:/app/data \
-  diegosouzapw/omniroute:latest
+  -v flawraroute-data:/app/data \
+  diegosouzapw/flawraroute:latest
 ```
 
 ### Lihat log
 
 ```bash
-docker logs -f omniroute          # Real-time stream
-docker logs omniroute --tail 50   # Last 50 lines
+docker logs -f flawraroute          # Real-time stream
+docker logs flawraroute --tail 50   # Last 50 lines
 ```
 
 ### Pencadangan database secara manual
 
 ```bash
 # Copy data from the volume to the host
-docker cp omniroute:/app/data ./backup-$(date +%F)
+docker cp flawraroute:/app/data ./backup-$(date +%F)
 
 # Or compress the entire volume
-docker run --rm -v omniroute-data:/data -v $(pwd):/backup \
-  alpine tar czf /backup/omniroute-data-$(date +%F).tar.gz /data
+docker run --rm -v flawraroute-data:/data -v $(pwd):/backup \
+  alpine tar czf /backup/flawraroute-data-$(date +%F).tar.gz /data
 ```
 
 ### Pulihkan dari cadangan
 
 ```bash
-docker stop omniroute
-docker run --rm -v omniroute-data:/data -v $(pwd):/backup \
-  alpine sh -c "rm -rf /data/* && tar xzf /backup/omniroute-data-YYYY-MM-DD.tar.gz -C /"
-docker start omniroute
+docker stop flawraroute
+docker run --rm -v flawraroute-data:/data -v $(pwd):/backup \
+  alpine sh -c "rm -rf /data/* && tar xzf /backup/flawraroute-data-YYYY-MM-DD.tar.gz -C /"
+docker start flawraroute
 ```
 
 ---
@@ -387,13 +387,13 @@ Untuk akses jarak jauh melalui Cloudflare Workers (tanpa mengekspos VM secara la
 
 ```bash
 # In the local repository
-cd omnirouteCloud
+cd flawrarouteCloud
 npm install
 npx wrangler login
 npx wrangler deploy
 ```
 
-Lihat dokumentasi lengkap di [omnirouteCloud/README.md](../omnirouteCloud/README.md).
+Lihat dokumentasi lengkap di [flawrarouteCloud/README.md](../flawrarouteCloud/README.md).
 
 ---
 
@@ -404,4 +404,4 @@ Lihat dokumentasi lengkap di [omnirouteCloud/README.md](../omnirouteCloud/README
 | 22    | SSH         | Publik (dengan fail2ban)        |
 | 80    | nginx HTTP  | Redirect → HTTPS                |
 | 443   | nginx HTTPS | Melalui Cloudflare Proxy        |
-| 20128 | OmniRoute   | Hanya localhost (melalui nginx) |
+| 20128 | FlawraRoute   | Hanya localhost (melalui nginx) |

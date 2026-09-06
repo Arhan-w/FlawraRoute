@@ -1077,7 +1077,7 @@
         "Content-Type": "application/json",
         "HTTP-Referer": "https://cline.bot",
         "User-Agent": "Cline/<APP>",
-        "X-CLIENT-TYPE": "omniroute",
+        "X-CLIENT-TYPE": "flawraroute",
         "X-CLIENT-VERSION": "<APP>",
         "X-CORE-VERSION": "<APP>",
         "X-IS-MULTIROOT": "false",
@@ -1090,7 +1090,7 @@
         "Content-Type": "application/json",
         "HTTP-Referer": "https://cline.bot",
         "User-Agent": "Cline/<APP>",
-        "X-CLIENT-TYPE": "omniroute",
+        "X-CLIENT-TYPE": "flawraroute",
         "X-CLIENT-VERSION": "<APP>",
         "X-CORE-VERSION": "<APP>",
         "X-IS-MULTIROOT": "false",
@@ -1104,7 +1104,7 @@
         "Content-Type": "application/json",
         "HTTP-Referer": "https://cline.bot",
         "User-Agent": "Cline/<APP>",
-        "X-CLIENT-TYPE": "omniroute",
+        "X-CLIENT-TYPE": "flawraroute",
         "X-CLIENT-VERSION": "<APP>",
         "X-CORE-VERSION": "<APP>",
         "X-IS-MULTIROOT": "false",
@@ -3234,18 +3234,18 @@
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "X-KILOCODE-EDITORNAME": "OmniRoute"
+        "X-KILOCODE-EDITORNAME": "FlawraRoute"
       },
       "nonStream": {
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "X-KILOCODE-EDITORNAME": "OmniRoute"
+        "X-KILOCODE-EDITORNAME": "FlawraRoute"
       },
       "oauth": {
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "X-KILOCODE-EDITORNAME": "OmniRoute"
+        "X-KILOCODE-EDITORNAME": "FlawraRoute"
       }
     },
     "url": {
@@ -4147,18 +4147,18 @@
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "OmniRoute/1.0"
+        "User-Agent": "FlawraRoute/1.0"
       },
       "nonStream": {
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "OmniRoute/1.0"
+        "User-Agent": "FlawraRoute/1.0"
       },
       "oauth": {
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "OmniRoute/1.0"
+        "User-Agent": "FlawraRoute/1.0"
       }
     },
     "url": {
@@ -5177,18 +5177,18 @@
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 OmniRoute/1.0"
+        "User-Agent": "Mozilla/5.0 FlawraRoute/1.0"
       },
       "nonStream": {
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 OmniRoute/1.0"
+        "User-Agent": "Mozilla/5.0 FlawraRoute/1.0"
       },
       "oauth": {
         "Accept": "text/event-stream",
         "Authorization": "Bearer <TOK>",
         "Content-Type": "application/json",
-        "User-Agent": "Mozilla/5.0 OmniRoute/1.0"
+        "User-Agent": "Mozilla/5.0 FlawraRoute/1.0"
       }
     },
     "url": {

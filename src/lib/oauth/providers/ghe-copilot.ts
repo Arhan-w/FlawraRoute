@@ -1,6 +1,6 @@
-import { getGitHubCopilotChatUserAgent } from "@omniroute/open-sse/config/providerHeaderProfiles.ts";
+import { getGitHubCopilotChatUserAgent } from "@flawraroute/open-sse/config/providerHeaderProfiles.ts";
 import { GHE_COPILOT_CONFIG } from "../constants/oauth";
-import { sanitizeErrorMessage } from "@omniroute/open-sse/utils/error";
+import { sanitizeErrorMessage } from "@flawraroute/open-sse/utils/error";
 
 /**
  * GHE Copilot OAuth provider.

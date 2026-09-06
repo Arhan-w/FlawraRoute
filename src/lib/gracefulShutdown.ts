@@ -18,7 +18,7 @@ import { markServerStopping } from "@/lib/serverLifecycle";
 const SHUTDOWN_TIMEOUT_MS = parseInt(process.env.SHUTDOWN_TIMEOUT_MS || "30000", 10);
 
 declare global {
-  var __omnirouteShutdown:
+  var __flawrarouteShutdown:
     | {
         init: boolean;
         shuttingDown: boolean;
@@ -26,15 +26,15 @@ declare global {
         shutdownPromise?: Promise<void>;
       }
     | undefined;
-  var __omnirouteRequestShutdown: ((signal: string) => Promise<void>) | undefined;
-  var __omnirouteCustomServerOwnsShutdown: boolean | undefined;
+  var __flawrarouteRequestShutdown: ((signal: string) => Promise<void>) | undefined;
+  var __flawrarouteCustomServerOwnsShutdown: boolean | undefined;
 }
 
 function getShutdownState() {
-  if (!globalThis.__omnirouteShutdown) {
-    globalThis.__omnirouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
+  if (!globalThis.__flawrarouteShutdown) {
+    globalThis.__flawrarouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
   }
-  return globalThis.__omnirouteShutdown;
+  return globalThis.__flawrarouteShutdown;
 }
 
 /**
@@ -113,7 +113,7 @@ async function cleanup(): Promise<void> {
       { closeSharedLoggerResource },
       { closeCallLogSaves },
     ] = await Promise.all([
-      import("@omniroute/open-sse/mcp-server/audit.ts"),
+      import("@flawraroute/open-sse/mcp-server/audit.ts"),
       import("@/lib/db/core"),
       import("@/lib/spend/batchWriter"),
       import("@/lib/logRotation"),
@@ -148,7 +148,7 @@ async function cleanup(): Promise<void> {
 
     try {
       const { stopChatGptWebCodexRuntime } =
-        await import("@omniroute/open-sse/executors/chatgpt-web-codex/runtime.ts");
+        await import("@flawraroute/open-sse/executors/chatgpt-web-codex/runtime.ts");
       await stopChatGptWebCodexRuntime();
       console.log("[Shutdown] ChatGPT Web (Codex) runtime stopped.");
     } catch {
@@ -190,17 +190,17 @@ export function requestGracefulShutdown(signal: string): Promise<void> {
  */
 export function initGracefulShutdown(): void {
   const state = getShutdownState();
-  globalThis.__omnirouteRequestShutdown ??= requestGracefulShutdown;
+  globalThis.__flawrarouteRequestShutdown ??= requestGracefulShutdown;
   if (state.init) return;
   state.init = true;
 
-  if (globalThis.__omnirouteCustomServerOwnsShutdown) {
+  if (globalThis.__flawrarouteCustomServerOwnsShutdown) {
     console.log("[Shutdown] Cleanup registered with the custom server shutdown owner.");
     return;
   }
 
   const shutdown = (signal: string) => {
-    void globalThis.__omnirouteRequestShutdown?.(signal).then(() => process.exit(0));
+    void globalThis.__flawrarouteRequestShutdown?.(signal).then(() => process.exit(0));
   };
 
   process.on("SIGTERM", () => void shutdown("SIGTERM"));

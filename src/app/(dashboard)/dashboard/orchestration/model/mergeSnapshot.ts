@@ -163,7 +163,7 @@ function buildRootAndSourceEdges(
   edges: OrchEdge[],
   sources: SourceStatus[]
 ): NodesAndEdges {
-  const root: OrchNode = { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" };
+  const root: OrchNode = { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" };
   const nextNodes = [...nodes];
   const nextEdges = [...edges];
   const sourceIds = new Set(nextNodes.filter((n) => n.kind === "source").map((n) => n.id));

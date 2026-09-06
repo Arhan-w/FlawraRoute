@@ -1,1 +1,1 @@
-- **feat(providers):** publish a management-authenticated versioned web-session credential contract from OmniRoute's canonical browser credential metadata ([#11340](https://github.com/diegosouzapw/OmniRoute/pull/11340)) — thanks @Zartharas
+- **feat(providers):** publish a management-authenticated versioned web-session credential contract from FlawraRoute's canonical browser credential metadata ([#11340](https://github.com/diegosouzapw/FlawraRoute/pull/11340)) — thanks @Zartharas

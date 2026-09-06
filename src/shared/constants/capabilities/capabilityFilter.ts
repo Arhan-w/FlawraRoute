@@ -16,13 +16,13 @@
  */
 
 import { getResolvedModelCapabilities } from "@/lib/modelCapabilities";
-import { evaluateContextLimit } from "@omniroute/open-sse/services/combo/contextOverrideGate";
-import { isRecord } from "@omniroute/open-sse/services/combo/comboData";
+import { evaluateContextLimit } from "@flawraroute/open-sse/services/combo/contextOverrideGate";
+import { isRecord } from "@flawraroute/open-sse/services/combo/comboData";
 import {
   hasEstimableContent,
   providerSupportsEmulatedToolCalling,
-} from "@omniroute/open-sse/services/combo/comboStructure";
-import { estimateTokens } from "@omniroute/open-sse/services/contextManager";
+} from "@flawraroute/open-sse/services/combo/comboStructure";
+import { estimateTokens } from "@flawraroute/open-sse/services/contextManager";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 

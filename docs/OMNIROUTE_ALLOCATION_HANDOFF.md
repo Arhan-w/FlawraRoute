@@ -1,4 +1,4 @@
-# OmniRoute Allocation Handoff
+# FlawraRoute Allocation Handoff
 
 Allocation is not provider quota.
 
@@ -6,4 +6,4 @@ Quota pools define which API keys may consume a provider pool and how hard, soft
 
 The `ensurePool` operation is idempotent: an identical pool is unchanged, a changed allocation is updated, and a missing pool is created. This is intended for automation and bounded API callers.
 
-The read-only status endpoint is `GET /api/omniroute/status`. The verification command is `npm run omniroute:verify`; it makes no live model request.
+The read-only status endpoint is `GET /api/flawraroute/status`. The verification command is `npm run flawraroute:verify`; it makes no live model request.

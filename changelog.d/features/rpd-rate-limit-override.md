@@ -1,1 +1,1 @@
-- **feat(providers):** add RPD (Requests Per Day) limit to provider rate limit overrides across UI, schemas, DB, and i18n ([#PR_NUMBER](https://github.com/diegosouzapw/OmniRoute/pull/PR_NUMBER))
+- **feat(providers):** add RPD (Requests Per Day) limit to provider rate limit overrides across UI, schemas, DB, and i18n ([#PR_NUMBER](https://github.com/diegosouzapw/FlawraRoute/pull/PR_NUMBER))

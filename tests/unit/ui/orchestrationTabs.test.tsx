@@ -54,7 +54,7 @@ afterEach(() => {
 describe("AgentsTab", () => {
   it("feeds FlowCanvas with converted nodes and a stable fitKey; empty snapshot shows CTAs", () => {
     const snap = {
-      nodes: [{ id: "orchestrator", kind: "orchestrator", label: "OmniRoute" }],
+      nodes: [{ id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" }],
       edges: [],
       sources: [],
       generatedAt: "x",
@@ -93,7 +93,7 @@ describe("AgentsTab", () => {
   it("passes the collapsed set to orchestrationToFlow, dropping that source's work nodes", () => {
     const snap = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         { id: "source:a2a", kind: "source", source: "a2a", label: "A2A" },
         { id: "a2a:1", kind: "work", source: "a2a", state: "running", label: "a2a task" },
         {
@@ -129,7 +129,7 @@ describe("AgentsTab", () => {
     const onNodeClick = vi.fn();
     const snap = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         { id: "a2a:1", kind: "work", source: "a2a", state: "running", label: "a2a task" },
       ],
       edges: [],
@@ -158,7 +158,7 @@ describe("AgentsTab", () => {
     const onNodeClick = vi.fn();
     const snap = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         { id: "a2a:1", kind: "work", source: "a2a", state: "running", label: "a2a task" },
       ],
       edges: [],
@@ -186,7 +186,7 @@ describe("AgentsTab", () => {
     const onToggleCompleted = vi.fn();
     const snap = {
       nodes: [
-        { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+        { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
         { id: "a2a:1", kind: "work", source: "a2a", state: "running", label: "a2a task" },
       ],
       edges: [],
@@ -217,7 +217,7 @@ describe("AgentsTab", () => {
 describe("OverviewTab", () => {
   const snap = {
     nodes: [
-      { id: "orchestrator", kind: "orchestrator", label: "OmniRoute" },
+      { id: "orchestrator", kind: "orchestrator", label: "FlawraRoute" },
       {
         id: "cloud-agent:1",
         kind: "work",

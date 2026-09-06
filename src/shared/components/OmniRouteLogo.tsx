@@ -1,13 +1,13 @@
 /**
- * OmniRoute logo SVG — network hub icon with connected nodes.
+ * FlawraRoute logo SVG — network hub icon with connected nodes.
  * Matches the favicon and app icon design.
  */
-type OmniRouteLogoProps = {
+type FlawraRouteLogoProps = {
   size?: number;
   className?: string;
 };
 
-export default function OmniRouteLogo({ size = 20, className = "" }: OmniRouteLogoProps) {
+export default function FlawraRouteLogo({ size = 20, className = "" }: FlawraRouteLogoProps) {
   return (
     <svg
       width={size}

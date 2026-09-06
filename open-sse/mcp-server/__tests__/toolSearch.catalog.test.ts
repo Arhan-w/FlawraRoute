@@ -2,16 +2,16 @@ import { describe, it, expect } from "vitest";
 import { getAllToolDefinitions } from "../toolSearch/catalog.ts";
 
 const GITHUB_SKILL_TOOL_NAMES = [
-  "omniroute_github_skills_search",
-  "omniroute_github_skills_scan",
-  "omniroute_github_skills_install",
+  "flawraroute_github_skills_search",
+  "flawraroute_github_skills_scan",
+  "flawraroute_github_skills_install",
 ] as const;
 
 describe("getAllToolDefinitions", () => {
   const all = getAllToolDefinitions();
   it("aggregates many tools across collections", () => {
     expect(all.length).toBeGreaterThanOrEqual(34);
-    expect(all.find((t) => t.name === "omniroute_get_health")).toBeTruthy();
+    expect(all.find((t) => t.name === "flawraroute_get_health")).toBeTruthy();
   });
   it("every entry has name + description", () => {
     for (const t of all) {
@@ -32,7 +32,7 @@ describe("getAllToolDefinitions", () => {
   });
   it("includes every canonical CCR lifecycle tool", () => {
     for (const name of ["store", "retrieve", "inspect", "list", "delete", "stats"]) {
-      expect(all.find((tool) => tool.name === `omniroute_ccr_${name}`)).toBeTruthy();
+      expect(all.find((tool) => tool.name === `flawraroute_ccr_${name}`)).toBeTruthy();
     }
   });
 });

@@ -1,6 +1,6 @@
 // Allow large audio/video file uploads — 5min for processing large files (up to 2GB)
 export const maxDuration = 300;
-import { handleAudioTranscription } from "@omniroute/open-sse/handlers/audioTranscription.ts";
+import { handleAudioTranscription } from "@flawraroute/open-sse/handlers/audioTranscription.ts";
 import {
   getProviderCredentialsWithQuotaPreflight,
   clearRecoveredProviderState,
@@ -13,21 +13,21 @@ import {
   listAlternateAudioModelIds,
   missingAudioProviderCredentialsMessage,
   AUDIO_TRANSCRIPTION_PROVIDERS,
-} from "@omniroute/open-sse/config/audioRegistry.ts";
+} from "@flawraroute/open-sse/config/audioRegistry.ts";
 import { resolveDynamicAudioProviders } from "@/app/api/v1/_shared/audioProviderNodes";
-import { errorResponse } from "@omniroute/open-sse/utils/error.ts";
-import { HTTP_STATUS } from "@omniroute/open-sse/config/constants.ts";
+import { errorResponse } from "@flawraroute/open-sse/utils/error.ts";
+import { HTTP_STATUS } from "@flawraroute/open-sse/config/constants.ts";
 import { enforceApiKeyPolicy } from "@/shared/utils/apiKeyPolicy";
 import {
   isAllRateLimitedCredentials,
   rateLimitedProviderResponse,
 } from "@/app/api/v1/_shared/rateLimit";
-import { attachOmniRouteMetaToResponse } from "@/domain/omnirouteResponseMeta";
+import { attachFlawraRouteMetaToResponse } from "@/domain/flawrarouteResponseMeta";
 import { generateRequestId } from "@/shared/utils/requestId";
 import { getComboByName, getCombos } from "@/lib/db/combos";
 import { getDatabaseSettings } from "@/lib/db/databaseSettings";
-import { handleComboChat } from "@omniroute/open-sse/services/combo.ts";
-import { log } from "@omniroute/open-sse/utils/logger.ts";
+import { handleComboChat } from "@flawraroute/open-sse/services/combo.ts";
+import { log } from "@flawraroute/open-sse/utils/logger.ts";
 
 /**
  * Copy a multipart body, swapping only the `model` field. Combo fan-out needs one
@@ -142,7 +142,7 @@ async function transcribeWithModel(
     await clearRecoveredProviderState(credentials);
     // No text body / playback duration available from the multipart upload, so
     // per-second pricing cannot be applied → cost 0 (ADD-only headers, body intact).
-    response = attachOmniRouteMetaToResponse(response, {
+    response = attachFlawraRouteMetaToResponse(response, {
       provider,
       model: resolvedModel,
       costUsd: 0,

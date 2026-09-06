@@ -1,1 +1,1 @@
-- **fix(sse):** retire the Gemini Web image-generation bridge while provenance and licensing remain on HOLD, preserving Gemini Web chat/auth/tools and legitimate Gemini/Nano Banana image providers ([#11708](https://github.com/diegosouzapw/OmniRoute/pull/11708))
+- **fix(sse):** retire the Gemini Web image-generation bridge while provenance and licensing remain on HOLD, preserving Gemini Web chat/auth/tools and legitimate Gemini/Nano Banana image providers ([#11708](https://github.com/diegosouzapw/FlawraRoute/pull/11708))

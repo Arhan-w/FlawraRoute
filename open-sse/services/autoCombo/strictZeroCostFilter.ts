@@ -53,7 +53,7 @@ import {
   FREE_MODEL_BUDGETS,
   grantsFreeAccess,
   type FreeModelBudget,
-} from "@omniroute/open-sse/config/freeModelCatalog.ts";
+} from "@flawraroute/open-sse/config/freeModelCatalog.ts";
 import { SYNTHETIC_NOAUTH_CONNECTION_ID } from "./resilienceCandidateFilter";
 
 export type FreeAccessStatus = "SAFE" | "EXHAUSTED" | "UNKNOWN";

@@ -6,16 +6,16 @@ export function registerProvider(program) {
     .allowExcessArguments()
     .action(() => {
       console.log(`
-  Use \`omniroute providers\` for the full provider management interface:
+  Use \`flawraroute providers\` for the full provider management interface:
 
-    omniroute providers available   — show provider catalog
-    omniroute providers list        — list configured connections
-    omniroute providers test <name> — test a provider connection
-    omniroute providers test-all    — test all active connections
-    omniroute providers validate    — validate local configuration
-    omniroute providers add <id>    — add an API-key connection
-    omniroute providers auth <id>   — start an existing OAuth flow
-    omniroute providers remove <id> — remove a connection (requires confirmation)
+    flawraroute providers available   — show provider catalog
+    flawraroute providers list        — list configured connections
+    flawraroute providers test <name> — test a provider connection
+    flawraroute providers test-all    — test all active connections
+    flawraroute providers validate    — validate local configuration
+    flawraroute providers add <id>    — add an API-key connection
+    flawraroute providers auth <id>   — start an existing OAuth flow
+    flawraroute providers remove <id> — remove a connection (requires confirmation)
 `);
     });
 }

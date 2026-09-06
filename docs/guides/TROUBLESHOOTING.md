@@ -10,17 +10,17 @@ lastUpdated: 2026-07-15
 
 🌐 **Languages:** 🇺🇸 [English](./TROUBLESHOOTING.md) | 🇸🇦 [العربية](../i18n/ar/docs/guides/TROUBLESHOOTING.md) | 🇦🇿 [Azərbaycan dili](../i18n/az/docs/guides/TROUBLESHOOTING.md) | 🇧🇬 [Български](../i18n/bg/docs/guides/TROUBLESHOOTING.md) | 🇧🇩 [বাংলা](../i18n/bn/docs/guides/TROUBLESHOOTING.md) | 🇨🇿 [Čeština](../i18n/cs/docs/guides/TROUBLESHOOTING.md) | 🇩🇰 [Dansk](../i18n/da/docs/guides/TROUBLESHOOTING.md) | 🇩🇪 [Deutsch](../i18n/de/docs/guides/TROUBLESHOOTING.md) | 🇪🇸 [Español](../i18n/es/docs/guides/TROUBLESHOOTING.md) | 🇮🇷 [فارسی](../i18n/fa/docs/guides/TROUBLESHOOTING.md) | 🇫🇮 [Suomi](../i18n/fi/docs/guides/TROUBLESHOOTING.md) | 🇫🇷 [Français](../i18n/fr/docs/guides/TROUBLESHOOTING.md) | 🇮🇳 [ગુજરાતી](../i18n/gu/docs/guides/TROUBLESHOOTING.md) | 🇮🇱 [עברית](../i18n/he/docs/guides/TROUBLESHOOTING.md) | 🇮🇳 [हिन्दी](../i18n/hi/docs/guides/TROUBLESHOOTING.md) | 🇭🇺 [Magyar](../i18n/hu/docs/guides/TROUBLESHOOTING.md) | 🇮🇩 [Bahasa Indonesia](../i18n/id/docs/guides/TROUBLESHOOTING.md) | 🇮🇹 [Italiano](../i18n/it/docs/guides/TROUBLESHOOTING.md) | 🇯🇵 [日本語](../i18n/ja/docs/guides/TROUBLESHOOTING.md) | 🇰🇷 [한국어](../i18n/ko/docs/guides/TROUBLESHOOTING.md) | 🇮🇳 [मराठी](../i18n/mr/docs/guides/TROUBLESHOOTING.md) | 🇲🇾 [Bahasa Melayu](../i18n/ms/docs/guides/TROUBLESHOOTING.md) | 🇳🇱 [Nederlands](../i18n/nl/docs/guides/TROUBLESHOOTING.md) | 🇳🇴 [Norsk](../i18n/no/docs/guides/TROUBLESHOOTING.md) | 🇵🇭 [Filipino](../i18n/phi/docs/guides/TROUBLESHOOTING.md) | 🇵🇱 [Polski](../i18n/pl/docs/guides/TROUBLESHOOTING.md) | 🇵🇹 [Português (Portugal)](../i18n/pt/docs/guides/TROUBLESHOOTING.md) | 🇧🇷 [Português (Brasil)](../i18n/pt-BR/docs/guides/TROUBLESHOOTING.md) | 🇷🇴 [Română](../i18n/ro/docs/guides/TROUBLESHOOTING.md) | 🇷🇺 [Русский](../i18n/ru/docs/guides/TROUBLESHOOTING.md) | 🇸🇰 [Slovenčina](../i18n/sk/docs/guides/TROUBLESHOOTING.md) | 🇸🇪 [Svenska](../i18n/sv/docs/guides/TROUBLESHOOTING.md) | 🇰🇪 [Kiswahili](../i18n/sw/docs/guides/TROUBLESHOOTING.md) | 🇮🇳 [தமிழ்](../i18n/ta/docs/guides/TROUBLESHOOTING.md) | 🇮🇳 [తెలుగు](../i18n/te/docs/guides/TROUBLESHOOTING.md) | 🇹🇭 [ไทย](../i18n/th/docs/guides/TROUBLESHOOTING.md) | 🇹🇷 [Türkçe](../i18n/tr/docs/guides/TROUBLESHOOTING.md) | 🇺🇦 [Українська](../i18n/uk-UA/docs/guides/TROUBLESHOOTING.md) | 🇵🇰 [اردو](../i18n/ur/docs/guides/TROUBLESHOOTING.md) | 🇻🇳 [Tiếng Việt](../i18n/vi/docs/guides/TROUBLESHOOTING.md) | 🇨🇳 [中文 (简体)](../i18n/zh-CN/docs/guides/TROUBLESHOOTING.md) | 🇹🇼 [中文 (繁體)](../i18n/zh-TW/docs/guides/TROUBLESHOOTING.md)
 
-Common problems and solutions for OmniRoute.
+Common problems and solutions for FlawraRoute.
 
 ---
 
 ## Quick Reference
 
-**New to OmniRoute?** Start here — these solve 90% of problems:
+**New to FlawraRoute?** Start here — these solve 90% of problems:
 
 | I see this              | What it means                       | What to do                                                                                        |
 | ----------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- |
-| "Can't connect"         | OmniRoute isn't running             | Run `omniroute` or `docker restart omniroute`                                                     |
+| "Can't connect"         | FlawraRoute isn't running             | Run `flawraroute` or `docker restart flawraroute`                                                     |
 | "Invalid API key"       | Your key is wrong or expired        | Re-copy the key from the provider's website                                                       |
 | "Rate limit exceeded"   | You're sending too many requests    | Wait 1 minute, or use `model: "auto"` for automatic fallback                                      |
 | "Quota exceeded"        | You've used up your free/paid quota | Connect more providers, or use free providers (Kiro, Pollinations)                                |
@@ -51,18 +51,18 @@ Common problems and solutions for OmniRoute.
 **Verified fix (community-reported, 2026-08-10)**: tune three environment variables so that rotation, concurrency, and fallback absorb the free-tier churn instead of dying on it:
 
 ```bash
-export OMNIROUTE_ROTATE_ON_400=true           # hop to another model/provider on 400/401 (skips broken passthrough models)
-export OMNIROUTE_CHAT_MAX_HEAVY_IN_FLIGHT=4   # explicit heavyweight admission ceiling (unset by default: no request-count cap, see note below)
-export OMNIROUTE_CHAT_ADMISSION_QUEUE_MS=5000 # longer bounded wait for heavyweight capacity instead of an immediate retryable 503
+export FLAWRAROUTE_ROTATE_ON_400=true           # hop to another model/provider on 400/401 (skips broken passthrough models)
+export FLAWRAROUTE_CHAT_MAX_HEAVY_IN_FLIGHT=4   # explicit heavyweight admission ceiling (unset by default: no request-count cap, see note below)
+export FLAWRAROUTE_CHAT_ADMISSION_QUEUE_MS=5000 # longer bounded wait for heavyweight capacity instead of an immediate retryable 503
 ```
 
-Set these in the OmniRoute process environment (the daemon, e.g. via the LaunchAgent plist or `systemctl edit`), then restart OmniRoute. The rotation flag is the single highest-leverage lever: it converts a hard failure into a transparent retry against a healthy provider in the pool.
+Set these in the FlawraRoute process environment (the daemon, e.g. via the LaunchAgent plist or `systemctl edit`), then restart FlawraRoute. The rotation flag is the single highest-leverage lever: it converts a hard failure into a transparent retry against a healthy provider in the pool.
 
-**Note**: `OMNIROUTE_CHAT_MAX_HEAVY_IN_FLIGHT` caps how many heavyweight — long-context — requests run at once; the bound is an admission gate, not a provider rate limiter. **#503-fanout update:** this var is no longer set by default (it now binds only when explicitly configured, as above) — heavyweight admission is instead gated by an auto-derived byte budget (`OMNIROUTE_CHAT_MAX_INFLIGHT_BYTES`) that scales itself from the host's real memory ceiling, so a fresh deployment should see far fewer `503 chat_admission_busy` rejects without setting this var at all; explicitly setting it here still works exactly as documented. Explicit byte-budget overrides clamp to 8 MiB–2 GiB. A `413 body_exceeds_budget` is not transient: increase that byte budget, lower `OMNIROUTE_CHAT_HARD_MAX_BODY_BYTES`, or increase the process memory ceiling. An `inflight_bytes_budget` shed is temporary contention and remains retryable. The per-provider rate limiting (`open-sse/services/rateLimitManager.ts`) is governed separately by `RATE_LIMIT_MAX_WAIT_MS`, `RATE_LIMIT_MAX_QUEUE_DEPTH`, and `RATE_LIMIT_AUTO_ENABLE` — see `.env.example`.
+**Note**: `FLAWRAROUTE_CHAT_MAX_HEAVY_IN_FLIGHT` caps how many heavyweight — long-context — requests run at once; the bound is an admission gate, not a provider rate limiter. **#503-fanout update:** this var is no longer set by default (it now binds only when explicitly configured, as above) — heavyweight admission is instead gated by an auto-derived byte budget (`FLAWRAROUTE_CHAT_MAX_INFLIGHT_BYTES`) that scales itself from the host's real memory ceiling, so a fresh deployment should see far fewer `503 chat_admission_busy` rejects without setting this var at all; explicitly setting it here still works exactly as documented. Explicit byte-budget overrides clamp to 8 MiB–2 GiB. A `413 body_exceeds_budget` is not transient: increase that byte budget, lower `FLAWRAROUTE_CHAT_HARD_MAX_BODY_BYTES`, or increase the process memory ceiling. An `inflight_bytes_budget` shed is temporary contention and remains retryable. The per-provider rate limiting (`open-sse/services/rateLimitManager.ts`) is governed separately by `RATE_LIMIT_MAX_WAIT_MS`, `RATE_LIMIT_MAX_QUEUE_DEPTH`, and `RATE_LIMIT_AUTO_ENABLE` — see `.env.example`.
 
 **How to verify it worked**: run your agent/cron twice in quick succession and confirm both succeed. Before the fix, the second run typically throws `429`/`401`. After the fix, failures (if any) are retried transparently and the call completes. You can also `curl /monitoring/health` and watch the `rateLimitedUntil` field on the provider connections and the `circuitBreakers.providerBreakers[].state` for the affected providers — the state is one of `CLOSED`, `DEGRADED`, `OPEN`, or `HALF_OPEN` (see `src/shared/utils/circuitBreaker.ts`), and a provider that keeps failing will flip `CLOSED → DEGRADED → OPEN` before the reset window lets a probe through (`HALF_OPEN`).
 
-**If you still see 429**: the active account for that provider has genuinely exhausted its _quota_ (not just rate). Add a second account for the same provider in the OmniRoute dashboard → Providers → Accounts, or mix in another free provider (e.g. `routeway`, `auggie`). Rotation only helps with transient rate/400/401; a hard quota exhaustion requires a second credential or a different provider.
+**If you still see 429**: the active account for that provider has genuinely exhausted its _quota_ (not just rate). Add a second account for the same provider in the FlawraRoute dashboard → Providers → Accounts, or mix in another free provider (e.g. `routeway`, `auggie`). Rotation only helps with transient rate/400/401; a hard quota exhaustion requires a second credential or a different provider.
 
 **If you see 403 on vision models (`auto/vision`, `bazaarlink/*`)**: the connected account lacks a paid plan that includes vision, or the API key has insufficient permissions. Verify in the provider dashboard that the key scope includes vision/multimodal, or connect a paid tier account and keep it as the vision target.
 
@@ -70,9 +70,9 @@ Set these in the OmniRoute process environment (the daemon, e.g. via the LaunchA
 
 ## npm install Warnings (ERESOLVE / peer / deprecated)
 
-When you run `npm install -g omniroute`, you may see a wall of warnings like `npm warn ERESOLVE`, peer-dependency notices, and `deprecated` messages. **These are expected and harmless.** Your install succeeded if you see `added <N> packages` in the output.
+When you run `npm install -g flawraroute`, you may see a wall of warnings like `npm warn ERESOLVE`, peer-dependency notices, and `deprecated` messages. **These are expected and harmless.** Your install succeeded if you see `added <N> packages` in the output.
 
-The warnings come from stale peer-dependency ranges in third-party packages OmniRoute doesn't control:
+The warnings come from stale peer-dependency ranges in third-party packages FlawraRoute doesn't control:
 
 1. **`marked-terminal` wants `marked >=1 <16`, found `marked@18`** — works fine in practice; the upstream peer range is just stale.
 2. **`deprecated prebuild-install@7.1.3`** — a transitive native-binary fetch helper. It is not
@@ -90,10 +90,10 @@ The warnings come from stale peer-dependency ranges in third-party packages Omni
 | First login not working                                    | Set `INITIAL_PASSWORD` in `.env` (no hardcoded default)                                                                                                   |
 | Dashboard opens on wrong port                              | Set `PORT=20128` and `NEXT_PUBLIC_BASE_URL=http://localhost:20128`                                                                                        |
 | No logs written to disk                                    | Set `APP_LOG_TO_FILE=true` and verify call log capture is enabled                                                                                         |
-| EACCES: permission denied                                  | Set `DATA_DIR=/path/to/writable/dir` to override `~/.omniroute`                                                                                           |
+| EACCES: permission denied                                  | Set `DATA_DIR=/path/to/writable/dir` to override `~/.flawraroute`                                                                                           |
 | Routing strategy not saving                                | Update to the latest v3.x release (Zod schema fix for settings persistence shipped in earlier versions)                                                   |
 | Login crash / blank page                                   | Check Node.js version — see [Node.js Compatibility](#nodejs-compatibility) below                                                                          |
-| `dlopen` / `slice is not valid mach-o file` (macOS)        | Run `cd $(npm root -g)/omniroute/app && npm rebuild better-sqlite3 && omniroute` — see [macOS native module rebuild](#macos-native-module-rebuild) below  |
+| `dlopen` / `slice is not valid mach-o file` (macOS)        | Run `cd $(npm root -g)/flawraroute/app && npm rebuild better-sqlite3 && flawraroute` — see [macOS native module rebuild](#macos-native-module-rebuild) below  |
 | Proxy "fetch failed"                                       | Ensure proxy config is set at the correct level — see [Proxy Issues](#proxy-issues) below                                                                 |
 | Docker `curl: (56) Recv failure: Connection reset by peer` | Your Docker port bind may be landing on IPv6. Use `-p 127.0.0.1:20128:20128` to force IPv4, or test with `curl -4`. See [Docker IPv6](#docker-ipv6) below |
 | Antivirus quarantines `README.md`                          | False positive — see [Antivirus false positives](#antivirus-false-positives) below                                                                        |
@@ -110,8 +110,8 @@ The warnings come from stale peer-dependency ranges in third-party packages Omni
 **This is a false positive. Nothing is infected, and no action is required.**
 
 Avast and AVG run a heuristic that flags plain-text/Markdown files containing many
-HTTP-request-looking links. OmniRoute's `README.md` ships inside the npm package (it is
-listed in `package.json` → `files`), so it lands at `node_modules/omniroute/README.md` on
+HTTP-request-looking links. FlawraRoute's `README.md` ships inside the npm package (it is
+listed in `package.json` → `files`), so it lands at `node_modules/flawraroute/README.md` on
 a global install — and it contains ~15 `http://localhost:20128/...` examples (the MCP
 HTTP/SSE endpoints, the A2A `.well-known` URL, and `curl` snippets). That link density is
 enough to trip the heuristic.
@@ -127,7 +127,7 @@ from quarantine.
 
 1. **Stop the notifications** — exclude the install directory in your antivirus
    (Avast: Settings → Exceptions), adding your global `node_modules` path and/or the
-   OmniRoute data dir (`~/.omniroute/`).
+   FlawraRoute data dir (`~/.flawraroute/`).
 2. **Report the false positive** — <https://www.avast.com/false-positive-file-form.php>,
    attaching the quarantined `README.md`. This is the fix that helps everyone, since it is
    the vendor's heuristic overreacting to a text file.
@@ -157,24 +157,24 @@ desktop app, for example:
 **Why it fires:** the Windows installer is **not yet code-signed**, so an unsigned NSIS
 installer has zero reputation and behavioral heuristics run at maximum aggression. Combined
 with a bundled native DLL and hundreds of `.js` files written under
-`%LOCALAPPDATA%\Programs\OmniRoute` (including hash-suffixed package directories from the
+`%LOCALAPPDATA%\Programs\FlawraRoute` (including hash-suffixed package directories from the
 Next.js standalone build), that is enough to trip the heuristic. Code signing is planned;
 until it lands, new releases can repeat this.
 
 **What to do:**
 
 1. **Verify your download first** (rules out a tampered file). Every release publishes
-   `latest.yml`, whose `sha512` field (base64) covers the `OmniRoute.Setup.<version>.exe`
+   `latest.yml`, whose `sha512` field (base64) covers the `FlawraRoute.Setup.<version>.exe`
    installer. In PowerShell, from the folder containing the installer:
    ```powershell
    $b = [System.Security.Cryptography.SHA512]::Create().ComputeHash(
-     [System.IO.File]::ReadAllBytes("$PWD\OmniRoute.Setup.<version>.exe"))
+     [System.IO.File]::ReadAllBytes("$PWD\FlawraRoute.Setup.<version>.exe"))
    [Convert]::ToBase64String($b)
    ```
    The output must match `latest.yml` → `sha512`. If it does not, delete the file and
-   re-download only from the [GitHub releases page](https://github.com/diegosouzapw/OmniRoute/releases).
+   re-download only from the [GitHub releases page](https://github.com/diegosouzapw/FlawraRoute/releases).
 2. **Restore + exclude** — restore the rolled-back items from quarantine and add an exclusion
-   for `%LOCALAPPDATA%\Programs\OmniRoute` (Kaspersky → Settings → Threats and Exclusions),
+   for `%LOCALAPPDATA%\Programs\FlawraRoute` (Kaspersky → Settings → Threats and Exclusions),
    then reinstall.
 3. **Report the false positive** — <https://opentip.kaspersky.com/>. User-submitted FP
    reports genuinely speed up allowlisting.
@@ -187,7 +187,7 @@ until it lands, new releases can repeat this.
 
 ### Login page crashes or shows "Module self-registration" error
 
-**Cause:** You are running a Node.js version outside OmniRoute's approved secure runtime floor. The most common case is running an older Node 22 or 24 patch level that falls below the patched security floor OmniRoute requires.
+**Cause:** You are running a Node.js version outside FlawraRoute's approved secure runtime floor. The most common case is running an older Node 22 or 24 patch level that falls below the patched security floor FlawraRoute requires.
 
 **Symptoms:**
 
@@ -203,8 +203,8 @@ until it lands, new releases can repeat this.
    nvm use 24
    ```
 2. Verify your version: `node --version` should show `v24.0.0` or newer on the 24.x LTS line
-3. Reinstall OmniRoute: `npm install -g omniroute`
-4. Restart: `omniroute`
+3. Reinstall FlawraRoute: `npm install -g flawraroute`
+4. Restart: `flawraroute`
 
 > **Supported secure versions:** `>=22.22.2 <23` or `>=24.0.0 <27`. Node.js 24.x LTS (Krypton) and Node.js 26 are fully supported.
 
@@ -242,7 +242,7 @@ and requires native compilation (`node-gyp rebuild`), npm silently skips it.
 
 <a name="macos-native-module-rebuild"></a>
 
-**Cause:** After a global `npm install -g omniroute`, the `better-sqlite3` native binary inside the package may have been compiled for a different architecture or Node.js ABI than what is running locally. This is common on macOS (both Apple Silicon and Intel) when the pre-built binary does not match your environment.
+**Cause:** After a global `npm install -g flawraroute`, the `better-sqlite3` native binary inside the package may have been compiled for a different architecture or Node.js ABI than what is running locally. This is common on macOS (both Apple Silicon and Intel) when the pre-built binary does not match your environment.
 
 **Symptoms:**
 
@@ -251,15 +251,15 @@ and requires native compilation (`node-gyp rebuild`), npm silently skips it.
 - Full example:
 
 ```
-dlopen(/Users/<user>/.nvm/versions/node/v24.14.1/lib/node_modules/omniroute/app/node_modules/better-sqlite3/build/Release/better_sqlite3.node, 0x0001): tried: '...' (slice is not valid mach-o file)
+dlopen(/Users/<user>/.nvm/versions/node/v24.14.1/lib/node_modules/flawraroute/app/node_modules/better-sqlite3/build/Release/better_sqlite3.node, 0x0001): tried: '...' (slice is not valid mach-o file)
 ```
 
 **Fix — rebuild for your local environment (no Node.js downgrade required):**
 
 ```bash
-cd $(npm root -g)/omniroute/app
+cd $(npm root -g)/flawraroute/app
 npm rebuild better-sqlite3
-omniroute
+flawraroute
 ```
 
 > **Note:** This recompiles the native binding against your local Node.js version and CPU architecture, resolving the binary mismatch. The officially supported runtime range is **`>=22.22.2 <23` or `>=24.0.0 <27`** (`SUPPORTED_NODE_RANGE` in `src/shared/utils/nodeRuntimeSupport.ts`, aligned with the `package.json` `engines` field). Node.js 24.x LTS (Krypton) and Node.js 26 are fully supported with `better-sqlite3` v12.x.
@@ -286,13 +286,13 @@ omniroute
 
 **Cause:** On Node.js 22, the undici@8 dispatcher is incompatible with Node's built-in `fetch()` implementation.
 
-**Fix (v3.5.5+):** OmniRoute now uses undici's own `fetch()` function when a proxy dispatcher is active, ensuring consistent behavior. Update to v3.5.5+.
+**Fix (v3.5.5+):** FlawraRoute now uses undici's own `fetch()` function when a proxy dispatcher is active, ensuring consistent behavior. Update to v3.5.5+.
 
 ### MITM proxy under WSL: desktop apps on the Windows host are not intercepted
 
-**Cause:** The MITM proxy and its CA certificate install into the environment where OmniRoute runs. Under WSL that environment is the Linux guest, while the AI desktop apps (Kiro, Trae, Copilot, Zed, …) run on the Windows host. The host apps do not trust the guest's certificate store and do not route through the guest's system proxy, so desktop interception does not engage there.
+**Cause:** The MITM proxy and its CA certificate install into the environment where FlawraRoute runs. Under WSL that environment is the Linux guest, while the AI desktop apps (Kiro, Trae, Copilot, Zed, …) run on the Windows host. The host apps do not trust the guest's certificate store and do not route through the guest's system proxy, so desktop interception does not engage there.
 
-**Recommendation:** Run OmniRoute natively on the same OS as the desktop apps you want to intercept (Windows for Windows apps; macOS/Linux likewise). Keeping OmniRoute inside WSL while targeting host apps requires manually trusting the generated CA certificate on the Windows host and pointing each host app's network/proxy settings at the WSL proxy endpoint — an unsupported, fragile setup.
+**Recommendation:** Run FlawraRoute natively on the same OS as the desktop apps you want to intercept (Windows for Windows apps; macOS/Linux likewise). Keeping FlawraRoute inside WSL while targeting host apps requires manually trusting the generated CA certificate on the Windows host and pointing each host app's network/proxy settings at the WSL proxy endpoint — an unsupported, fragile setup.
 
 ---
 
@@ -319,7 +319,7 @@ omniroute
 
 ### OAuth Token Expired
 
-OmniRoute auto-refreshes tokens. If issues persist:
+FlawraRoute auto-refreshes tokens. If issues persist:
 
 1. Dashboard → Provider → Reconnect
 2. Delete and re-add the provider connection
@@ -351,7 +351,7 @@ see [`docs/guides/KIRO_SETUP.md`](./KIRO_SETUP.md).
 ### Cloud Sync Errors
 
 1. Verify `BASE_URL` points to your running instance (e.g., `http://localhost:20128`)
-2. Verify `CLOUD_URL` points to your cloud endpoint (e.g., `https://omniroute.dev`)
+2. Verify `CLOUD_URL` points to your cloud endpoint (e.g., `https://flawraroute.dev`)
 3. Keep `NEXT_PUBLIC_*` values aligned with server-side values
 
 ### Cloud `stream=false` Returns 500
@@ -385,8 +385,8 @@ see [`docs/guides/KIRO_SETUP.md`](./KIRO_SETUP.md).
 1. **Quick diagnostic:** Run `curl -4 http://localhost:20128/v1/models`. If it works with `-4` but fails without, you have an IPv6 bind mismatch.
 2. **Permanent fix:** Bind to IPv4 explicitly by using `-p 127.0.0.1:20128:20128` in your `docker run` command:
    ```bash
-   docker run -d --name omniroute --restart unless-stopped --stop-timeout 40 \
-     -p 127.0.0.1:20128:20128 -v omniroute-data:/app/data diegosouzapw/omniroute:latest
+   docker run -d --name flawraroute --restart unless-stopped --stop-timeout 40 \
+     -p 127.0.0.1:20128:20128 -v flawraroute-data:/app/data diegosouzapw/flawraroute:latest
    ```
    This forces the IPv4 bind and also avoids exposing the proxy on all host interfaces.
 
@@ -532,7 +532,7 @@ Provider profiles support these settings:
 
 ### Anti-thundering herd
 
-When many concurrent requests hit a rate-limited provider, OmniRoute uses mutex + auto rate-limiting to serialize requests and prevent cascading failures. This is automatic for API key providers.
+When many concurrent requests hit a rate-limited provider, FlawraRoute uses mutex + auto rate-limiting to serialize requests and prevent cascading failures. This is automatic for API key providers.
 
 ### Chat requests fail with 503 / chat_admission_busy
 
@@ -541,7 +541,7 @@ When many concurrent requests hit a rate-limited provider, OmniRoute uses mutex 
 - The chat completions endpoint returns a retryable `503` response whose error code is
   `chat_admission_busy`.
 - The response includes `Retry-After`. Since #12135 the value is derived from observed
-  occupancy — the larger of the `OMNIROUTE_CHAT_ADMISSION_QUEUE_MS` window the request already
+  occupancy — the larger of the `FLAWRAROUTE_CHAT_ADMISSION_QUEUE_MS` window the request already
   waited and the time the current heavyweight leases have been held — rounded up to whole
   seconds and capped at 60. On an idle gate it keeps the historical floors: 2 seconds on the
   byte-based path, 1 second on the structure-based path (which also includes
@@ -568,23 +568,23 @@ At the default thresholds, a request is structurally heavy when it has at least 
 at least `64` tools, or at least `32,000` estimated tokens, or when bounded structure estimation
 exhausts its bounds of `10,000` visited nodes or depth `12`.
 
-**Cause:** This is deliberate load shedding inside OmniRoute, not an upstream-provider failure.
+**Cause:** This is deliberate load shedding inside FlawraRoute, not an upstream-provider failure.
 Each process uses a process-local guard to reserve limited heavyweight capacity before retaining
 and parsing a large request body. A heavyweight lease remains held for the lifetime of an SSE
 response.
 
 **#503-fanout:** before this fix, the guard capped concurrency at a fixed request COUNT
-(`OMNIROUTE_CHAT_MAX_HEAVY_IN_FLIGHT`, default `1`) regardless of host memory, so coding-agent
+(`FLAWRAROUTE_CHAT_MAX_HEAVY_IN_FLIGHT`, default `1`) regardless of host memory, so coding-agent
 fan-out (multiple subagents/CLIs, bodies routinely > 256 KB) collapsed to an effective
 concurrency of ~1 and 503'd under completely normal load. The guard now self-tunes: it is gated
-by an auto-derived ingest BYTE budget (`OMNIROUTE_CHAT_MAX_INFLIGHT_BYTES`) sized from the
+by an auto-derived ingest BYTE budget (`FLAWRAROUTE_CHAT_MAX_INFLIGHT_BYTES`) sized from the
 process's real memory ceiling, and it also consults a live resource-pressure signal — so it
 only sheds when the host is genuinely under memory pressure, not merely because more than one
-heavy request arrived at once. The old count cap (`OMNIROUTE_CHAT_MAX_HEAVY_IN_FLIGHT`) is
+heavy request arrived at once. The old count cap (`FLAWRAROUTE_CHAT_MAX_HEAVY_IN_FLIGHT`) is
 still honored, but only if you explicitly set it.
 
 When capacity is busy, a heavyweight request first waits up to
-`OMNIROUTE_CHAT_ADMISSION_QUEUE_MS` (default `2000`, `0` disables the wait) for a slot to free up
+`FLAWRAROUTE_CHAT_ADMISSION_QUEUE_MS` (default `2000`, `0` disables the wait) for a slot to free up
 before answering the retryable `503`. The bounded wait exists so agent-style clients
 (OpenCode, Claude Code, Cursor) that fan out heavy sub-requests concurrently serialize the burst
 instead of burning their whole retry budget on immediate rejections and dying mid-task.
@@ -604,7 +604,7 @@ false` and a generous `maxInflightBytes` mean the auto-derived budget is already
    that is not fixable by an admission env var, it needs more RAM or a smaller workload.
 3. Only if `/api/monitoring/health` shows the auto-derived budget is genuinely too small for
    your host (rare — it already scales from container to bare-metal), override it directly with
-   `OMNIROUTE_CHAT_MAX_INFLIGHT_BYTES` rather than falling back to the legacy request-count cap.
+   `FLAWRAROUTE_CHAT_MAX_INFLIGHT_BYTES` rather than falling back to the legacy request-count cap.
 
 See the [environment-variable reference](../reference/ENVIRONMENT.md#4-security--authentication)
 for the authoritative admission settings.
@@ -613,7 +613,7 @@ for the authoritative admission settings.
 
 ## Optional RAG / LLM failure taxonomy (16 problems)
 
-Some OmniRoute users place the gateway in front of RAG or agent stacks. In those setups it is common to see a strange pattern: OmniRoute looks healthy (providers up, routing profiles ok, no rate limit alerts) but the final answer is still wrong.
+Some FlawraRoute users place the gateway in front of RAG or agent stacks. In those setups it is common to see a strange pattern: FlawraRoute looks healthy (providers up, routing profiles ok, no rate limit alerts) but the final answer is still wrong.
 
 In practice these incidents usually come from the downstream RAG pipeline, not from the gateway itself.
 
@@ -632,17 +632,17 @@ The idea is simple:
 
 1. When you investigate a bad response, capture:
    - user task and request
-   - route or provider combo in OmniRoute
+   - route or provider combo in FlawraRoute
    - any RAG context used downstream (retrieved documents, tool calls, etc)
 2. Map the incident to one or two WFGY ProblemMap numbers (`No.1` … `No.16`).
-3. Store the number in your own dashboard, runbook, or incident tracker next to the OmniRoute logs.
+3. Store the number in your own dashboard, runbook, or incident tracker next to the FlawraRoute logs.
 4. Use the corresponding WFGY page to decide whether you need to change your RAG stack, retriever, or routing strategy.
 
 Full text and concrete recipes live here (MIT license, text only):
 
 [WFGY ProblemMap README](https://github.com/onestardao/WFGY/blob/main/ProblemMap/README.md)
 
-You can ignore this section if you do not run RAG or agent pipelines behind OmniRoute.
+You can ignore this section if you do not run RAG or agent pipelines behind FlawraRoute.
 
 ---
 
@@ -666,7 +666,7 @@ Issues specific to the v3.8.0 release and their current workarounds. If a fix la
 
 1. Install the Devin CLI for your platform
 2. Set `CLI_DEVIN_BIN=/usr/local/bin/devin` (or the real path) in `.env`
-3. Restart OmniRoute and re-test from **Dashboard → CLI Tools**
+3. Restart FlawraRoute and re-test from **Dashboard → CLI Tools**
 
 ### Model cooldown stuck (manual reset)
 
@@ -691,7 +691,7 @@ Issues specific to the v3.8.0 release and their current workarounds. If a fix la
 
 **Fix:**
 
-- Run `omniroute providers` from the CLI to re-trigger the OAuth flow, or
+- Run `flawraroute providers` from the CLI to re-trigger the OAuth flow, or
 - Re-run OAuth from **Dashboard → Providers → Command Code → Reconnect**
 
 ### ModelScope returns aggressive 429 cooldowns
@@ -708,20 +708,20 @@ Issues specific to the v3.8.0 release and their current workarounds. If a fix la
 - Ensure you are on v3.8.0 or later
 - Verify the `useUpstream429BreakerHints` toggle is enabled under **Settings → Resilience**
 
-### OMNIROUTE_WS_BRIDGE_SECRET missing in production
+### FLAWRAROUTE_WS_BRIDGE_SECRET missing in production
 
 **Symptoms:**
 
 - 401 on every Codex/Responses WebSocket bridge request when running on a remote production host
 - WebSocket bridge handshake closes immediately after connect
 
-**Cause:** The `OMNIROUTE_WS_BRIDGE_SECRET` env var is missing from the production environment.
+**Cause:** The `FLAWRAROUTE_WS_BRIDGE_SECRET` env var is missing from the production environment.
 
 **Fix:**
 
 1. Generate a random secret: `openssl rand -hex 32`
-2. Set `OMNIROUTE_WS_BRIDGE_SECRET=<random-secret>` in the production server env (and any client that talks to the bridge)
-3. Restart OmniRoute
+2. Set `FLAWRAROUTE_WS_BRIDGE_SECRET=<random-secret>` in the production server env (and any client that talks to the bridge)
+3. Restart FlawraRoute
 
 ### Responses API: background mode degraded to synchronous
 
@@ -741,7 +741,7 @@ Issues specific to the v3.8.0 release and their current workarounds. If a fix la
 
 ## Still Stuck?
 
-- **GitHub Issues**: [github.com/diegosouzapw/OmniRoute/issues](https://github.com/diegosouzapw/OmniRoute/issues)
+- **GitHub Issues**: [github.com/diegosouzapw/FlawraRoute/issues](https://github.com/diegosouzapw/FlawraRoute/issues)
 - **Architecture**: See [`docs/architecture/ARCHITECTURE.md`](../architecture/ARCHITECTURE.md) for internal details
 - **API Reference**: See [`docs/reference/API_REFERENCE.md`](../reference/API_REFERENCE.md) for all endpoints
 - **Health Dashboard**: Check **Dashboard → Health** for real-time system status

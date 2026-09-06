@@ -20,7 +20,7 @@ const requestStartedPayload = {
 
 describe("eventBus", () => {
   beforeEach(() => {
-    globalThis.__omnirouteEventBus = undefined;
+    globalThis.__flawrarouteEventBus = undefined;
   });
 
   it("public surface excludes unused listener management helpers", () => {

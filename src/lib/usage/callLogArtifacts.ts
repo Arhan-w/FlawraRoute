@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { RequestPipelinePayloads } from "@omniroute/open-sse/utils/requestLogger.ts";
+import type { RequestPipelinePayloads } from "@flawraroute/open-sse/utils/requestLogger.ts";
 import { resolveDataDir } from "../dataPaths";
 import { getCallLogPipelineMaxSizeBytes, isChatDebugFileEnabled } from "../logEnv";
 
 const isCloud = typeof globalThis.caches === "object" && globalThis.caches !== null;
 const isBuildPhase =
-  process.env.NEXT_PHASE === "phase-production-build" || process.env.OMNIROUTE_BUILDING === "1";
+  process.env.NEXT_PHASE === "phase-production-build" || process.env.FLAWRAROUTE_BUILDING === "1";
 const DATA_DIR = resolveDataDir({ isCloud });
 
 export const CALL_LOGS_DIR = isCloud ? null : path.join(DATA_DIR, "call_logs");
@@ -151,7 +151,7 @@ function omitOversizedPipeline(artifact: CallLogArtifact): CallLogArtifact {
     ...artifact,
     pipeline: {
       error: {
-        _omniroute_truncated: true,
+        _flawraroute_truncated: true,
         reason: SIZE_LIMIT_EXCEEDED_REASON,
       },
     },
@@ -175,7 +175,7 @@ function buildMinimalArtifactForSizeLimit(artifact: CallLogArtifact) {
     error: preserveErrorForSizeLimit(artifact.error),
     pipeline: {
       error: {
-        _omniroute_truncated: true,
+        _flawraroute_truncated: true,
         reason: SIZE_LIMIT_EXCEEDED_REASON,
       },
     },
@@ -192,7 +192,7 @@ function serializeFinalSizeLimitFallback(artifact: CallLogArtifact, maxBytes: nu
   // row stays diagnosable, drop everything else including the summary body.
   const errorOnly = JSON.stringify({
     schemaVersion: artifact.schemaVersion,
-    _omniroute_truncated: true,
+    _flawraroute_truncated: true,
     reason: SIZE_LIMIT_EXCEEDED_REASON,
     error: preserveErrorForSizeLimit(artifact.error),
   });
@@ -205,7 +205,7 @@ function serializeFinalSizeLimitFallback(artifact: CallLogArtifact, maxBytes: nu
   // which is the state this change exists to remove.
   return JSON.stringify({
     schemaVersion: artifact.schemaVersion,
-    _omniroute_truncated: true,
+    _flawraroute_truncated: true,
     reason: SIZE_LIMIT_EXCEEDED_REASON,
     error: preserveErrorForSizeLimit(artifact.error),
   });

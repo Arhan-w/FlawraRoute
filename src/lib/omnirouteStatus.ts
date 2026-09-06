@@ -18,7 +18,7 @@ function readProviderStatusRows(): ProviderStatusRow[] {
     .all();
 }
 
-export async function buildOmniRouteStatus() {
+export async function buildFlawraRouteStatus() {
   const [connections, circuitModule, quotaMonitorModule] = await Promise.all([
     Promise.resolve(readProviderStatusRows()),
     import("@/shared/utils/circuitBreaker").catch(() => null),

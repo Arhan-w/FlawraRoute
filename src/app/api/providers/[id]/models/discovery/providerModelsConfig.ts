@@ -1,30 +1,30 @@
-import { getAntigravityModelsDiscoveryUrls } from "@omniroute/open-sse/config/antigravityUpstream.ts";
+import { getAntigravityModelsDiscoveryUrls } from "@flawraroute/open-sse/config/antigravityUpstream.ts";
 import {
   GROK_BUILD_DEFAULT_CONTEXT_WINDOW,
   getGrokBuildModelsHeaders,
   GROK_BUILD_MODELS_URL,
   GROK_BUILD_SUPPORTED_REASONING_EFFORTS,
-} from "@omniroute/open-sse/config/grokBuild.ts";
-import { getAntigravityContentHeaders } from "@omniroute/open-sse/services/antigravityHeaders.ts";
+} from "@flawraroute/open-sse/config/grokBuild.ts";
+import { getAntigravityContentHeaders } from "@flawraroute/open-sse/services/antigravityHeaders.ts";
 import { parseGeminiModelsList } from "@/lib/providerModels/geminiModelsParser";
 import {
   CLINE_MODELS_ENDPOINT,
   CLINEPASS_MODELS_ENDPOINT,
   parseClineModels,
   parseClinepassRecommendedModels,
-} from "@omniroute/open-sse/services/clinepassModels.ts";
-import { buildClaudeCodeCompatibleHeaders } from "@omniroute/open-sse/services/claudeCodeCompatible.ts";
+} from "@flawraroute/open-sse/services/clinepassModels.ts";
+import { buildClaudeCodeCompatibleHeaders } from "@flawraroute/open-sse/services/claudeCodeCompatible.ts";
 import {
   buildKimiCodeIdentityHeaders,
   getKimiCodeCliUserAgent,
   KIMI_CODING_MODELS_URL,
-} from "@omniroute/open-sse/config/providers/registry/kimi/coding/runtime.ts";
-import { ALIBABA_MODEL_STUDIO_MODELS } from "@omniroute/open-sse/config/providers/registry/alibaba/index.ts";
-import { QWEN_CLOUD_TEXT_MODELS } from "@omniroute/open-sse/config/providers/registry/qwen-cloud/index.ts";
-import { filterAlibabaFreeEligibleModels } from "@omniroute/open-sse/services/alibabaFreeTierDiscovery.ts";
-import { shouldUseLiveAlibabaFreeModelDiscovery } from "@omniroute/open-sse/services/alibabaFreeTier.ts";
-import { isDashscopeTextModelId } from "@omniroute/open-sse/services/dashscopeTextModels.ts";
-import { extractZaiToken } from "@omniroute/open-sse/services/zaiWebCredentials.ts";
+} from "@flawraroute/open-sse/config/providers/registry/kimi/coding/runtime.ts";
+import { ALIBABA_MODEL_STUDIO_MODELS } from "@flawraroute/open-sse/config/providers/registry/alibaba/index.ts";
+import { QWEN_CLOUD_TEXT_MODELS } from "@flawraroute/open-sse/config/providers/registry/qwen-cloud/index.ts";
+import { filterAlibabaFreeEligibleModels } from "@flawraroute/open-sse/services/alibabaFreeTierDiscovery.ts";
+import { shouldUseLiveAlibabaFreeModelDiscovery } from "@flawraroute/open-sse/services/alibabaFreeTier.ts";
+import { isDashscopeTextModelId } from "@flawraroute/open-sse/services/dashscopeTextModels.ts";
+import { extractZaiToken } from "@flawraroute/open-sse/services/zaiWebCredentials.ts";
 import { normalizeOpenAiLikeModelsResponse } from "./normalizers";
 
 const QWEN_CLOUD_TEXT_MODEL_IDS = new Set(QWEN_CLOUD_TEXT_MODELS.map((model) => model.id));

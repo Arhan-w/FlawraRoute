@@ -21,11 +21,11 @@ const ORIGINAL_JWT = process.env.JWT_SECRET;
 const ORIGINAL_INITIAL = process.env.INITIAL_PASSWORD;
 const ORIGINAL_AUTH_COOKIE_SECURE = process.env.AUTH_COOKIE_SECURE;
 const ORIGINAL_REQUIRE_API_KEY = process.env.REQUIRE_API_KEY;
-const ORIGINAL_OMNIROUTE_PUBLIC_BASE_URL = process.env.OMNIROUTE_PUBLIC_BASE_URL;
+const ORIGINAL_FLAWRAROUTE_PUBLIC_BASE_URL = process.env.FLAWRAROUTE_PUBLIC_BASE_URL;
 const ORIGINAL_NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const ORIGINAL_NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL;
-const ORIGINAL_OMNIROUTE_TRUST_PROXY = process.env.OMNIROUTE_TRUST_PROXY;
-const ORIGINAL_OMNIROUTE_PEER_STAMP_TOKEN = process.env.OMNIROUTE_PEER_STAMP_TOKEN;
+const ORIGINAL_FLAWRAROUTE_TRUST_PROXY = process.env.FLAWRAROUTE_TRUST_PROXY;
+const ORIGINAL_FLAWRAROUTE_PEER_STAMP_TOKEN = process.env.FLAWRAROUTE_PEER_STAMP_TOKEN;
 
 function resetEnvironment() {
   core.resetDbInstance();
@@ -36,12 +36,12 @@ function resetEnvironment() {
   process.env.INITIAL_PASSWORD = "pipeline-initial-password";
   process.env.REQUIRE_API_KEY = "true";
   delete process.env.AUTH_COOKIE_SECURE;
-  delete process.env.OMNIROUTE_PUBLIC_BASE_URL;
+  delete process.env.FLAWRAROUTE_PUBLIC_BASE_URL;
   delete process.env.NEXT_PUBLIC_BASE_URL;
   delete process.env.NEXT_PUBLIC_APP_URL;
-  delete process.env.OMNIROUTE_TRUST_PROXY;
-  delete process.env.OMNIROUTE_PEER_STAMP_TOKEN;
-  globalThis.__omnirouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
+  delete process.env.FLAWRAROUTE_TRUST_PROXY;
+  delete process.env.FLAWRAROUTE_PEER_STAMP_TOKEN;
+  globalThis.__flawrarouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
 }
 
 async function forceAuthRequired() {
@@ -76,21 +76,21 @@ test.after(() => {
   else process.env.AUTH_COOKIE_SECURE = ORIGINAL_AUTH_COOKIE_SECURE;
   if (ORIGINAL_REQUIRE_API_KEY === undefined) delete process.env.REQUIRE_API_KEY;
   else process.env.REQUIRE_API_KEY = ORIGINAL_REQUIRE_API_KEY;
-  if (ORIGINAL_OMNIROUTE_PUBLIC_BASE_URL === undefined)
-    delete process.env.OMNIROUTE_PUBLIC_BASE_URL;
-  else process.env.OMNIROUTE_PUBLIC_BASE_URL = ORIGINAL_OMNIROUTE_PUBLIC_BASE_URL;
+  if (ORIGINAL_FLAWRAROUTE_PUBLIC_BASE_URL === undefined)
+    delete process.env.FLAWRAROUTE_PUBLIC_BASE_URL;
+  else process.env.FLAWRAROUTE_PUBLIC_BASE_URL = ORIGINAL_FLAWRAROUTE_PUBLIC_BASE_URL;
   if (ORIGINAL_NEXT_PUBLIC_BASE_URL === undefined) delete process.env.NEXT_PUBLIC_BASE_URL;
   else process.env.NEXT_PUBLIC_BASE_URL = ORIGINAL_NEXT_PUBLIC_BASE_URL;
   if (ORIGINAL_NEXT_PUBLIC_APP_URL === undefined) delete process.env.NEXT_PUBLIC_APP_URL;
   else process.env.NEXT_PUBLIC_APP_URL = ORIGINAL_NEXT_PUBLIC_APP_URL;
-  if (ORIGINAL_OMNIROUTE_TRUST_PROXY === undefined) delete process.env.OMNIROUTE_TRUST_PROXY;
-  else process.env.OMNIROUTE_TRUST_PROXY = ORIGINAL_OMNIROUTE_TRUST_PROXY;
-  if (ORIGINAL_OMNIROUTE_PEER_STAMP_TOKEN === undefined) {
-    delete process.env.OMNIROUTE_PEER_STAMP_TOKEN;
+  if (ORIGINAL_FLAWRAROUTE_TRUST_PROXY === undefined) delete process.env.FLAWRAROUTE_TRUST_PROXY;
+  else process.env.FLAWRAROUTE_TRUST_PROXY = ORIGINAL_FLAWRAROUTE_TRUST_PROXY;
+  if (ORIGINAL_FLAWRAROUTE_PEER_STAMP_TOKEN === undefined) {
+    delete process.env.FLAWRAROUTE_PEER_STAMP_TOKEN;
   } else {
-    process.env.OMNIROUTE_PEER_STAMP_TOKEN = ORIGINAL_OMNIROUTE_PEER_STAMP_TOKEN;
+    process.env.FLAWRAROUTE_PEER_STAMP_TOKEN = ORIGINAL_FLAWRAROUTE_PEER_STAMP_TOKEN;
   }
-  globalThis.__omnirouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
+  globalThis.__flawrarouteShutdown = { init: false, shuttingDown: false, activeRequests: 0 };
 });
 
 test("runAuthzPipeline redirects root to dashboard before management auth", async () => {
@@ -111,7 +111,7 @@ test("runAuthzPipeline redirects unauthenticated dashboard pages to login", asyn
 
   assert.equal(response.status, 307);
   assert.equal(response.headers.get("location"), "http://localhost/login");
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
   assert.ok(response.headers.get("x-request-id"));
 });
 
@@ -124,7 +124,7 @@ test("runAuthzPipeline redirects unauthenticated /home to login (#2712)", async 
 
   assert.equal(response.status, 307);
   assert.equal(response.headers.get("location"), "http://localhost/login");
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 test("runAuthzPipeline redirects unauthenticated /home/* nested paths to login (#2712)", async () => {
@@ -136,38 +136,38 @@ test("runAuthzPipeline redirects unauthenticated /home/* nested paths to login (
 
   assert.equal(response.status, 307);
   assert.equal(response.headers.get("location"), "http://localhost/login");
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 // PR #1810 (upstream 9router): reverse-proxy subpath deployment via
-// OMNIROUTE_BASE_PATH. Next.js strips the basePath from nextUrl.pathname
+// FLAWRAROUTE_BASE_PATH. Next.js strips the basePath from nextUrl.pathname
 // before route classification, so the redirect targets must re-add it via
 // request.nextUrl.basePath to stay inside the deployed subpath.
 test("runAuthzPipeline prefixes the root-to-dashboard redirect with basePath when set", async () => {
   await forceAuthRequired();
 
-  const req = new NextRequest("http://localhost/omniroute/", {
-    nextConfig: { basePath: "/omniroute" },
+  const req = new NextRequest("http://localhost/flawraroute/", {
+    nextConfig: { basePath: "/flawraroute" },
   });
 
   const response = await pipeline.runAuthzPipeline(req, { enforce: true });
 
   assert.equal(response.status, 307);
-  assert.equal(response.headers.get("location"), "http://localhost/omniroute/dashboard");
+  assert.equal(response.headers.get("location"), "http://localhost/flawraroute/dashboard");
 });
 
 test("runAuthzPipeline prefixes the dashboard login redirect with basePath when set", async () => {
   await forceAuthRequired();
 
-  const req = new NextRequest("http://localhost/omniroute/dashboard", {
-    nextConfig: { basePath: "/omniroute" },
+  const req = new NextRequest("http://localhost/flawraroute/dashboard", {
+    nextConfig: { basePath: "/flawraroute" },
   });
 
   const response = await pipeline.runAuthzPipeline(req, { enforce: true });
 
   assert.equal(response.status, 307);
-  assert.equal(response.headers.get("location"), "http://localhost/omniroute/login");
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("location"), "http://localhost/flawraroute/login");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 test("runAuthzPipeline leaves redirect targets unprefixed when basePath is empty", async () => {
@@ -197,7 +197,7 @@ test("runAuthzPipeline allows onboarding when login is required but no password 
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "PUBLIC");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "PUBLIC");
 });
 
 test("runAuthzPipeline allows first password writes when login is required but no password exists", async () => {
@@ -214,7 +214,7 @@ test("runAuthzPipeline allows first password writes when login is required but n
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 test("runAuthzPipeline keeps management API rejections as JSON", async () => {
@@ -243,7 +243,7 @@ test("runAuthzPipeline rejects oversized API bodies before auth", async () => {
   );
 
   assert.equal(response.status, 413);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.ok(response.headers.get("x-request-id"));
   assert.equal(
     response.headers.get("Access-Control-Allow-Methods"),
@@ -264,7 +264,7 @@ test("runAuthzPipeline rejects oversized rewritten alias API bodies before auth"
   );
 
   assert.equal(response.status, 413);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.ok(response.headers.get("x-request-id"));
 });
 
@@ -278,7 +278,7 @@ test("runAuthzPipeline rejects unauthenticated v1beta Gemini aliases as client A
   const body = await response.json();
 
   assert.equal(response.status, 401);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.equal(body.error.code, "AUTH_002");
 });
 
@@ -292,12 +292,12 @@ test("runAuthzPipeline rejects unauthenticated internal api v1beta routes as cli
   const body = await response.json();
 
   assert.equal(response.status, 401);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.equal(body.error.code, "AUTH_002");
 });
 
 test("runAuthzPipeline rejects new API requests during shutdown drain", async () => {
-  globalThis.__omnirouteShutdown = { init: true, shuttingDown: true, activeRequests: 0 };
+  globalThis.__flawrarouteShutdown = { init: true, shuttingDown: true, activeRequests: 0 };
 
   const response = await pipeline.runAuthzPipeline(request("http://localhost/api/v1/models"), {
     enforce: true,
@@ -310,7 +310,7 @@ test("runAuthzPipeline rejects new API requests during shutdown drain", async ()
 });
 
 test("runAuthzPipeline rejects rewritten API aliases during shutdown drain", async () => {
-  globalThis.__omnirouteShutdown = { init: true, shuttingDown: true, activeRequests: 0 };
+  globalThis.__flawrarouteShutdown = { init: true, shuttingDown: true, activeRequests: 0 };
 
   const response = await pipeline.runAuthzPipeline(request("http://localhost/responses"), {
     enforce: true,
@@ -318,7 +318,7 @@ test("runAuthzPipeline rejects rewritten API aliases during shutdown drain", asy
   const body = await response.json();
 
   assert.equal(response.status, 503);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.equal(body.error.code, "SERVICE_UNAVAILABLE");
   assert.equal(response.headers.get("retry-after"), "5");
 });
@@ -334,7 +334,7 @@ test("runAuthzPipeline allows dashboard sessions to read model catalog aliases",
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
 });
 
 test("runAuthzPipeline allows dashboard sessions to reach DB health management API", async () => {
@@ -348,7 +348,7 @@ test("runAuthzPipeline allows dashboard sessions to reach DB health management A
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 test("runAuthzPipeline accepts dashboard mutations from configured public origin", async () => {
@@ -356,7 +356,7 @@ test("runAuthzPipeline accepts dashboard mutations from configured public origin
   process.env.NEXT_PUBLIC_BASE_URL = "https://gateway.example.test";
 
   const response = await pipeline.runAuthzPipeline(
-    request("http://omniroute:20128/api/providers/health-autopilot/actions", {
+    request("http://flawraroute:20128/api/providers/health-autopilot/actions", {
       method: "POST",
       headers: {
         cookie: await dashboardCookie(),
@@ -369,7 +369,7 @@ test("runAuthzPipeline accepts dashboard mutations from configured public origin
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
 });
 
 test("runAuthzPipeline rejects dashboard mutations from dynamic public origins without CSRF", async () => {
@@ -430,7 +430,7 @@ test("runAuthzPipeline accepts dashboard mutations from dynamic public origins w
     );
 
     assert.equal(response.status, 200, path);
-    assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+    assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
   }
 });
 
@@ -471,7 +471,7 @@ test("runAuthzPipeline rejects dashboard mutations from invalid browser origin",
   process.env.NEXT_PUBLIC_BASE_URL = "https://gateway.example.test";
 
   const response = await pipeline.runAuthzPipeline(
-    request("http://omniroute:20128/api/providers/health-autopilot/actions", {
+    request("http://flawraroute:20128/api/providers/health-autopilot/actions", {
       method: "POST",
       headers: {
         cookie: await dashboardCookie(),
@@ -487,7 +487,7 @@ test("runAuthzPipeline rejects dashboard mutations from invalid browser origin",
   assert.equal(response.status, 403);
   assert.equal(body.error.code, "INVALID_ORIGIN");
   assert.match(body.error.message, /^Invalid request origin\./);
-  assert.match(body.error.message, /OMNIROUTE_PUBLIC_BASE_URL/);
+  assert.match(body.error.message, /FLAWRAROUTE_PUBLIC_BASE_URL/);
 });
 
 test("runAuthzPipeline answers OPTIONS /v1/models preflight with Allow-Origin (#5242)", async () => {
@@ -506,7 +506,7 @@ test("runAuthzPipeline answers OPTIONS /v1/models preflight with Allow-Origin (#
   );
 
   assert.equal(response.status, 204);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.equal(response.headers.get("Access-Control-Allow-Origin"), "http://localhost");
   assert.match(response.headers.get("Vary") || "", /Origin/);
   // Token-auth surface — must NOT advertise credentials with the echoed origin.
@@ -526,7 +526,7 @@ test("runAuthzPipeline serves GET /v1/models with Allow-Origin to dashboard sess
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "CLIENT_API");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "CLIENT_API");
   assert.equal(response.headers.get("Access-Control-Allow-Origin"), "http://localhost");
   assert.equal(response.headers.get("Access-Control-Allow-Credentials"), null);
 });
@@ -544,7 +544,7 @@ test("runAuthzPipeline keeps MANAGEMENT OPTIONS fail-closed for arbitrary origin
   );
 
   assert.equal(response.status, 204);
-  assert.equal(response.headers.get("x-omniroute-route-class"), "MANAGEMENT");
+  assert.equal(response.headers.get("x-flawraroute-route-class"), "MANAGEMENT");
   // Management surface is cookie-authed → no permissive origin echo.
   assert.equal(response.headers.get("Access-Control-Allow-Origin"), null);
 });
