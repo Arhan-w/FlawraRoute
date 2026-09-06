@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireManagementAuth } from "@/lib/api/requireManagementAuth";
-import { buildFlawraRouteStatus } from "@/lib/flawrarouteStatus";
+import { buildFlawraRouteStatus } from "@/lib/FlawraRouteStatus";
 
 export const dynamic = "force-dynamic";
 
