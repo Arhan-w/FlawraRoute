@@ -37,7 +37,7 @@ export default function Card({
       className={cn(
         "bg-surface",
         "border border-border",
-        "rounded-card shadow-sm",
+        "rounded-card shadow-sm glass-card",
         hover && "hover:shadow-md hover:border-primary/30 transition-all cursor-pointer",
         paddings[padding],
         className
