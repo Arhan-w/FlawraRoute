@@ -871,7 +871,7 @@ OPENAI_API_KEY: "{{apiKey}}"`,
     ],
   },
 
-  /** ★ 5dive agent fleets (diegosouzapw/FlawraRoute#11578) — 2026-08-28 */
+  /** ★ 5dive agent fleets (Arhan-w/FlawraRoute#11578) — 2026-08-28 */
   "5dive": {
     id: "5dive",
     name: "5dive",

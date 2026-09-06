@@ -33,7 +33,7 @@
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
 
-const REPO = "diegosouzapw/FlawraRoute";
+const REPO = "Arhan-w/FlawraRoute";
 
 function gh(args, { allowFail = false } = {}) {
   try {

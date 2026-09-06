@@ -48,7 +48,7 @@ jobs:
       promote_latest: ${{ steps.version.outputs.promote_latest }}
       skip: ${{ steps.version.outputs.skip }}
     env:
-      IMAGE_NAME: diegosouzapw/flawraroute
+      IMAGE_NAME: Arhan-w/flawraroute
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -113,14 +113,14 @@ jobs:
           # and `next` channels are intentionally rebuilt on every matching push.
           SKIP="false"
           if [ "$VERSION" != "main" ] && [ "$VERSION" != "next" ]; then
-            if docker manifest inspect "diegosouzapw/flawraroute:${VERSION}" >/dev/null 2>&1; then
-              echo "Image diegosouzapw/flawraroute:${VERSION} already exists on Docker Hub — skipping rebuild."
+            if docker manifest inspect "Arhan-w/flawraroute:${VERSION}" >/dev/null 2>&1; then
+              echo "Image Arhan-w/flawraroute:${VERSION} already exists on Docker Hub — skipping rebuild."
               SKIP="true"
             fi
           fi
           echo "skip=$SKIP" >> "$GITHUB_OUTPUT"
 
-          echo "Publishing diegosouzapw/flawraroute:$VERSION (promote_latest=$PROMOTE, skip=$SKIP)"
+          echo "Publishing Arhan-w/flawraroute:$VERSION (promote_latest=$PROMOTE, skip=$SKIP)"
 
   build:
     name: Build Docker (${{ matrix.platform }})
@@ -155,8 +155,8 @@ jobs:
           - platform: linux/arm64
             arch: arm64
     env:
-      IMAGE_NAME: diegosouzapw/flawraroute
-      GHCR_IMAGE_NAME: ghcr.io/diegosouzapw/flawraroute
+      IMAGE_NAME: Arhan-w/flawraroute
+      GHCR_IMAGE_NAME: ghcr.io/Arhan-w/flawraroute
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -349,8 +349,8 @@ jobs:
       packages: write
       security-events: write
     env:
-      IMAGE_NAME: diegosouzapw/flawraroute
-      GHCR_IMAGE_NAME: ghcr.io/diegosouzapw/flawraroute
+      IMAGE_NAME: Arhan-w/flawraroute
+      GHCR_IMAGE_NAME: ghcr.io/Arhan-w/flawraroute
       VERSION: ${{ needs.prepare.outputs.version }}
       PROMOTE_LATEST: ${{ needs.prepare.outputs.promote_latest }}
     steps:
@@ -548,6 +548,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: diegosouzapw/flawraroute
+          repository: Arhan-w/flawraroute
           short-description: "FlawraRoute — Unified AI proxy. Route any LLM through one endpoint."
           readme-filepath: ./README.md

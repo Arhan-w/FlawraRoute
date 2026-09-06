@@ -60,8 +60,8 @@ test("resolveDocHref: rewrites links escaping docs/ to GitHub repo blob URLs", (
 
 test("resolveDocHref: leaves external URLs and pure anchor links untouched", () => {
   assert.equal(
-    resolveDocHref("https://github.com/diegosouzapw/FlawraRoute", "architecture/ARCHITECTURE.md"),
-    "https://github.com/diegosouzapw/FlawraRoute"
+    resolveDocHref("https://github.com/Arhan-w/FlawraRoute", "architecture/ARCHITECTURE.md"),
+    "https://github.com/Arhan-w/FlawraRoute"
   );
   assert.equal(
     resolveDocHref("http://localhost:20128/v1", "architecture/ARCHITECTURE.md"),

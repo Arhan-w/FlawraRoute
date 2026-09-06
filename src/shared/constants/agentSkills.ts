@@ -4,7 +4,7 @@
 
 import type { AgentSkill, SkillArea, SkillCategory } from "@/lib/agentSkills/types";
 
-const REPO = "diegosouzapw/FlawraRoute";
+const REPO = "Arhan-w/FlawraRoute";
 const BRANCH = "main";
 const SKILL_PATH = "skills";
 

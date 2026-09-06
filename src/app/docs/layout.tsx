@@ -45,7 +45,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
         secondary: true,
       },
     ],
-    githubUrl: "https://github.com/diegosouzapw/FlawraRoute",
+    githubUrl: "https://github.com/Arhan-w/FlawraRoute",
   };
 
   return (

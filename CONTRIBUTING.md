@@ -26,7 +26,7 @@ coverage, and reconciliation steps.
 ### Clone & Install
 
 ```bash
-git clone https://github.com/diegosouzapw/FlawraRoute.git
+git clone https://github.com/Arhan-w/FlawraRoute.git
 cd FlawraRoute
 npm install
 ```
@@ -430,5 +430,5 @@ Then use the `/deploy-vps-*-cc` skills which rsync `dist/` to the remote `app/` 
 - **API Reference**: See [`docs/reference/API_REFERENCE.md`](docs/reference/API_REFERENCE.md)
 - **Security docs**: [`docs/security/CLI_TOKEN.md`](docs/security/CLI_TOKEN.md), [`docs/security/ROUTE_GUARD_TIERS.md`](docs/security/ROUTE_GUARD_TIERS.md), [`docs/security/ERROR_SANITIZATION.md`](docs/security/ERROR_SANITIZATION.md), [`docs/security/PUBLIC_CREDS.md`](docs/security/PUBLIC_CREDS.md)
 - **Ops docs**: [`docs/ops/SQLITE_RUNTIME.md`](docs/ops/SQLITE_RUNTIME.md)
-- **Issues**: [github.com/diegosouzapw/FlawraRoute/issues](https://github.com/diegosouzapw/FlawraRoute/issues)
+- **Issues**: [github.com/Arhan-w/FlawraRoute/issues](https://github.com/Arhan-w/FlawraRoute/issues)
 - **ADRs**: See `docs/adr/` for architectural decision records

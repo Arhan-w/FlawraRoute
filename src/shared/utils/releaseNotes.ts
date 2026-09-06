@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const NEWS_JSON_URL =
-  "https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/news.json";
+  "https://raw.githubusercontent.com/Arhan-w/FlawraRoute/main/news.json";
 export const CHANGELOG_RAW_URL =
-  "https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/CHANGELOG.md";
+  "https://raw.githubusercontent.com/Arhan-w/FlawraRoute/main/CHANGELOG.md";
 export const CHANGELOG_GITHUB_URL =
-  "https://github.com/diegosouzapw/FlawraRoute/blob/main/CHANGELOG.md";
+  "https://github.com/Arhan-w/FlawraRoute/blob/main/CHANGELOG.md";
 export const NEWS_DISMISS_STORAGE_NAME = "flawraroute-news-dismissed-v2";
 export const NEWS_DISMISS_EVENT = "flawraroute:news-dismissed";
 

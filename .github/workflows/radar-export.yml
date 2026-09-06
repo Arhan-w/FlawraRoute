@@ -4,7 +4,7 @@
 # vez de depender do snapshot gravado no deploy. Fonte: scripts/release/radar-export.mjs.
 #
 # A URL estável resultante (definir em RADAR_EXPORT_URL no .env do radar-server):
-#   https://github.com/diegosouzapw/FlawraRoute/releases/download/radar-export-latest/export-flawraroute.json
+#   https://github.com/Arhan-w/FlawraRoute/releases/download/radar-export-latest/export-flawraroute.json
 name: Radar Export
 
 on:

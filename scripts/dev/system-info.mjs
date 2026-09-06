@@ -166,5 +166,5 @@ writeFileSync(outPath, report);
 console.log(report);
 console.log(`\n✅ Report saved to: ${outPath}`);
 console.log(
-  `📎 Attach this file when reporting issues at: https://github.com/diegosouzapw/FlawraRoute/issues`
+  `📎 Attach this file when reporting issues at: https://github.com/Arhan-w/FlawraRoute/issues`
 );

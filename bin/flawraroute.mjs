@@ -193,7 +193,7 @@ loadEnvFile();
 
 // Generate STORAGE_ENCRYPTION_KEY if not set (persisted to ~/.flawraroute/.env)
 // This ensures the key survives across upgrades and is not regenerated on each install.
-// See: https://github.com/diegosouzapw/FlawraRoute/issues/1622
+// See: https://github.com/Arhan-w/FlawraRoute/issues/1622
 //
 // Only provision for commands that actually touch encrypted storage. Purely
 // informational invocations (`--version`, `--help`, `help`) must not create a

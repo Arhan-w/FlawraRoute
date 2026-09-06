@@ -16,7 +16,7 @@
  * dist/node_modules (for the standalone bundle). It is idempotent — running
  * multiple times is safe.
  *
- * Fixes: https://github.com/diegosouzapw/FlawraRoute/issues/7265
+ * Fixes: https://github.com/Arhan-w/FlawraRoute/issues/7265
  */
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";

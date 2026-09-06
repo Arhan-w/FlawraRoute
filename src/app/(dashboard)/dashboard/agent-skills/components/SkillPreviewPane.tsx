@@ -43,7 +43,7 @@ export function SkillPreviewPane({
 
   const handleCopyRawUrl = useCallback(async () => {
     if (!skillId) return;
-    const rawUrl = `https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/refs/heads/main/skills/${skillId}/SKILL.md`;
+    const rawUrl = `https://raw.githubusercontent.com/Arhan-w/FlawraRoute/refs/heads/main/skills/${skillId}/SKILL.md`;
     try {
       await navigator.clipboard.writeText(rawUrl);
     } catch {
@@ -52,7 +52,7 @@ export function SkillPreviewPane({
   }, [skillId]);
 
   const githubUrl = skillId
-    ? `https://github.com/diegosouzapw/FlawraRoute/blob/main/skills/${skillId}/SKILL.md`
+    ? `https://github.com/Arhan-w/FlawraRoute/blob/main/skills/${skillId}/SKILL.md`
     : null;
 
   // Empty state

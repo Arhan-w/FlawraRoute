@@ -77,7 +77,7 @@ export default function TermsPage() {
           <p>
             {t("questionsVisit")}{" "}
             <a
-              href="https://github.com/diegosouzapw/FlawraRoute"
+              href="https://github.com/Arhan-w/FlawraRoute"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"

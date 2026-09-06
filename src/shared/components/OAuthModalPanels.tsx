@@ -265,7 +265,7 @@ function OAuthGoogleLoopbackNotice({ hint }: { hint: GoogleLoopbackHint }) {
         {t.rich("googleLoopbackHeadlessAlt", {
           a: (chunks) => (
             <a
-              href="https://github.com/diegosouzapw/FlawraRoute#oauth-on-a-remote-server"
+              href="https://github.com/Arhan-w/FlawraRoute#oauth-on-a-remote-server"
               target="_blank"
               rel="noreferrer"
               className="underline"

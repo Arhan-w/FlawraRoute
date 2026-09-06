@@ -1,0 +1,104 @@
+login HTTP status: 200
+login form appeared: true
+login probe: {
+ "title": "FlawraRoute — AI Gateway for Multi-Provider LLMs",
+ "h1": "Sign in",
+ "brandVisible": true,
+ "bodyBg": "rgb(246, 248, 251)",
+ "cardStyle": null,
+ "inputs": [
+  {
+   "type": "password",
+   "name": null,
+   "placeholder": "Enter your password to continue",
+   "visible": true
+  }
+ ],
+ "buttons": [
+  {
+   "text": "Continue",
+   "type": "submit",
+   "visible": true
+  }
+ ],
+ "iconFontLoaded": true,
+ "iconWidth": 24,
+ "leafTextsSample": [
+  "hub",
+  "FlawraRoute",
+  "Sign in",
+  "Password",
+  "Continue",
+  "swap_horiz",
+  "Multi-Provider",
+  "speed",
+  "Load Balancing",
+  "analytics",
+  "Usage Tracking"
+ ]
+}
+wrong-password test: error message shown
+correct-password test: navigated to http://localhost:20128/dashboard
+dashboard probe: {
+ "path": "/home",
+ "h1": "FlawraRoute",
+ "bodyBg": "rgb(246, 248, 251)",
+ "sidebarFound": true,
+ "sidebarText": "Skip to content chevron_left FlawraRoute v1.0.0 search home Home Dashboard overview OMNIPROXY push_pin expand_more ANALYTICS push_pin expand_more COSTS push_pin expand_more MONITORING push_pin expand_more AGENTIC FEATURES push_pin expand_more OTHER FEATURES push_pin expand_more CONFIGURATION push_pin expand_more HELP push_pin expand_more cloud_off Sync off restart_alt Restart power_settings_new Sh",
+ "navLinkCount": 3,
+ "navLinksSample": [
+  "Skip to content",
+  "FlawraRoute v1.0.0",
+  "home Home Dashboard overview"
+ ],
+ "styledBlockCount": 6,
+ "styledBlockSample": [
+  {
+   "cls": "sticky top-0 z-10 flex items-center justify-between border-b",
+   "bg": "rgb(246, 248, 251)",
+   "border": "0px solid oklab(0 0 0 / 0.05)",
+   "radius": "0px"
+  },
+  {
+   "cls": "mb-4 flex flex-col gap-3 rounded-lg border border-[#1783FF]/",
+   "bg": "lab(54.5781 7.7554 -70.8602 / 0.05)",
+   "border": "1px solid lab(54.5781 7.7554 -70.8602 / 0.3)",
+   "radius": "8px"
+  },
+  {
+   "cls": "mb-4 flex flex-col gap-3 rounded-lg border border-[#31f889]/",
+   "bg": "lab(86.7476 -66.6802 39.2971 / 0.05)",
+   "border": "1px solid lab(86.7476 -66.6802 39.2971 / 0.3)",
+   "radius": "8px"
+  },
+  {
+   "cls": "mb-4 flex flex-col gap-3 rounded-lg border border-[#007ACC]/",
+   "bg": "lab(49.0224 -4.74596 -51.3075 / 0.05)",
+   "border": "1px solid lab(49.0224 -4.74596 -51.3075 / 0.3)",
+   "radius": "8px"
+  },
+  {
+   "cls": "p-6 rounded-xl border border-border bg-surface",
+   "bg": "rgb(255, 255, 255)",
+   "border": "1px solid rgba(15, 23, 42, 0.08)",
+   "radius": "12px"
+  },
+  {
+   "cls": "p-6 rounded-xl border border-border bg-surface",
+   "bg": "rgb(255, 255, 255)",
+   "border": "1px solid rgba(15, 23, 42, 0.08)",
+   "radius": "12px"
+  }
+ ]
+}
+mobile probe: {"hasHorizontalScroll":false,"scrollWidth":375,"clientWidth":375,"sidebarOverlayOrHidden":"display=flex, transform=none, x=0"}
+404 responses: 1
+  404: https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/news.json
+failed requests: 2
+  REQ-FAIL: GET http://localhost:20128/home -> net::ERR_ABORTED
+  REQ-FAIL: GET https://raw.githubusercontent.com/diegosouzapw/FlawraRoute/main/news.json -> net::ERR_ABORTED
+console errors (non-extension): 2
+  CONSOLE-ERROR: Failed to load resource: the server responded with a status of 401 (Unauthorized)
+  CONSOLE-ERROR: Failed to load resource: the server responded with a status of 404 ()
+console warnings (non-extension): 0
+uncaught page errors (non-extension): 0

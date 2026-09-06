@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 // This used to go through our own link.flawraroute.online shortener for click
 // metrics, but that domain no longer resolves after the move to omniskill.online.
 const MARKETPLACE_URL =
-  "https://marketplace.visualstudio.com/items?itemName=diegosouzapw.omnicopilot";
+  "https://marketplace.visualstudio.com/items?itemName=Arhan-w.flawraroute";
 
 const DISMISS_STORAGE_KEY = "flawraroute-vscode-copilot-banner-dismissed-v1";
 // Same-tab signal for the dismiss button, since writing localStorage doesn't

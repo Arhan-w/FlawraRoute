@@ -64,7 +64,7 @@ const CRYPTO_SECRETS = {
  * Note: STORAGE_ENCRYPTION_KEY is no longer auto-generated in postinstall.
  * It's generated at server startup in bin/flawraroute.mjs and persisted to
  * ~/.flawraroute/.env to survive across upgrades.
- * @see https://github.com/diegosouzapw/FlawraRoute/issues/1622
+ * @see https://github.com/Arhan-w/FlawraRoute/issues/1622
  */
 const ENCRYPTION_BOUND_KEYS = new Set([]);
 
